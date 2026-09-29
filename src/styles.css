@@ -1,0 +1,67 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Manrope", sans-serif;
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --color-background: var(--background); --color-foreground: var(--foreground);
+  --color-card: var(--card); --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring);
+  --color-navy: var(--navy); --color-forest: var(--forest); --color-sand: var(--sand);
+  --color-gold: var(--gold); --color-mist: var(--mist); --color-overlay: var(--overlay);
+  --shadow-soft: 0 18px 60px color-mix(in oklab, var(--navy) 10%, transparent);
+  --shadow-card: 0 18px 45px color-mix(in oklab, var(--navy) 16%, transparent);
+}
+
+:root {
+  --background: oklch(0.985 0.008 85); --foreground: oklch(0.19 0.028 236);
+  --card: oklch(1 0 0); --card-foreground: oklch(0.19 0.028 236);
+  --primary: oklch(0.255 0.055 235); --primary-foreground: oklch(0.985 0.008 85);
+  --secondary: oklch(0.92 0.032 84); --secondary-foreground: oklch(0.255 0.055 235);
+  --muted: oklch(0.95 0.01 90); --muted-foreground: oklch(0.48 0.025 235);
+  --accent: oklch(0.58 0.08 155); --accent-foreground: oklch(0.99 0.005 85);
+  --border: oklch(0.87 0.015 90); --input: oklch(0.9 0.012 90); --ring: oklch(0.66 0.12 80);
+  --navy: oklch(0.22 0.05 238); --forest: oklch(0.38 0.075 155); --sand: oklch(0.9 0.04 82);
+  --gold: oklch(0.69 0.12 78); --mist: oklch(0.965 0.012 90); --overlay: oklch(0.13 0.035 236 / 72%);
+  --radius: .375rem;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: oklch(0.17 0.028 238); --foreground: oklch(0.94 0.012 88);
+  --card: oklch(0.22 0.035 238); --card-foreground: oklch(0.94 0.012 88);
+  --primary: oklch(0.255 0.055 235); --primary-foreground: oklch(0.985 0.008 85);
+  --secondary: oklch(0.3 0.035 238); --secondary-foreground: oklch(0.94 0.012 88);
+  --muted: oklch(0.25 0.028 238); --muted-foreground: oklch(0.72 0.018 225);
+  --accent: oklch(0.63 0.095 155); --accent-foreground: oklch(0.98 0.01 90);
+  --border: oklch(0.36 0.025 238); --input: oklch(0.32 0.025 238); --ring: oklch(0.73 0.12 78);
+  --navy: oklch(0.13 0.035 240); --forest: oklch(0.62 0.095 155); --sand: oklch(0.28 0.035 82);
+  --gold: oklch(0.76 0.12 78); --mist: oklch(0.2 0.03 238); --overlay: oklch(0.08 0.03 236 / 82%);
+}
+
+* { border-color: var(--border); }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-sans); text-rendering: optimizeLegibility; transition: background-color .25s ease, color .25s ease; }
+h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: 0; }
+button,a,input,select,textarea { outline-color: var(--ring); }
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
+::selection { background: var(--sand); color: var(--navy); }
+
+@utility container-portal { width: min(100% - 2rem, 80rem); margin-inline: auto; }
+@utility section-space { padding-block: clamp(4.5rem, 9vw, 8rem); }
+@utility eyebrow { font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+@utility image-shade { background: linear-gradient(180deg, transparent 28%, color-mix(in oklab, var(--navy) 90%, transparent) 100%); }
+@utility hero-shade { background: linear-gradient(90deg, color-mix(in oklab, var(--navy) 90%, transparent), color-mix(in oklab, var(--navy) 48%, transparent) 54%, color-mix(in oklab, var(--navy) 20%, transparent)); }
+@utility reveal { animation: reveal .7s ease-out both; }
+@utility slow-zoom { animation: slowZoom 18s ease-out both; }
+
+@keyframes reveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
