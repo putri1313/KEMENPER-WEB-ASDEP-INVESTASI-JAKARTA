@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, MapPin } from "lucide-react";
 import { destinations } from "@/data/portal";
 import { destinationProfiles } from "@/data/destination-profiles";
+import { DestinationLocationMap } from "@/components/destination-map";
+import { destinationMapPoints } from "@/data/destination-map-points";
 import { ButtonLink } from "@/components/ui";
 import { useSitePreferences } from "@/lib/site-preferences";
 
@@ -28,6 +30,10 @@ function DestinationDetailPage() {
   }
 
   const profile = destinationProfiles[destination.slug];
+  const mapPoints = destinationMapPoints[destination.slug];
+  if (!profile) {
+    return <section className="container-portal min-h-[70vh] py-36"><h1 className="font-display text-3xl font-extrabold">{t("Destination information is being prepared")}</h1><Link to="/destinations" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-forest"><ArrowLeft size={16}/>{t("Back to destinations")}</Link></section>;
+  }
   const localized = (copy: { en: string; id: string }) => language === "id" ? copy.id : copy.en;
 
   return <>
@@ -36,7 +42,7 @@ function DestinationDetailPage() {
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-navy/95 via-navy/50 to-navy/15" />
       <div className="container-portal pb-14 pt-24 md:pb-20">
         <Link to="/destinations" className="mb-8 inline-flex items-center gap-2 text-sm font-bold text-primary-foreground/80 hover:text-primary-foreground"><ArrowLeft size={16}/>{t("All destinations")}</Link>
-        <span className={`inline-flex rounded-sm px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[.14em] ${destination.type === "regenerative" ? "bg-accent text-primary-foreground" : "bg-gold text-navy"}`}>{t(destination.type)} {t("destination")}</span>
+        <span className={`inline-flex rounded-sm px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[.14em] ${destination.type === "regenerative" ? "bg-accent text-primary-foreground" : "bg-gold text-navy"}`}>{t(destination.type === "regenerative" ? "Regenerative" : "Priority")} {t("destination")}</span>
         <h1 className="mt-5 max-w-4xl font-display text-4xl font-extrabold leading-[1.04] md:text-6xl">{destination.name}</h1>
         <p className="mt-4 inline-flex items-center gap-2 text-sm text-primary-foreground/75"><MapPin size={16}/>{destination.region}</p>
       </div>
@@ -57,6 +63,8 @@ function DestinationDetailPage() {
         </aside>
       </div>
     </section>
+
+    {mapPoints && <DestinationLocationMap key={destination.slug} title={destination.name} points={mapPoints} />}
 
     <section className="section-space bg-mist">
       <div className="container-portal grid gap-12 lg:grid-cols-2 lg:gap-20">
