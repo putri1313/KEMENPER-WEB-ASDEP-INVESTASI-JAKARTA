@@ -55,6 +55,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 ::selection { background: var(--sand); color: var(--navy); }
 
 .destination-map-canvas { z-index: 0; }
+.destination-page .section-space { padding-block: clamp(2rem, 4vw, 3.25rem); }
 .destination-map-marker { border: 0; background: transparent; }
 .destination-map-pin__dot { display: block; width: 18px; height: 18px; border: 3px solid white; border-radius: 50%; background: var(--forest); box-shadow: 0 1px 8px rgb(0 0 0 / 35%); transition: transform .16s ease, background-color .16s ease; }
 .destination-map-pin__dot.is-selected { transform: scale(1.28); background: var(--gold); }

@@ -178,7 +178,7 @@ export function LakeTobaProfile() {
             </dl>
           </div>
 
-          <div className="mt-12 grid gap-6 border-t border-primary-foreground/20 pt-6 md:grid-cols-[1fr_auto] md:items-start">
+          <div className="mt-8 grid gap-6 border-t border-primary-foreground/20 pt-6 md:grid-cols-[1fr_auto] md:items-start">
             <p className="max-w-3xl text-sm leading-7 text-primary-foreground/75">
               {id
                 ? "Danau Toba diposisikan sebagai Destinasi Wisata Danau dan Geopark. Toba Caldera Resort merupakan kawasan ekowisata yang dikembangkan BPODT dan termasuk Destinasi Pariwisata Super Prioritas. Kaldera Toba ditetapkan sebagai UNESCO Global Geopark pada 2020. Pengembangan kawasan diarahkan untuk memperkuat kondisi sosial ekonomi masyarakat melalui pemberdayaan, pelatihan, dan keterlibatan dalam industri pariwisata."
@@ -194,7 +194,7 @@ export function LakeTobaProfile() {
 
       <section className="section-space">
         <div className="container-portal">
-          <div className="mb-10 max-w-2xl">
+          <div className="mb-8 max-w-2xl">
             <p className="eyebrow text-forest">
               {id ? "Konteks investasi nasional" : "National investment context"}
             </p>
@@ -209,7 +209,7 @@ export function LakeTobaProfile() {
                 : "National listings from the supplied material; these destinations and economic zones span different regions of Indonesia."}
             </p>
           </div>
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-14">
             <div>
               <h3 className="border-b border-border pb-4 font-display text-xl font-bold">
                 {id ? "Destinasi Pariwisata Prioritas" : "Priority Tourism Destinations"}
@@ -267,7 +267,7 @@ export function LakeTobaProfile() {
       </section>
 
       <section className="bg-mist section-space">
-        <div className="container-portal grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+        <div className="container-portal grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
           <div>
             <p className="eyebrow text-forest">{id ? "Pasar wisata" : "Visitor market"}</p>
             <h2 className="mt-4 max-w-xl font-display text-3xl font-extrabold leading-tight md:text-4xl">
@@ -304,7 +304,7 @@ export function LakeTobaProfile() {
       </section>
 
       <section className="section-space">
-        <div className="container-portal grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div className="container-portal grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
           <div>
             <p className="eyebrow text-forest">{id ? "Konektivitas" : "Connectivity"}</p>
             <h2 className="mt-4 font-display text-3xl font-extrabold md:text-4xl">
@@ -384,7 +384,7 @@ export function LakeTobaProfile() {
       </section>
 
       <section className="section-space">
-        <div className="container-portal grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+        <div className="container-portal grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
           <div>
             <p className="eyebrow text-forest">2024</p>
             <h2 className="mt-4 font-display text-3xl font-extrabold md:text-4xl">
@@ -419,7 +419,7 @@ export function LakeTobaProfile() {
       </section>
 
       <section className="bg-mist section-space">
-        <div className="container-portal grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+        <div className="container-portal grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
           <div>
             <p className="eyebrow text-forest">{id ? "Jelajahi kawasan" : "Explore the region"}</p>
             <h2 className="mt-4 font-display text-3xl font-extrabold md:text-4xl">
