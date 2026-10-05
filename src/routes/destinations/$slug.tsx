@@ -4,6 +4,7 @@ import { destinations } from "@/data/portal";
 import { destinationProfiles } from "@/data/destination-profiles";
 import { DestinationLocationMap } from "@/components/destination-map";
 import { destinationMapPoints } from "@/data/destination-map-points";
+import { LakeTobaProfile } from "@/components/lake-toba-profile";
 import { ButtonLink } from "@/components/ui";
 import { useSitePreferences } from "@/lib/site-preferences";
 
@@ -52,8 +53,17 @@ function DestinationDetailPage() {
       <div className="container-portal grid gap-12 lg:grid-cols-[1.15fr_.85fr] lg:gap-20">
         <div>
           <p className="eyebrow text-forest">{t("Destination overview")}</p>
-          <h2 className="mt-4 font-display text-3xl font-extrabold leading-tight md:text-4xl">{t("A distinctive place to explore and invest")}</h2>
-          <p className="mt-6 text-base leading-8 text-muted-foreground">{localized(profile.overview)}</p>
+          <h2 className="mt-4 font-display text-3xl font-extrabold leading-tight md:text-4xl">
+            {destination.slug === "danau-toba"
+              ? language === "id"
+                ? "Deskripsi Umum"
+                : "General Description"
+              : t("A distinctive place to explore and invest")}
+          </h2>
+          <div className="mt-6 space-y-4 text-base leading-8 text-muted-foreground">
+            <p>{localized(profile.overview)}</p>
+            {profile.overviewDetails?.map((paragraph) => <p key={paragraph.en}>{localized(paragraph)}</p>)}
+          </div>
         </div>
         <aside className="border-y border-border py-6">
           <p className="eyebrow text-forest">{t("Tourism themes")}</p>
@@ -65,6 +75,8 @@ function DestinationDetailPage() {
     </section>
 
     {mapPoints && <DestinationLocationMap key={destination.slug} title={destination.name} points={mapPoints} />}
+
+    {destination.slug === "danau-toba" && <LakeTobaProfile />}
 
     <section className="section-space bg-mist">
       <div className="container-portal grid gap-12 lg:grid-cols-2 lg:gap-20">

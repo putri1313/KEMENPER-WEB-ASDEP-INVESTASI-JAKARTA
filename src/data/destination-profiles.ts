@@ -2,6 +2,7 @@ export type LocalizedCopy = { en: string; id: string };
 
 export type DestinationProfile = {
   overview: LocalizedCopy;
+  overviewDetails?: LocalizedCopy[];
   highlights: string[];
   investmentFocus: LocalizedCopy[];
 };
@@ -45,12 +46,22 @@ export const destinationProfiles: Record<string, DestinationProfile> = {
   },
   "danau-toba": {
     overview: {
-      en: "Lake Toba centres on a vast volcanic lake and the cultural landscapes of North Sumatra. The destination connects lakeside towns, Samosir Island, highland viewpoints, and Batak heritage into a distinctive nature and culture journey.",
-      id: "Danau Toba berpusat pada danau vulkanik yang luas dan lanskap budaya Sumatera Utara. Destinasi ini menghubungkan kota-kota tepi danau, Pulau Samosir, titik pandang dataran tinggi, dan warisan Batak dalam perjalanan alam dan budaya yang khas.",
+      en: "Lake Toba is the largest volcanic lake in the world and the second largest lake in the world after Victoria Lake in Africa. It is one out often deepest lakes in the world, reaching around 500 metres depth. Samosir Island in the middle of Lake Toba has area of 64.000 hectares or equals to country of Singapore.",
+      id: "Danau Toba adalah danau vulkanik terbesar di dunia dan danau terbesar kedua di dunia setelah Danau Victoria di Afrika. Danau ini merupakan salah satu dari sepuluh danau terdalam di dunia, dengan kedalaman mencapai sekitar 500 meter. Pulau Samosir yang terletak di tengah Danau Toba memiliki luas 64.000 hektare, atau setara dengan luas negara Singapura.",
     },
-    highlights: ["Parapat", "Samosir Island and Tuktuk", "Balige", "Sipiso-piso viewpoint"],
+    overviewDetails: [
+      {
+        en: "Toba Caldera Resort is an eco-tourism destination developed by the Lake Toba Authority Implementing Agency (BPODT). The 386.72-hectare area is part of Indonesia's Super Priority Tourism Destinations program, with government support for its development.",
+        id: "Toba Caldera Resort merupakan destinasi ekowisata yang dikembangkan oleh Badan Pelaksana Otorita Danau Toba (BPODT). Kawasan seluas 386,72 hektare ini termasuk dalam program Destinasi Pariwisata Super Prioritas Indonesia dan mendapat dukungan pemerintah untuk pengembangannya.",
+      },
+      {
+        en: "UNESCO's Executive Board designated Toba Caldera as a UNESCO Global Geopark in 2020. Development of the resort area aims to strengthen the socio-economic well-being of surrounding communities through empowerment, training, and participation in the tourism industry.",
+        id: "Dewan Eksekutif UNESCO menetapkan Kaldera Toba sebagai UNESCO Global Geopark pada 2020. Pengembangan kawasan resort ini bertujuan memperkuat kondisi sosial ekonomi masyarakat sekitar melalui pemberdayaan, pelatihan, dan keterlibatan dalam industri pariwisata.",
+      },
+    ],
+    highlights: ["Samosir Island", "Bukit Holbung", "Hot Springs at Aek Rangat"],
     investmentFocus: [
-      { en: "Lake and nature-based experiences", id: "Pengalaman danau dan wisata berbasis alam" },
+      { en: "Main Investment Opportinities", id: "Kesempatan Investasi Utama" },
       { en: "Cultural tourism and local products", id: "Wisata budaya dan produk lokal" },
       { en: "Accommodation and destination amenities", id: "Akomodasi dan amenitas destinasi" },
     ],
