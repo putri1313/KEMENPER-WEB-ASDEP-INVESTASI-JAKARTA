@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Search } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Search, Star } from "lucide-react";
 import { useMemo, useState } from "react";
 import { InvestmentProfileSections } from "@/components/investment-profile-sections";
 import { useSitePreferences } from "@/lib/site-preferences";
+import aerial from "@/assets/indonesia-aerial.jpg";
+import culture from "@/assets/indonesia-culture.jpg";
 import marine from "@/assets/indonesia-marine.jpg";
+import urban from "@/assets/indonesia-urban.jpg";
 import {
   priorityOpportunityProfiles,
   sezOpportunityProfiles,
@@ -34,15 +37,8 @@ const priorityDestinationIndex = [
       en: "Lakeside and Geopark Tourism Destination",
       id: "Destinasi Wisata Danau dan Geopark",
     },
-    href: "/destinations/danau-toba",
-  },
-  {
-    name: "Borobudur",
-    designation: {
-      en: "Culture and Heritage Tourism Destination",
-      id: "Destinasi Wisata Budaya dan Warisan",
-    },
-    href: "/destinations/borobudur-yogyakarta-prambanan",
+    slug: "danau-toba",
+    image: aerial,
   },
   {
     name: "Likupang",
@@ -50,7 +46,17 @@ const priorityDestinationIndex = [
       en: "Eco Resort and Luxury Destination",
       id: "Destinasi Resor Ekologis dan Mewah",
     },
-    href: "/destinations/manado-likupang",
+    slug: "manado-likupang",
+    image: marine,
+  },
+  {
+    name: "Borobudur Highland",
+    designation: {
+      en: "Culture and Heritage Tourism Destination",
+      id: "Destinasi Wisata Budaya dan Warisan",
+    },
+    slug: "borobudur-yogyakarta-prambanan",
+    image: culture,
   },
   {
     name: "Mandalika",
@@ -58,7 +64,8 @@ const priorityDestinationIndex = [
       en: "Youth and Sport Tourism Destination",
       id: "Destinasi Wisata Pemuda dan Olahraga",
     },
-    href: "/destinations/lombok-gili-tramena",
+    slug: "lombok-gili-tramena",
+    image: aerial,
   },
   {
     name: "Labuan Bajo",
@@ -66,7 +73,8 @@ const priorityDestinationIndex = [
       en: "Ecotourism Destination",
       id: "Destinasi Ekowisata",
     },
-    href: "/destinations/labuan-bajo",
+    slug: "labuan-bajo",
+    image: marine,
   },
 ];
 const tourismSezIndex = [
@@ -74,47 +82,63 @@ const tourismSezIndex = [
     name: "Nongsa SEZ",
     region: { en: "Riau Islands", id: "Kepulauan Riau" },
     href: "/opportunities#nongsa-sez",
+    image: marine,
   },
   {
     name: "Tanjung Kelayang SEZ",
     region: { en: "Bangka Belitung", id: "Bangka Belitung" },
     href: "/opportunities#tanjung-kelayang-sez",
+    image: marine,
   },
   {
     name: "Tanjung Lesung SEZ",
     region: { en: "Banten", id: "Banten" },
     href: "/opportunities#tanjung-lesung-sez",
+    image: aerial,
   },
   {
     name: "Lido SEZ",
     region: { en: "West Java", id: "Jawa Barat" },
     href: "/opportunities#lido-sez",
+    image: aerial,
   },
   {
     name: "Singhasari SEZ",
     region: { en: "East Java", id: "Jawa Timur" },
     href: "/opportunities#singhasari-sez",
+    image: culture,
+  },
+  {
+    name: "Sanur SEZ",
+    region: { en: "Bali", id: "Bali" },
+    href: "/opportunities#sanur-sez",
+    image: marine,
   },
   {
     name: "Kura-Kura SEZ",
     region: { en: "Bali", id: "Bali" },
     href: "/opportunities#kura-kura-sez",
+    image: aerial,
   },
-  { name: "Sanur SEZ", region: { en: "Bali", id: "Bali" }, href: "/opportunities#sanur-sez" },
   {
     name: "Mandalika SEZ",
-    region: { en: "East Nusa Tenggara", id: "Nusa Tenggara Barat" },
+    region: { en: "West Nusa Tenggara", id: "Nusa Tenggara Barat" },
     href: "/destinations/lombok-gili-tramena",
+    image: aerial,
+    featured: true,
   },
   {
     name: "Likupang SEZ",
     region: { en: "North Sulawesi", id: "Sulawesi Utara" },
     href: "/destinations/manado-likupang",
+    image: marine,
+    featured: true,
   },
   {
     name: "Morotai SEZ",
     region: { en: "North Maluku", id: "Maluku Utara" },
     href: "/opportunities#morotai-sez",
+    image: marine,
   },
 ];
 
@@ -652,53 +676,35 @@ function OpportunitiesPage() {
               {displayedProfiles.length} {id ? "profil" : "profiles"}
             </p>
           </div>
-          <div className="mb-10 grid border-y border-border md:grid-cols-2">
-            <section className="py-6 md:border-r md:border-border md:pr-8">
-              <h3 className="font-display text-lg font-extrabold">
-                {id ? "Destinasi Pariwisata Prioritas" : "Priority Tourism Destinations"}
-              </h3>
-              <ul className="mt-4 space-y-3">
-                {priorityDestinationIndex.map((destination) => (
-                  <li key={destination.name}>
-                    <a
-                      className="group inline-flex items-start gap-2 text-sm transition hover:text-forest"
-                      href={destination.href}
-                    >
-                      <ArrowUpRight className="mt-0.5 shrink-0 text-forest" size={14} />
-                      <span>
-                        <span className="block font-bold">{destination.name}</span>
-                        <span className="text-muted-foreground">
-                          {localized(destination.designation, id)}
-                        </span>
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
-            <section className="border-t border-border py-6 md:border-t-0 md:pl-8">
-              <h3 className="font-display text-lg font-extrabold">
-                {id ? "Kawasan Ekonomi Khusus Pariwisata" : "Tourism Special Economic Zones"}
-              </h3>
-              <ul className="mt-4 grid gap-x-6 gap-y-3 sm:grid-cols-2">
-                {tourismSezIndex.map((zone) => (
-                  <li key={zone.name}>
-                    <a
-                      className="group inline-flex items-start gap-2 text-sm transition hover:text-forest"
-                      href={zone.href}
-                    >
-                      <ArrowUpRight className="mt-0.5 shrink-0 text-forest" size={14} />
-                      <span>
-                        <span className="block font-bold">{zone.name}</span>
-                        <span className="text-muted-foreground">
-                          ({localized(zone.region, id)})
-                        </span>
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
+          <div className="mb-10">
+            <h3 className="font-display text-lg font-extrabold">
+              {id ? "Destinasi Pariwisata Prioritas" : "Priority Tourism Destinations"}
+            </h3>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              {priorityDestinationIndex.map((destination) => (
+                <Link
+                  className="group flex min-h-28 items-center gap-4 rounded-lg border border-primary/40 bg-background p-2.5 shadow-sm transition hover:border-primary hover:shadow-soft focus-visible:outline-offset-4"
+                  key={destination.name}
+                  to="/destinations/$slug"
+                  params={{ slug: destination.slug }}
+                >
+                  <img
+                    alt=""
+                    className="h-24 w-[42%] shrink-0 rounded-md object-cover sm:h-28"
+                    loading="lazy"
+                    src={destination.image}
+                  />
+                  <span className="min-w-0 py-2">
+                    <span className="block font-display text-base font-extrabold leading-tight group-hover:text-forest sm:text-lg">
+                      {destination.name}
+                    </span>
+                    <span className="mt-1 block text-sm leading-snug text-muted-foreground">
+                      {localized(destination.designation, id)}
+                    </span>
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
           {displayedProfiles.length ? (
             <div className="grid gap-px border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
@@ -775,7 +781,7 @@ function OpportunitiesPage() {
         </div>
       </section>
 
-      <section className="bg-mist section-space">
+      <section id="tourism-sez-showcase" className="bg-mist section-space scroll-mt-20">
         <div className="container-portal">
           <div className="mb-8 max-w-2xl">
             <p className="eyebrow text-forest">{id ? "Profil kawasan" : "Zone profiles"}</p>
@@ -787,6 +793,31 @@ function OpportunitiesPage() {
                 ? "Buka tiap kawasan untuk melihat deskripsi, peluang, acara, dan atraksinya."
                 : "Open a zone to view its description, opportunities, events, and attractions."}
             </p>
+          </div>
+          <div className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-5">
+            {tourismSezIndex.map((zone) => (
+              <a
+                className="group block overflow-hidden bg-background transition-shadow hover:shadow-soft focus-visible:outline-offset-4"
+                href={zone.href}
+                key={zone.name}
+                aria-label={`${zone.name} (${localized(zone.region, id)})`}
+              >
+                <div className="aspect-[16/9] overflow-hidden bg-muted">
+                  <img
+                    alt=""
+                    className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    src={zone.image}
+                  />
+                </div>
+                <div className="flex min-h-10 items-center justify-center gap-2 bg-primary px-2 py-2 text-center text-xs font-extrabold text-primary-foreground">
+                  {zone.featured && (
+                    <Star aria-hidden="true" className="shrink-0 fill-gold text-gold" size={15} />
+                  )}
+                  <span>{zone.name}</span>
+                </div>
+              </a>
+            ))}
           </div>
           <div className="divide-y divide-border border-y border-border">
             {sezOpportunityProfiles.map((profile) => (
