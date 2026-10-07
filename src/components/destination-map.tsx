@@ -8,13 +8,18 @@ import { useSitePreferences } from "@/lib/site-preferences";
 export function DestinationLocationMap({
   title,
   points,
+  regionImage,
+  regionDescription,
 }: {
   title: string;
   points: readonly TourismMapPoint[];
+  regionImage: string;
+  regionDescription: string;
 }) {
   const mapElement = useRef<HTMLDivElement>(null);
   const mapRef = useRef<LeafletMap | null>(null);
   const markersRef = useRef(new Map<string, LeafletMarker>());
+  const locationItemsRef = useRef(new Map<string, HTMLLIElement>());
   const [selectedId, setSelectedId] = useState<string | null>(points[0]?.id ?? null);
   const [mapReady, setMapReady] = useState(false);
   const [mapError, setMapError] = useState(false);
@@ -59,6 +64,12 @@ export function DestinationLocationMap({
           marker.bindPopup(`<strong>${point.name}</strong><br />${point.area}`);
           marker.on("click", () => {
             setSelectedId(point.id);
+            window.requestAnimationFrame(() =>
+              locationItemsRef.current.get(point.id)?.scrollIntoView({
+                block: "nearest",
+                behavior: "smooth",
+              }),
+            );
             const activeMap = mapRef.current;
             if (activeMap)
               activeMap.flyTo(
@@ -103,6 +114,9 @@ export function DestinationLocationMap({
     const marker = markersRef.current.get(id);
     if (!point || !marker || !mapRef.current) return;
     setSelectedId(id);
+    window.requestAnimationFrame(() =>
+      locationItemsRef.current.get(id)?.scrollIntoView({ block: "nearest", behavior: "smooth" }),
+    );
     mapRef.current.flyTo(
       [point.latitude, point.longitude],
       Math.max(mapRef.current.getZoom(), 13),
@@ -110,8 +124,6 @@ export function DestinationLocationMap({
     );
     marker.openPopup();
   };
-  const selectedPoint = points.find((point) => point.id === selectedId);
-
   return (
     <section className="section-space bg-mist" aria-labelledby="destination-map-heading">
       <div className="container-portal">
@@ -173,7 +185,7 @@ export function DestinationLocationMap({
             )}
           </div>
 
-          <aside className="flex min-h-0 flex-col border-t border-border lg:border-l lg:border-t-0">
+          <aside className="flex min-h-0 flex-col border-t border-border lg:h-[34rem] lg:border-l lg:border-t-0">
             <div className="border-b border-border p-5">
               <p className="eyebrow text-forest">
                 {language === "id" ? "Titik wisata" : "Tourism locations"}
@@ -182,9 +194,15 @@ export function DestinationLocationMap({
                 {points.length} {t("key locations")}
               </p>
             </div>
-            <ol className="max-h-[17rem] divide-y divide-border overflow-y-auto">
+            <ol className="max-h-[32rem] divide-y divide-border overflow-y-auto lg:max-h-none lg:min-h-0 lg:flex-1">
               {points.map((point, index) => (
-                <li key={point.id}>
+                <li
+                  key={point.id}
+                  ref={(element) => {
+                    if (element) locationItemsRef.current.set(point.id, element);
+                    else locationItemsRef.current.delete(point.id);
+                  }}
+                >
                   <button
                     type="button"
                     onClick={() => selectPoint(point.id)}
@@ -202,35 +220,66 @@ export function DestinationLocationMap({
                     </span>
                     <MapPin size={15} className="ml-auto mt-1 shrink-0 text-forest" />
                   </button>
+                  {selectedId === point.id && (
+                    <div
+                      className="bg-background pb-5 pl-14 pr-4 pt-1"
+                      aria-live="polite"
+                      aria-atomic="true"
+                    >
+                      <div className={`grid gap-3 ${point.image ? "grid-cols-2" : "grid-cols-1"}`}>
+                        <figure className="min-w-0">
+                          <img
+                            alt={`${title} landscape`}
+                            className="aspect-[4/3] w-full rounded-sm object-cover"
+                            loading="lazy"
+                            src={regionImage}
+                          />
+                          <figcaption className="mt-1.5 text-[11px] font-bold text-muted-foreground">
+                            {language === "id" ? `Wilayah ${title}` : `${title} region`}
+                          </figcaption>
+                        </figure>
+                        {point.image && (
+                          <figure className="min-w-0">
+                            <img
+                              alt={point.name}
+                              className="aspect-[4/3] w-full rounded-sm object-cover"
+                              loading="lazy"
+                              src={point.image}
+                            />
+                            <figcaption className="mt-1.5 truncate text-[11px] font-bold text-muted-foreground">
+                              {point.name}
+                            </figcaption>
+                          </figure>
+                        )}
+                      </div>
+                      <p className="eyebrow mt-4 text-forest">
+                        {language === "id" ? `Tentang ${title}` : `About ${title}`}
+                      </p>
+                      <p className="mt-1.5 line-clamp-3 text-xs leading-5 text-muted-foreground">
+                        {regionDescription}
+                      </p>
+                      <p className="eyebrow mt-4 text-forest">{point.category[language]}</p>
+                      <p className="mt-1.5 text-xs font-extrabold">
+                        {language === "id" ? `Tentang ${point.name}` : `About ${point.name}`}
+                      </p>
+                      <p className="mt-1 text-sm leading-5 text-muted-foreground">
+                        {point.description[language]}
+                      </p>
+                      {point.imageCredit && (
+                        <a
+                          className="mt-2 inline-block text-[10px] leading-4 text-muted-foreground underline decoration-border underline-offset-2 hover:text-forest"
+                          href={point.imageCredit.url}
+                          rel="noreferrer"
+                          target="_blank"
+                        >
+                          {language === "id" ? "Foto" : "Photo"}: {point.imageCredit.label}
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </li>
               ))}
             </ol>
-            <div
-              className="border-t border-border bg-background p-5"
-              aria-live="polite"
-              aria-atomic="true"
-            >
-              {selectedPoint ? (
-                <>
-                  <p className="eyebrow text-forest">{selectedPoint.category[language]}</p>
-                  <h3 className="mt-2 font-display text-lg font-extrabold leading-snug">
-                    {selectedPoint.name}
-                  </h3>
-                  <p className="mt-1 text-xs font-semibold text-muted-foreground">
-                    {selectedPoint.area}
-                  </p>
-                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                    {selectedPoint.description[language]}
-                  </p>
-                </>
-              ) : (
-                <p className="text-sm leading-6 text-muted-foreground">
-                  {language === "id"
-                    ? "Pilih salah satu lokasi untuk melihat kategori dan informasi singkatnya."
-                    : "Select a location to see its category and a short description."}
-                </p>
-              )}
-            </div>
             <p className="mt-auto border-t border-border p-4 text-[11px] leading-5 text-muted-foreground">
               {language === "id"
                 ? "Peta dasar © OpenStreetMap contributors. Titik menunjukkan lokasi kawasan wisata; cek kembali informasi lokal sebelum berkunjung."

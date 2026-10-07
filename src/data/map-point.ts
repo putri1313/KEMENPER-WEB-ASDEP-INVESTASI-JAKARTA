@@ -8,4 +8,6 @@ export type TourismMapPoint = {
   longitude: number;
   category: LocalizedTourismCopy;
   description: LocalizedTourismCopy;
+  image?: string;
+  imageCredit?: { label: string; url: string };
 };

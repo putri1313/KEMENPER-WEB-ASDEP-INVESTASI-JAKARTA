@@ -154,6 +154,8 @@ function DestinationDetailPage() {
           key={destination.slug}
           title={destination.name}
           points={mapPoints}
+          regionImage={destination.image}
+          regionDescription={localized(profile.overview)}
         />
       )}
 
