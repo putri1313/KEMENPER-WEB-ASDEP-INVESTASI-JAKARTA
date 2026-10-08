@@ -121,24 +121,26 @@ export function InvestmentFlipbook() {
     else flipbookRef.current?.flipNext("bottom");
   };
 
-  const downloadPdf = async () => {
-    setDownloadError(false);
-    try {
-      const response = await fetch(PDF_URL);
-      if (!response.ok) throw new Error(`PDF request failed: ${response.status}`);
-      const objectUrl = URL.createObjectURL(
-        new Blob([await response.arrayBuffer()], { type: "application/octet-stream" }),
-      );
-      const link = document.createElement("a");
-      link.href = objectUrl;
-      link.download = "Investment_Opportunities_2026.pdf";
-      document.body.append(link);
-      link.click();
-      link.remove();
-      window.setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
-    } catch {
-      setDownloadError(true);
-    }
+  const downloadPdf = () => {
+    void (async () => {
+      setDownloadError(false);
+      try {
+        const response = await fetch(PDF_URL);
+        if (!response.ok) throw new Error(`PDF request failed: ${response.status}`);
+        const objectUrl = URL.createObjectURL(
+          new Blob([await response.arrayBuffer()], { type: "application/octet-stream" }),
+        );
+        const link = document.createElement("a");
+        link.href = objectUrl;
+        link.download = "Investment_Opportunities_2026.pdf";
+        document.body.append(link);
+        link.click();
+        link.remove();
+        window.setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
+      } catch {
+        setDownloadError(true);
+      }
+    })();
   };
 
   return (
@@ -160,13 +162,14 @@ export function InvestmentFlipbook() {
           </div>
           <button
             type="button"
-            onClick={() => void downloadPdf()}
+            onClick={downloadPdf}
             className="inline-flex min-h-11 w-fit items-center justify-center gap-2 rounded-sm bg-gold px-4 py-3 text-xs font-extrabold text-navy transition hover:bg-gold/90"
           >
             <Download size={16} />
             {isIndonesian ? "Unduh PDF" : "Download PDF"}
           </button>
         </div>
+
         {downloadError && (
           <p className="-mt-5 mb-6 text-right text-sm text-primary-foreground/75" role="status">
             {isIndonesian
@@ -194,10 +197,10 @@ export function InvestmentFlipbook() {
               <div className="pointer-events-none absolute inset-0 z-20 grid place-items-center bg-[#142632] p-6 text-center">
                 <div>
                   <p className="font-display text-lg font-bold">
-                    {progress === 0
+                    {progress < 2
                       ? isIndonesian
-                        ? "Memuat halaman buku"
-                        : "Loading book pages"
+                        ? "Mengunduh buku"
+                        : "Loading book"
                       : isIndonesian
                         ? "Menyiapkan halaman buku"
                         : "Preparing book pages"}
