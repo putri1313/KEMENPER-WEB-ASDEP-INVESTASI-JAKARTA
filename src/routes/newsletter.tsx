@@ -3,6 +3,7 @@ import { ArrowUpRight, Download, Newspaper } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useSitePreferences } from "@/lib/site-preferences";
 import { publications } from "@/data/portal";
+import { InvestmentFlipbook } from "@/components/investment-flipbook";
 
 export const Route = createFileRoute("/newsletter")({
   head: () => ({
@@ -60,6 +61,8 @@ function NewsletterPage() {
           <div className="mt-10 h-1.5 w-full rounded-full bg-gradient-to-r from-forest via-primary to-gold" />
         </div>
       </section>
+
+      <InvestmentFlipbook />
 
       <section className="section-space bg-background">
         <div className="container-portal">
