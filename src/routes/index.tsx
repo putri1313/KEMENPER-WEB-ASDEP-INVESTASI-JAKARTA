@@ -1,13 +1,5 @@
 ﻿import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  Building2,
-  CheckCircle2,
-  FileText,
-  Landmark,
-  Leaf,
-  MapPin,
-} from "lucide-react";
+import { ArrowRight, Building2, Leaf } from "lucide-react";
 import aerial from "@/assets/indonesia-aerial.jpg";
 import culture from "@/assets/indonesia-culture.jpg";
 import {
@@ -75,8 +67,8 @@ const whyInvestItems = [
 function Home() {
   const { t } = useSitePreferences();
   return (
-    <>
-      <section className="relative flex min-h-[92vh] overflow-hidden bg-navy text-primary-foreground">
+    <div className="home-page">
+      <section className="relative flex min-h-[88vh] overflow-hidden bg-navy text-primary-foreground">
         <img
           src={aerial}
           alt="Aerial view of Indonesia's islands and coast"
@@ -88,7 +80,7 @@ function Home() {
         <div className="container-portal relative flex flex-col justify-end pb-10 pt-36">
           <div className="reveal max-w-4xl">
             <p className="eyebrow text-gold">Indonesia Tourism Investment</p>
-            <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.02] sm:text-6xl lg:text-8xl">
+            <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl 2xl:text-8xl">
               {t("Invest in Indonesia Tourism Destinations")}
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-primary-foreground/75 md:text-lg">
@@ -229,7 +221,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="section-space bg-navy text-primary-foreground">
+      <section className="home-themes section-space bg-navy text-primary-foreground">
         <div className="container-portal">
           <SectionHeader
             light
@@ -393,6 +385,6 @@ function Home() {
           <InquiryForm />
         </div>
       </section>
-    </>
+    </div>
   );
 }
