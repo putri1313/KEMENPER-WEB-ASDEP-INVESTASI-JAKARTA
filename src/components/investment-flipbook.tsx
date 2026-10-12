@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Download, Maximize2, Minimize2, Pause, Play } from "lucide-react";
-import { PageFlip } from "page-flip";
+import pageFlipModule from "page-flip";
 import { Button } from "@/components/ui";
 import { useSitePreferences } from "@/lib/site-preferences";
 
 const PDF_URL = "/flipbooks/investment-opportunities-2026.pdf";
 const PAGE_COUNT = 22;
 const PAGE_FLIP_INTERVAL = 5000;
+const { PageFlip } = pageFlipModule;
 
 export function InvestmentFlipbook() {
   const { language } = useSitePreferences();
@@ -26,6 +27,7 @@ export function InvestmentFlipbook() {
   useEffect(() => {
     let cancelled = false;
     let loadedPages = 0;
+    let resizeObserver: ResizeObserver | null = null;
     const pageUrls = Array.from(
       { length: PAGE_COUNT },
       (_, index) => `/flipbooks/pages/${String(index + 1).padStart(2, "0")}.jpg`,
@@ -51,14 +53,15 @@ export function InvestmentFlipbook() {
         );
 
         if (cancelled || !rootRef.current) return;
+        const initialMinWidth = Math.max(1, Math.floor(rootRef.current.clientWidth / 2) + 1);
         const flipbook = new PageFlip(rootRef.current, {
           width: 560,
           height: 315,
           size: "stretch",
-          minWidth: 140,
-          maxWidth: 540,
+          minWidth: initialMinWidth,
+          maxWidth: 960,
           minHeight: 79,
-          maxHeight: 304,
+          maxHeight: 540,
           autoSize: true,
           showCover: true,
           usePortrait: true,
@@ -68,12 +71,27 @@ export function InvestmentFlipbook() {
           mobileScrollSupport: false,
         });
         flipbookRef.current = flipbook;
+        const updateSinglePageLayout = () => {
+          const root = rootRef.current;
+          if (!root) return;
+
+          const minWidth = Math.max(1, Math.floor(root.clientWidth / 2) + 1);
+          const settings = flipbook.getSettings();
+          if (settings.minWidth === minWidth) return;
+
+          settings.minWidth = minWidth;
+          root.style.minWidth = `${minWidth}px`;
+          flipbook.getUI().update();
+        };
         flipbook.on("flip", (event) => {
           const index = Number(event.data);
           setCurrentPage(index);
           if (index >= PAGE_COUNT - 1) setIsPlaying(false);
         });
         flipbook.loadFromImages(pageUrls);
+        resizeObserver = new ResizeObserver(updateSinglePageLayout);
+        resizeObserver.observe(rootRef.current);
+        updateSinglePageLayout();
         setIsReady(true);
       } catch {
         if (!cancelled) setError(true);
@@ -84,6 +102,7 @@ export function InvestmentFlipbook() {
 
     return () => {
       cancelled = true;
+      resizeObserver?.disconnect();
       flipbookRef.current?.destroy();
       flipbookRef.current = null;
     };
@@ -180,11 +199,11 @@ export function InvestmentFlipbook() {
 
         <div
           ref={stageRef}
-          className={`mx-auto w-full max-w-[25rem] sm:max-w-[72rem] ${isFullscreen ? "flex min-h-screen max-w-none flex-col justify-center bg-navy p-6" : ""}`}
+          className={`mx-auto w-full max-w-[64rem] ${isFullscreen ? "flex min-h-screen max-w-none flex-col justify-center bg-navy p-6" : ""}`}
         >
           <div className="relative">
             <div
-              className="relative mx-auto flex aspect-[1.78/1] w-full items-center justify-center overflow-hidden bg-[#142632] shadow-card sm:aspect-[3.56/1]"
+              className="relative mx-auto flex aspect-[16/9] w-full items-center justify-center overflow-hidden bg-[#142632] shadow-card"
               ref={rootRef}
               onPointerDown={() => setIsPlaying(false)}
               aria-label={

@@ -7,8 +7,13 @@ declare module "page-flip" {
     flipNext(corner?: "top" | "bottom"): void;
     flipPrev(corner?: "top" | "bottom"): void;
     getCurrentPageIndex(): number;
+    getSettings(): { minWidth: number };
+    getUI(): { update(): void };
     getOrientation(): "portrait" | "landscape";
     loadFromImages(images: string[]): void;
     on(event: "flip", callback: (event: FlipEvent) => void): void;
   }
+
+  const pageFlipModule: { PageFlip: typeof PageFlip };
+  export default pageFlipModule;
 }
