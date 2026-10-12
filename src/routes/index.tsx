@@ -135,7 +135,7 @@ function Home() {
                 )}
               </p>
               <p className="mt-4 text-xs font-semibold text-primary-foreground/50">
-                {t("Starts muted when visible and pauses when you scroll away")}
+                {t("Starts muted when visible, repeats automatically, and pauses when you scroll away")}
               </p>
               <a
                 href="https://www.youtube.com/watch?v=7KgrwtfMsKc"

@@ -164,7 +164,7 @@ const translations: Record<string, string> = {
   "A closer look at Indonesia’s tourism potential": "Melihat Lebih Dekat Potensi Pariwisata Indonesia",
   "Explore the natural beauty, cultural heritage, and local stories that make Indonesia a remarkable place to visit and invest.": "Jelajahi keindahan alam, warisan budaya, dan kisah lokal yang menjadikan Indonesia tempat istimewa untuk dikunjungi dan berinvestasi.",
   "Watch on YouTube": "Tonton di YouTube",
-  "Starts muted when visible and pauses when you scroll away": "Video dimulai tanpa suara saat terlihat dan berhenti ketika Anda menggulir menjauh",
+  "Starts muted when visible, repeats automatically, and pauses when you scroll away": "Video dimulai tanpa suara saat terlihat, berulang otomatis, dan berhenti saat Anda menggulir menjauh",
   "Discover the opportunities behind the growth of tourism investment in Indonesia.": "Jelajahi peluang di balik pertumbuhan investasi pariwisata Indonesia.",
   "Tourism in Indonesia is full of potential, driven by global demand for authentic and diverse travel experiences. Here are five reasons to invest.": "Pariwisata Indonesia memiliki potensi besar, didorong oleh permintaan global akan pengalaman perjalanan yang autentik dan beragam. Berikut lima alasannya untuk berinvestasi.",
   "Discover the opportunities behind Indonesia's growing tourism investment landscape.": "Jelajahi peluang di balik perkembangan lanskap investasi pariwisata Indonesia.",

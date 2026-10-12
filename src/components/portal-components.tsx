@@ -17,6 +17,20 @@ function sendYouTubeCommand(frame: HTMLIFrameElement | null, command: "mute" | "
  frame.contentWindow.postMessage(JSON.stringify({ event: "command", func: command, args: [] }), "https://www.youtube-nocookie.com");
 }
 
+function getYouTubeEmbedUrl(videoId: string) {
+ const params = new URLSearchParams({
+  autoplay: "1",
+  controls: "0",
+  enablejsapi: "1",
+  loop: "1",
+  mute: "1",
+  playlist: videoId,
+  playsinline: "1",
+  rel: "0",
+ });
+ return `https://www.youtube-nocookie.com/embed/${videoId}?${params}`;
+}
+
 export function YouTubeScrollPlayer({ videoId, title }: { videoId: string; title: string }) {
  const frameRef = useRef<HTMLIFrameElement>(null);
  const inViewRef = useRef(false);
@@ -42,7 +56,7 @@ export function YouTubeScrollPlayer({ videoId, title }: { videoId: string; title
   return () => observer.disconnect();
  }, []);
 
- return <iframe ref={frameRef} className="absolute inset-0 size-full" src={`https://www.youtube-nocookie.com/embed/${videoId}?enablejsapi=1&mute=1&playsinline=1&rel=0`} title={title} loading="lazy" allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen onLoad={() => { if (inViewRef.current) { sendYouTubeCommand(frameRef.current, "mute"); sendYouTubeCommand(frameRef.current, "playVideo"); } }} />;
+ return <iframe ref={frameRef} className="absolute inset-0 size-full" src={getYouTubeEmbedUrl(videoId)} title={title} loading="lazy" allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen onLoad={() => { if (inViewRef.current) { sendYouTubeCommand(frameRef.current, "mute"); sendYouTubeCommand(frameRef.current, "playVideo"); } }} />;
 }
 
 export function DestinationCard({ destination, compact = false }: { destination: Destination; compact?: boolean }) {
