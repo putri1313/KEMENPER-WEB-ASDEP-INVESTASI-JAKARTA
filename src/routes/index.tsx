@@ -42,6 +42,7 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
+const FEATURED_VIDEO_ID = "e9G5CJ4N54A";
 const whyInvestItems = [
   {
     title: "Favourable Business Climate",
@@ -122,7 +123,7 @@ function Home() {
         <div className="container-portal">
           <article className="mb-14 grid overflow-hidden rounded-xl border border-primary-foreground/15 bg-background/5 shadow-card lg:grid-cols-[1.3fr_.7fr]">
             <div className="relative aspect-video min-h-56 bg-black lg:min-h-[22rem]">
-              <YouTubeScrollPlayer videoId="7KgrwtfMsKc" title="Indonesia tourism video" />
+              <YouTubeScrollPlayer videoId={FEATURED_VIDEO_ID} title="Video pariwisata Indonesia" />
             </div>
             <div className="flex flex-col justify-center p-6 md:p-9 lg:p-10">
               <p className="eyebrow text-gold">{t("Discover Indonesia")}</p>
@@ -135,10 +136,10 @@ function Home() {
                 )}
               </p>
               <p className="mt-4 text-xs font-semibold text-primary-foreground/50">
-                {t("Starts muted when visible, repeats automatically, and pauses when you scroll away")}
+                {t("Starts muted when visible and pauses when you scroll away")}
               </p>
               <a
-                href="https://www.youtube.com/watch?v=7KgrwtfMsKc"
+                href="https://youtu.be/e9G5CJ4N54A"
                 target="_blank"
                 rel="noreferrer"
                 className="mt-5 inline-flex w-fit items-center gap-2 text-sm font-extrabold text-gold transition hover:gap-3"

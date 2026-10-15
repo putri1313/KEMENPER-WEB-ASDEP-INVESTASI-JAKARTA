@@ -22,9 +22,7 @@ function getYouTubeEmbedUrl(videoId: string) {
   autoplay: "1",
   controls: "0",
   enablejsapi: "1",
-  loop: "1",
   mute: "1",
-  playlist: videoId,
   playsinline: "1",
   rel: "0",
  });
