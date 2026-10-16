@@ -1,6 +1,6 @@
 ﻿import useEmblaCarousel from "embla-carousel-react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Building2, Compass, Globe2, Leaf, Search, ShieldCheck, ShipWheel } from "lucide-react";
+import { ArrowLeft, ArrowRight, Building2, Compass, Globe2, Leaf, Search, ShieldCheck, ShipWheel, Volume2, VolumeX } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Destination } from "@/data/portal";
 import { destinations } from "@/data/portal";
@@ -12,7 +12,7 @@ export function SectionHeader({ label, title, copy, light = false, actions }: { 
  return <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"><div className="max-w-3xl"><p className={`eyebrow mb-4 ${light ? "text-gold" : "text-forest"}`}>{t(label)}</p><h2 className={`font-display text-3xl font-extrabold leading-tight md:text-5xl ${light ? "text-primary-foreground" : "text-foreground"}`}>{t(title)}</h2>{copy && <p className={`mt-5 max-w-2xl leading-7 ${light ? "text-primary-foreground/65" : "text-muted-foreground"}`}>{t(copy)}</p>}</div>{actions}</div>
 }
 
-function sendYouTubeCommand(frame: HTMLIFrameElement | null, command: "mute" | "playVideo" | "pauseVideo") {
+function sendYouTubeCommand(frame: HTMLIFrameElement | null, command: "mute" | "unMute" | "playVideo" | "pauseVideo") {
  if (!frame?.contentWindow) return;
  frame.contentWindow.postMessage(JSON.stringify({ event: "command", func: command, args: [] }), "https://www.youtube-nocookie.com");
 }
@@ -32,6 +32,9 @@ function getYouTubeEmbedUrl(videoId: string) {
 export function YouTubeScrollPlayer({ videoId, title }: { videoId: string; title: string }) {
  const frameRef = useRef<HTMLIFrameElement>(null);
  const inViewRef = useRef(false);
+ const soundEnabledRef = useRef(false);
+ const [soundEnabled, setSoundEnabled] = useState(false);
+ const { t } = useSitePreferences();
 
  useEffect(() => {
   const frame = frameRef.current;
@@ -43,7 +46,7 @@ export function YouTubeScrollPlayer({ videoId, title }: { videoId: string; title
    if (inView === inViewRef.current) return;
    inViewRef.current = inView;
    if (inView) {
-    sendYouTubeCommand(frame, "mute");
+    sendYouTubeCommand(frame, soundEnabledRef.current ? "unMute" : "mute");
     sendYouTubeCommand(frame, "playVideo");
    } else {
     sendYouTubeCommand(frame, "pauseVideo");
@@ -54,7 +57,21 @@ export function YouTubeScrollPlayer({ videoId, title }: { videoId: string; title
   return () => observer.disconnect();
  }, []);
 
- return <iframe ref={frameRef} className="absolute inset-0 size-full" src={getYouTubeEmbedUrl(videoId)} title={title} loading="lazy" allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen onLoad={() => { if (inViewRef.current) { sendYouTubeCommand(frameRef.current, "mute"); sendYouTubeCommand(frameRef.current, "playVideo"); } }} />;
+ const toggleSound = () => {
+  const nextSoundEnabled = !soundEnabledRef.current;
+  soundEnabledRef.current = nextSoundEnabled;
+  setSoundEnabled(nextSoundEnabled);
+  sendYouTubeCommand(frameRef.current, nextSoundEnabled ? "unMute" : "mute");
+  if (nextSoundEnabled) sendYouTubeCommand(frameRef.current, "playVideo");
+ };
+
+ return <>
+  <iframe ref={frameRef} className="absolute inset-0 size-full" src={getYouTubeEmbedUrl(videoId)} title={title} loading="lazy" allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen onLoad={() => { if (inViewRef.current) { sendYouTubeCommand(frameRef.current, soundEnabledRef.current ? "unMute" : "mute"); sendYouTubeCommand(frameRef.current, "playVideo"); } }} />
+  <button type="button" onClick={toggleSound} aria-label={t(soundEnabled ? "Turn sound off" : "Turn sound on")} aria-pressed={soundEnabled} className="absolute bottom-4 left-4 z-10 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/25 bg-black/75 px-4 text-sm font-bold text-white shadow-lg backdrop-blur transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+   {soundEnabled ? <Volume2 size={18} aria-hidden="true" /> : <VolumeX size={18} aria-hidden="true" />}
+   {t(soundEnabled ? "Turn sound off" : "Turn sound on")}
+  </button>
+ </>;
 }
 
 export function DestinationCard({ destination, compact = false }: { destination: Destination; compact?: boolean }) {
