@@ -455,7 +455,7 @@ export function SitePreferencesProvider({ children }: { children: ReactNode }) {
       if (language === "en") return english;
       const translation = translations[english];
       if (translation) return translation;
-      if (import.meta["env"].DEV && !reportedMissingTranslations.has(english)) {
+      if (import.meta.env?.DEV && !reportedMissingTranslations.has(english)) {
         reportedMissingTranslations.add(english);
         console.warn(`[i18n] Indonesian translation missing: ${english}`);
       }
