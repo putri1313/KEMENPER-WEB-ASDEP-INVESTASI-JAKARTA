@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useSitePreferences } from "@/lib/site-preferences";
 import { publications } from "@/data/portal";
 import { InvestmentFlipbook } from "@/components/investment-flipbook";
+import { getLocalizedContent } from "@/lib/localized-content";
 
 export const Route = createFileRoute("/newsletter")({
   head: () => ({
@@ -27,13 +28,13 @@ const categories = [
 ];
 
 function NewsletterPage() {
-  const { t } = useSitePreferences();
+  const { language, t } = useSitePreferences();
   const [category, setCategory] = useState("All publications");
   const filteredPublications = useMemo(
     () =>
       category === "All publications"
         ? publications
-        : publications.filter((item) => item.category === category),
+        : publications.filter((item) => item.category.en === category),
     [category],
   );
 
@@ -49,13 +50,12 @@ function NewsletterPage() {
                 {t("Recent Publications")}
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground">
-                Curated updates on investment performance, tourism-sector data, and destination
-                developmentâ€”paired with concise PDF briefs and links to the original sources.
+                {t("Curated updates on investment performance, tourism-sector data, and destination development—paired with concise PDF briefs and links to the original sources.")}
               </p>
             </div>
             <div className="flex items-center gap-3 rounded-sm border border-border bg-card px-4 py-3 text-sm font-bold shadow-soft">
               <Newspaper size={19} className="text-forest" />
-              {t("Research desk")} <span className="text-muted-foreground">Â·</span> 2026
+              {t("Research desk")} <span className="text-muted-foreground">·</span> 2026
             </div>
           </div>
           <div className="mt-10 h-1.5 w-full rounded-full bg-gradient-to-r from-forest via-primary to-gold" />
@@ -75,7 +75,7 @@ function NewsletterPage() {
             </div>
             <div
               className="flex gap-2 overflow-x-auto pb-1"
-              aria-label="Filter publications by topic"
+              aria-label={t("Filter publications by topic")}
             >
               {categories.map((item) => (
                 <button
@@ -94,29 +94,29 @@ function NewsletterPage() {
           <div className="divide-y divide-border">
             {filteredPublications.map((publication, index) => (
               <article
-                key={publication.title}
+                key={publication.title.en}
                 className="grid gap-6 py-8 first:pt-2 md:grid-cols-[190px_1fr_auto] md:items-center md:gap-8"
               >
                 <div className="relative aspect-[16/10] overflow-hidden rounded-sm bg-navy md:aspect-square">
                   <img src={publication.image} alt="" className="size-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent" />
                   <span className="absolute bottom-3 left-3 font-mono text-xs font-bold text-primary-foreground">
-                    ISSUE 0{index + 1}
+                    {t("Issue")} 0{index + 1}
                   </span>
                 </div>
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <span className="eyebrow text-forest">{publication.category}</span>
+                    <span className="eyebrow text-forest">{getLocalizedContent(publication.category, language)}</span>
                     <span className="size-1 rounded-full bg-gold" />
                     <span className="text-xs font-semibold text-muted-foreground">
-                      {publication.date}
+                      {getLocalizedContent(publication.date, language)}
                     </span>
                   </div>
                   <h3 className="mt-3 font-display text-xl font-extrabold leading-snug text-foreground md:text-2xl">
-                    {publication.title}
+                    {getLocalizedContent(publication.title, language)}
                   </h3>
                   <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-                    {publication.excerpt}
+                    {getLocalizedContent(publication.excerpt, language)}
                   </p>
                   <a
                     href={publication.source}
@@ -143,13 +143,12 @@ function NewsletterPage() {
 
           <div className="mt-8 flex flex-col gap-5 rounded-sm bg-navy p-6 text-primary-foreground md:flex-row md:items-center md:justify-between md:p-8">
             <div>
-              <p className="eyebrow text-gold">Continue your research</p>
+              <p className="eyebrow text-gold">{t("Continue your research")}</p>
               <h2 className="mt-2 font-display text-xl font-extrabold">
-                Explore original reports and open data
+                {t("Explore original reports and open data")}
               </h2>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-primary-foreground/65">
-                The briefs above summarize official publications. Follow the source links for
-                complete reports, datasets, and the latest revisions.
+                {t("The briefs above summarize official publications. Follow the source links for complete reports, datasets, and the latest revisions.")}
               </p>
             </div>
             <a
@@ -158,13 +157,11 @@ function NewsletterPage() {
               rel="noreferrer"
               className="inline-flex shrink-0 items-center justify-center gap-2 rounded-sm bg-gold px-5 py-3 text-sm font-extrabold text-navy transition hover:-translate-y-0.5"
             >
-              See more <ArrowUpRight size={16} />
+              {t("See more")} <ArrowUpRight size={16} />
             </a>
           </div>
           <p className="mt-5 text-xs leading-6 text-muted-foreground">
-            Each PDF is a short editorial brief prepared for this portal. Data and policy
-            interpretations should be checked against the linked official source before making
-            investment decisions.
+            {t("Each PDF is a short editorial brief prepared for this portal. Data and policy interpretations should be checked against the linked official source before making investment decisions.")}
           </p>
         </div>
       </section>

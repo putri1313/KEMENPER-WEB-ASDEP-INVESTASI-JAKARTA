@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Download, Maximize2, Minimize2, Pause, Play } from "lucide-react";
 import pageFlipModule from "page-flip";
+import type { PageFlip as PageFlipInstance } from "page-flip";
 import { Button } from "@/components/ui";
 import { useSitePreferences } from "@/lib/site-preferences";
 
@@ -13,7 +14,7 @@ export function InvestmentFlipbook() {
   const { language } = useSitePreferences();
   const rootRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const flipbookRef = useRef<PageFlip | null>(null);
+  const flipbookRef = useRef<PageFlipInstance | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [progress, setProgress] = useState(0);

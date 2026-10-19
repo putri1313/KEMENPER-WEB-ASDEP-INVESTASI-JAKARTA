@@ -9,6 +9,7 @@ import { InvestmentProfileSections } from "@/components/investment-profile-secti
 import { priorityOpportunityProfiles } from "@/data/investment-opportunity-profiles";
 import { ButtonLink } from "@/components/ui";
 import { useSitePreferences } from "@/lib/site-preferences";
+import { getLocalizedContent } from "@/lib/localized-content";
 
 export const Route = createFileRoute("/destinations/$slug")({
   head: ({ params }) => {
@@ -17,12 +18,12 @@ export const Route = createFileRoute("/destinations/$slug")({
       meta: [
         {
           title: destination
-            ? `${destination.name} | Indonesia Tourism Investment`
+            ? `${destination.name.en} | Indonesia Tourism Investment`
             : "Destination | Indonesia Tourism Investment",
         },
         {
           name: "description",
-          content: destination?.description ?? "Explore tourism destinations across Indonesia.",
+          content: destination?.description.en ?? "Explore tourism destinations across Indonesia.",
         },
       ],
     };
@@ -72,13 +73,14 @@ function DestinationDetailPage() {
     );
   }
   const localized = (copy: { en: string; id: string }) => (language === "id" ? copy.id : copy.en);
+  const destinationName = getLocalizedContent(destination.name, language);
 
   return (
     <main className="destination-page">
       <section className="relative isolate flex min-h-[66vh] items-end overflow-hidden bg-navy pt-24 text-primary-foreground">
         <img
           src={destination.image}
-          alt={`${destination.name} landscape`}
+          alt={`${destinationName} landscape`}
           className="absolute inset-0 -z-20 size-full object-cover"
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-navy/95 via-navy/50 to-navy/15" />
@@ -97,11 +99,11 @@ function DestinationDetailPage() {
             {t("destination")}
           </span>
           <h1 className="mt-5 max-w-4xl font-display text-4xl font-extrabold leading-[1.04] md:text-6xl">
-            {destination.name}
+            {destinationName}
           </h1>
           <p className="mt-4 inline-flex items-center gap-2 text-sm text-primary-foreground/75">
             <MapPin size={16} />
-            {destination.region}
+            {getLocalizedContent(destination.region, language)}
           </p>
         </div>
       </section>
@@ -129,19 +131,19 @@ function DestinationDetailPage() {
             <div className="mt-5 flex flex-wrap gap-2">
               {destination.tourismThemes.map((theme) => (
                 <span
-                  key={theme}
+                  key={theme.en}
                   className="border border-border bg-mist px-3 py-2 text-xs font-bold"
                 >
-                  {t(theme)}
+                  {getLocalizedContent(theme, language)}
                 </span>
               ))}
             </div>
             <p className="eyebrow mt-8 text-forest">{t("Key areas")}</p>
             <ul className="mt-4 divide-y divide-border">
               {profile.highlights.map((highlight) => (
-                <li key={highlight} className="flex items-start gap-3 py-3 text-sm font-semibold">
+                <li key={highlight.en} className="flex items-start gap-3 py-3 text-sm font-semibold">
                   <MapPin size={16} className="mt-0.5 shrink-0 text-forest" />
-                  {highlight}
+                  {localized(highlight)}
                 </li>
               ))}
             </ul>
@@ -152,7 +154,7 @@ function DestinationDetailPage() {
       {mapPoints && (
         <DestinationLocationMap
           key={destination.slug}
-          title={destination.name}
+          title={destinationName}
           points={mapPoints}
           regionImage={destination.image}
           regionDescription={localized(profile.overview)}
@@ -187,8 +189,8 @@ function DestinationDetailPage() {
             </h2>
             <div className="mt-7 grid grid-cols-2 gap-px border border-border bg-border">
               {destination.investmentSectors.map((sector) => (
-                <div key={sector} className="bg-background p-4 text-sm font-bold">
-                  {t(sector)}
+                <div key={sector.en} className="bg-background p-4 text-sm font-bold">
+                  {getLocalizedContent(sector, language)}
                 </div>
               ))}
             </div>
@@ -229,7 +231,7 @@ function DestinationDetailPage() {
                 params={{ slug: item.slug }}
                 className="inline-flex min-h-11 items-center gap-2 border border-border px-4 text-sm font-bold transition hover:border-forest hover:text-forest"
               >
-                {item.name}
+                {getLocalizedContent(item.name, language)}
                 <ArrowRight size={14} />
               </Link>
             ))}

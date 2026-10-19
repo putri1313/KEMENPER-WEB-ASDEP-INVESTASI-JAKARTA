@@ -13,6 +13,7 @@ import {
 } from "@/components/portal-components";
 import { ButtonLink } from "@/components/ui";
 import { useSitePreferences } from "@/lib/site-preferences";
+import { getLocalizedContent } from "@/lib/localized-content";
 import {
   publications,
   regenerativeDestinations,
@@ -24,7 +25,7 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Indonesia Tourism Investment â€” Strategic Destinations" },
+      { title: "Indonesia Tourism Investment — Strategic Destinations" },
       {
         name: "description",
         content:
@@ -66,13 +67,13 @@ const whyInvestItems = [
   },
 ] as const;
 function Home() {
-  const { t } = useSitePreferences();
+  const { language, t } = useSitePreferences();
   return (
     <div className="home-page">
       <section className="relative flex min-h-[88vh] overflow-hidden bg-navy text-primary-foreground">
         <img
           src={aerial}
-          alt="Aerial view of Indonesia's islands and coast"
+          alt={t("Aerial view of Indonesia's islands and coast")}
           width={1920}
           height={1080}
           className="slow-zoom absolute inset-0 size-full object-cover"
@@ -80,7 +81,7 @@ function Home() {
         <div className="hero-shade absolute inset-0" />
         <div className="container-portal relative flex flex-col justify-end pb-10 pt-36">
           <div className="reveal max-w-4xl">
-            <p className="eyebrow text-gold">Indonesia Tourism Investment</p>
+          <p className="eyebrow text-gold">{t("Indonesia Tourism Investment")}</p>
             <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl 2xl:text-8xl">
               {t("Invest in Indonesia Tourism Destinations")}
             </h1>
@@ -99,12 +100,12 @@ function Home() {
             </div>
           </div>
           <div className="mt-14 grid grid-cols-2 border-y border-primary-foreground/25 md:grid-cols-4">
-            {[
+            {([
               ["3", "Regenerative Destinations"],
               ["10", "Priority Destinations"],
               ["13", "Strategic Tourism Destinations"],
               ["Indonesia", "Tourism Investment Landscape"],
-            ].map(([n, l]) => (
+            ] as const).map(([n, l]) => (
               <div
                 key={l}
                 className="border-primary-foreground/20 px-4 py-5 md:border-l first:md:border-l-0"
@@ -123,7 +124,7 @@ function Home() {
         <div className="container-portal">
           <article className="mb-14 grid overflow-hidden rounded-xl border border-primary-foreground/15 bg-background/5 shadow-card lg:grid-cols-[1.3fr_.7fr]">
             <div className="relative aspect-video min-h-56 bg-black lg:min-h-[22rem]">
-              <YouTubeScrollPlayer videoId={FEATURED_VIDEO_ID} title="Video pariwisata Indonesia" />
+              <YouTubeScrollPlayer videoId={FEATURED_VIDEO_ID} title={t("Indonesia tourism video")} />
             </div>
             <div className="flex flex-col justify-center p-6 md:p-9 lg:p-10">
               <p className="eyebrow text-gold">{t("Discover Indonesia")}</p>
@@ -150,7 +151,7 @@ function Home() {
           </article>
           <SectionHeader
             light
-            label="Regenerative destinations Â· 01"
+            label="Regenerative destinations · 01"
             title="3 Regenerative Tourism Destinations"
             copy="Explore destinations where tourism development is directed toward strengthening destination quality, sustainability, resilience, and long-term value."
           />
@@ -160,7 +161,7 @@ function Home() {
       <section className="section-space">
         <div className="container-portal">
           <SectionHeader
-            label="Priority destinations Â· 02"
+            label="Priority destinations · 02"
             title="10 Priority Tourism Destinations"
             copy="Explore strategic destinations across Indonesia with diverse tourism development and investment opportunities."
           />
@@ -172,7 +173,7 @@ function Home() {
           <SectionHeader
             label="Destination ecosystem"
             title="Explore Destinations"
-            copy="Search and filter Indonesiaâ€™s regenerative and priority tourism landscape."
+            copy="Search and filter Indonesia’s regenerative and priority tourism landscape."
           />
           <DestinationExplorer />
         </div>
@@ -230,13 +231,13 @@ function Home() {
             title="Explore Tourism Investment Themes"
           />
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {themes.map((t) => (
+            {themes.map((theme) => (
               <article
-                key={t.title}
+                key={theme.title.en}
                 className="group relative aspect-[4/5] overflow-hidden rounded-sm"
               >
                 <img
-                  src={t.image}
+                  src={theme.image}
                   alt=""
                   width={1536}
                   height={1024}
@@ -246,12 +247,12 @@ function Home() {
                 <div className="image-shade absolute inset-0" />
                 <div className="absolute inset-x-0 bottom-0 p-6">
                   <Leaf size={20} className="text-gold" />
-                  <h3 className="mt-4 font-display text-xl font-bold">{t.title}</h3>
+                  <h3 className="mt-4 font-display text-xl font-bold">{getLocalizedContent(theme.title, language)}</h3>
                   <p className="mt-2 text-sm leading-6 text-primary-foreground/65">
-                    {t.description}
+                    {getLocalizedContent(theme.description, language)}
                   </p>
                   <span className="mt-4 inline-flex items-center gap-2 text-xs font-bold">
-                    Explore <ArrowRight size={14} />
+                    {t("Explore")} <ArrowRight size={14} />
                   </span>
                 </div>
               </article>
@@ -267,13 +268,13 @@ function Home() {
             copy="Selected destinations and tourism SEZ profiles from the investment opportunities book. Figures and project details are reproduced from the draft and should be verified before use."
             actions={
               <ButtonLink to="/opportunities" variant="outline">
-                View all opportunities <ArrowRight size={16} />
+                {t("View all opportunities")} <ArrowRight size={16} />
               </ButtonLink>
             }
           />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {sampleOpportunities.map((x) => (
-              <OpportunityCard key={x.name} item={x} />
+              <OpportunityCard key={x.name.en} item={x} />
             ))}
           </div>
         </div>
@@ -287,22 +288,22 @@ function Home() {
           />
           <div className="grid gap-8 lg:grid-cols-2">
             <div>
-              <p className="eyebrow text-forest">Ownership & authority</p>
+              <p className="eyebrow text-forest">{t("Ownership & authority")}</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {["Tourism Authority", "Special Economic Zones", "Private Companies"].map((x) => (
                   <div className="border bg-card p-5 font-bold" key={x}>
                     <Building2 className="mb-5 text-gold" />
-                    {x}
+                {t(x)}
                   </div>
                 ))}
               </div>
             </div>
             <div>
-              <p className="eyebrow text-forest">Thematic sectors</p>
+              <p className="eyebrow text-forest">{t("Thematic sectors")}</p>
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
                 {["Marine", "Wellness", "Gastronomy", "Nature", "Culture"].map((x) => (
                   <div className="border bg-card p-4 text-sm font-bold" key={x}>
-                    {x}
+                    {t(x)}
                   </div>
                 ))}
               </div>
@@ -317,13 +318,13 @@ function Home() {
             title="Latest Publications"
             actions={
               <ButtonLink to="/newsletter" variant="outline">
-                All publications <ArrowRight size={16} />
+                {t("All publications")} <ArrowRight size={16} />
               </ButtonLink>
             }
           />
           <div className="grid gap-6 md:grid-cols-3">
             {publications.map((p) => (
-              <article key={p.title}>
+              <article key={p.title.en}>
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
                     src={p.image}
@@ -335,15 +336,15 @@ function Home() {
                   />
                 </div>
                 <p className="eyebrow mt-5 text-forest">
-                  {p.category} Â· {p.date}
+                  {getLocalizedContent(p.category, language)} · {getLocalizedContent(p.date, language)}
                 </p>
-                <h3 className="mt-3 font-display text-xl font-bold">{p.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">{p.excerpt}</p>
+                <h3 className="mt-3 font-display text-xl font-bold">{getLocalizedContent(p.title, language)}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{getLocalizedContent(p.excerpt, language)}</p>
                 <Link
                   to="/newsletter"
                   className="mt-5 inline-flex items-center gap-2 text-sm font-bold"
                 >
-                  Read More <ArrowRight size={15} />
+                  {t("Read More")} <ArrowRight size={15} />
                 </Link>
               </article>
             ))}
@@ -361,9 +362,9 @@ function Home() {
           <div className="grid gap-5 md:grid-cols-3">
             {[1, 2, 3].map((n) => (
               <blockquote key={n} className="border border-primary-foreground/20 p-7">
-                <p className="text-lg leading-8">â€œInvestor Testimonial Placeholderâ€</p>
+            <p className="text-lg leading-8">“{t("Investor testimonial placeholder") }”</p>
                 <footer className="mt-8 border-t border-primary-foreground/15 pt-5 text-xs text-primary-foreground/55">
-                  This content can later be replaced with a verified testimonial.
+              {t("This content can later be replaced with a verified testimonial.")}
                 </footer>
               </blockquote>
             ))}
@@ -374,13 +375,12 @@ function Home() {
       <section className="section-space">
         <div className="container-portal grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
           <div>
-            <p className="eyebrow text-forest">Start a conversation</p>
+            <p className="eyebrow text-forest">{t("Start a conversation")}</p>
             <h2 className="mt-4 font-display text-4xl font-extrabold">
-              Contact & Investment Inquiries
+              {t("Contact & Investment Inquiries")}
             </h2>
             <p className="mt-5 leading-7 text-muted-foreground">
-              Have questions about tourism investment opportunities or destination development? Get
-              in touch with our team.
+              {t("Have questions about tourism investment opportunities or destination development? Get in touch with our team.")}
             </p>
           </div>
           <InquiryForm />

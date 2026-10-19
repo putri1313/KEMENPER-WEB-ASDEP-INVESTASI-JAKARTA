@@ -56,12 +56,12 @@ export function DestinationLocationMap({
           const marker = leaflet
             .marker([point.latitude, point.longitude], {
               icon: markerIcon,
-              alt: point.name,
-              title: point.name,
+              alt: t(point.name),
+              title: t(point.name),
               keyboard: true,
             })
             .addTo(map);
-          marker.bindPopup(`<strong>${point.name}</strong><br />${point.area}`);
+          marker.bindPopup(`<strong>${t(point.name)}</strong><br />${t(point.area)}`);
           marker.on("click", () => {
             setSelectedId(point.id);
             window.requestAnimationFrame(() =>
@@ -83,7 +83,7 @@ export function DestinationLocationMap({
 
           const markerElement = marker.getElement();
           if (markerElement)
-            markerElement.setAttribute("aria-label", `${index + 1}. ${point.name}, ${point.area}`);
+            markerElement.setAttribute("aria-label", `${index + 1}. ${t(point.name)}, ${t(point.area)}`);
         }
 
         map.fitBounds(bounds, { padding: [36, 36], maxZoom: 10 });
@@ -100,7 +100,7 @@ export function DestinationLocationMap({
       mapRef.current = null;
       markers.clear();
     };
-  }, [points]);
+  }, [language, points, t]);
 
   useEffect(() => {
     for (const [id, marker] of markersRef.current) {
@@ -215,8 +215,8 @@ export function DestinationLocationMap({
                       {index + 1}
                     </span>
                     <span className="min-w-0">
-                      <span className="block text-sm font-bold leading-5">{point.name}</span>
-                      <span className="mt-1 block text-xs text-muted-foreground">{point.area}</span>
+                      <span className="block text-sm font-bold leading-5">{t(point.name)}</span>
+                      <span className="mt-1 block text-xs text-muted-foreground">{t(point.area)}</span>
                     </span>
                     <MapPin size={15} className="ml-auto mt-1 shrink-0 text-forest" />
                   </button>
@@ -241,13 +241,13 @@ export function DestinationLocationMap({
                         {point.image && (
                           <figure className="min-w-0">
                             <img
-                              alt={point.name}
+                            alt={t(point.name)}
                               className="aspect-[4/3] w-full rounded-sm object-cover"
                               loading="lazy"
                               src={point.image}
                             />
                             <figcaption className="mt-1.5 truncate text-[11px] font-bold text-muted-foreground">
-                              {point.name}
+                              {t(point.name)}
                             </figcaption>
                           </figure>
                         )}
@@ -260,7 +260,7 @@ export function DestinationLocationMap({
                       </p>
                       <p className="eyebrow mt-4 text-forest">{point.category[language]}</p>
                       <p className="mt-1.5 text-xs font-extrabold">
-                        {language === "id" ? `Tentang ${point.name}` : `About ${point.name}`}
+                        {language === "id" ? `Tentang ${t(point.name)}` : `About ${t(point.name)}`}
                       </p>
                       <p className="mt-1 text-sm leading-5 text-muted-foreground">
                         {point.description[language]}

@@ -2,277 +2,203 @@ import aerial from "@/assets/indonesia-aerial.jpg";
 import culture from "@/assets/indonesia-culture.jpg";
 import marine from "@/assets/indonesia-marine.jpg";
 import urban from "@/assets/indonesia-urban.jpg";
+import { localizedContent, type LocalizedContent } from "@/lib/localized-content";
 
 export type DestinationType = "regenerative" | "priority";
 export type Destination = {
   id: number;
-  name: string;
+  name: LocalizedContent;
   slug: string;
   type: DestinationType;
-  region: string;
-  description: string;
+  region: LocalizedContent;
+  description: LocalizedContent;
   image: string;
-  tourismThemes: string[];
-  investmentSectors: string[];
-  connectivity: string;
-  opportunities: string[];
+  tourismThemes: LocalizedContent[];
+  investmentSectors: LocalizedContent[];
+  connectivity: LocalizedContent;
+  opportunities: LocalizedContent[];
 };
 
-const regen = [
-  [
-    "Bali",
-    "bali",
-    "Bali, Indonesia",
-    "A globally recognized tourism destination with opportunities for sustainable, high-value, and regenerative tourism development.",
-    aerial,
-    [
-      "Sustainable Tourism",
-      "Wellness",
-      "Culture",
-      "Marine Tourism",
-      "Hospitality",
-      "Creative Economy",
-    ],
-  ],
-  [
-    "Greater Jakarta",
-    "greater-jakarta",
-    "Greater Jakarta",
-    "A major metropolitan tourism ecosystem with strong connectivity, business activity, urban tourism, MICE, and creative economy potential.",
-    urban,
-    ["Urban Tourism", "MICE", "Business Tourism", "Creative Economy", "Gastronomy", "Hospitality"],
-  ],
-  [
-    "Kepulauan Riau",
-    "kepulauan-riau",
-    "Riau Islands, Indonesia",
-    "A strategic archipelagic tourism region with marine, island, coastal, and cross-border tourism opportunities.",
-    marine,
-    [
-      "Marine Tourism",
-      "Island Tourism",
-      "Coastal Tourism",
-      "Resort Development",
-      "Wellness",
-      "Hospitality",
-    ],
-  ],
-] as const;
-
-const priority = [
-  ["Danau Toba", "danau-toba", "North Sumatra", ["Nature", "Culture", "Lake Tourism"], aerial],
-  [
-    "Lombok–Gili Tramena",
-    "lombok-gili-tramena",
-    "West Nusa Tenggara",
-    ["Marine Tourism", "Wellness", "Nature"],
-    marine,
-  ],
-  [
-    "Borobudur–Yogyakarta–Prambanan",
-    "borobudur-yogyakarta-prambanan",
-    "Central Java & Special Region of Yogyakarta",
-    ["Culture", "Heritage", "Creative Economy"],
-    culture,
-  ],
-  [
-    "Labuan Bajo",
-    "labuan-bajo",
-    "East Nusa Tenggara",
-    ["Marine Tourism", "Nature", "Adventure"],
-    aerial,
-  ],
-  [
-    "Manado–Likupang",
-    "manado-likupang",
-    "North Sulawesi",
-    ["Marine Tourism", "Nature", "Gastronomy"],
-    marine,
-  ],
-  [
-    "Bromo–Tengger–Semeru",
-    "bromo-tengger-semeru",
-    "East Java",
-    ["Nature", "Adventure", "Culture"],
-    culture,
-  ],
-  [
-    "Raja Ampat",
-    "raja-ampat",
-    "Southwest Papua",
-    ["Marine Tourism", "Nature", "Adventure"],
-    marine,
-  ],
-  [
-    "Bangka Belitung",
-    "bangka-belitung",
-    "Bangka Belitung Islands",
-    ["Marine Tourism", "Culture", "Nature"],
-    aerial,
-  ],
-  ["Wakatobi", "wakatobi", "Southeast Sulawesi", ["Marine Tourism", "Nature", "Culture"], marine],
-  ["Morotai", "morotai", "North Maluku", ["Marine Tourism", "Heritage", "Adventure"], aerial],
-] as const;
+const c = localizedContent;
+const sharedSectors = [
+  c("Accommodation", "Akomodasi"),
+  c("Tourism attractions", "Atraksi pariwisata"),
+  c("Gastronomy", "Gastronomi"),
+];
 
 export const destinations: Destination[] = [
-  ...regen.map(([name, slug, region, description, image, tourismThemes], index) => ({
-    id: index + 1,
-    name,
-    slug,
-    type: "regenerative" as const,
-    region,
-    description,
-    image,
-    tourismThemes: [...tourismThemes],
-    investmentSectors: [
-      "Accommodation",
-      "Tourism Attractions",
-      "Wellness Tourism",
-      "Gastronomy",
-      "Creative Economy",
+  {
+    id: 1,
+    name: c("Bali", "Bali"),
+    slug: "bali",
+    type: "regenerative",
+    region: c("Bali, Indonesia", "Bali, Indonesia"),
+    description: c(
+      "A globally recognized tourism destination with opportunities for sustainable, high-value, and regenerative tourism development.",
+      "Destinasi pariwisata yang dikenal dunia dengan peluang pengembangan pariwisata berkelanjutan, bernilai tambah, dan regeneratif.",
+    ),
+    image: aerial,
+    tourismThemes: [
+      c("Sustainable tourism", "Pariwisata berkelanjutan"),
+      c("Wellness", "Kebugaran"),
+      c("Culture", "Budaya"),
+      c("Marine tourism", "Pariwisata bahari"),
+      c("Hospitality", "Perhotelan"),
+      c("Creative economy", "Ekonomi kreatif"),
     ],
-    connectivity: "Connectivity information coming soon.",
+    investmentSectors: [...sharedSectors, c("Wellness tourism", "Pariwisata kebugaran"), c("Creative economy", "Ekonomi kreatif")],
+    connectivity: c("Connectivity information coming soon.", "Informasi konektivitas akan segera tersedia."),
     opportunities: [
-      "Sustainable visitor experiences",
-      "Destination amenities",
-      "Community-based tourism",
+      c("Sustainable visitor experiences", "Pengalaman wisata berkelanjutan"),
+      c("Destination amenities", "Amenitas destinasi"),
+      c("Community-based tourism", "Pariwisata berbasis masyarakat"),
     ],
-  })),
-  ...priority.map(([name, slug, region, tourismThemes, image], index) => ({
+  },
+  {
+    id: 2,
+    name: c("Greater Jakarta", "Jakarta Raya"),
+    slug: "greater-jakarta",
+    type: "regenerative",
+    region: c("Greater Jakarta", "Jakarta Raya"),
+    description: c(
+      "A major metropolitan tourism ecosystem with strong connectivity, business activity, urban tourism, MICE, and creative economy potential.",
+      "Ekosistem pariwisata metropolitan dengan konektivitas dan kegiatan bisnis yang kuat serta potensi wisata perkotaan, MICE, dan ekonomi kreatif.",
+    ),
+    image: urban,
+    tourismThemes: [
+      c("Urban tourism", "Wisata perkotaan"),
+      c("MICE", "MICE"),
+      c("Business tourism", "Wisata bisnis"),
+      c("Creative economy", "Ekonomi kreatif"),
+      c("Gastronomy", "Gastronomi"),
+      c("Hospitality", "Perhotelan"),
+    ],
+    investmentSectors: [...sharedSectors, c("MICE", "MICE"), c("Creative economy", "Ekonomi kreatif")],
+    connectivity: c("Connectivity information coming soon.", "Informasi konektivitas akan segera tersedia."),
+    opportunities: [
+      c("Sustainable visitor experiences", "Pengalaman wisata berkelanjutan"),
+      c("Destination amenities", "Amenitas destinasi"),
+      c("Community-based tourism", "Pariwisata berbasis masyarakat"),
+    ],
+  },
+  {
+    id: 3,
+    name: c("Riau Islands", "Kepulauan Riau"),
+    slug: "kepulauan-riau",
+    type: "regenerative",
+    region: c("Riau Islands, Indonesia", "Kepulauan Riau, Indonesia"),
+    description: c(
+      "A strategic archipelagic tourism region with marine, island, coastal, and cross-border tourism opportunities.",
+      "Kawasan pariwisata kepulauan yang strategis dengan peluang wisata bahari, pulau, pesisir, dan lintas batas.",
+    ),
+    image: marine,
+    tourismThemes: [
+      c("Marine tourism", "Pariwisata bahari"),
+      c("Island tourism", "Wisata kepulauan"),
+      c("Coastal tourism", "Wisata pesisir"),
+      c("Resort development", "Pengembangan resor"),
+      c("Wellness", "Kebugaran"),
+      c("Hospitality", "Perhotelan"),
+    ],
+    investmentSectors: [...sharedSectors, c("Marine tourism", "Pariwisata bahari"), c("Wellness tourism", "Pariwisata kebugaran")],
+    connectivity: c("Connectivity information coming soon.", "Informasi konektivitas akan segera tersedia."),
+    opportunities: [
+      c("Sustainable visitor experiences", "Pengalaman wisata berkelanjutan"),
+      c("Destination amenities", "Amenitas destinasi"),
+      c("Community-based tourism", "Pariwisata berbasis masyarakat"),
+    ],
+  },
+  ...[
+    {
+      name: c("Lake Toba", "Danau Toba"), slug: "danau-toba", region: c("North Sumatra", "Sumatera Utara"), image: aerial,
+      themes: [c("Nature", "Alam"), c("Culture", "Budaya"), c("Lake tourism", "Wisata danau")],
+    },
+    {
+      name: c("Lombok–Gili Tramena", "Lombok–Gili Tramena"), slug: "lombok-gili-tramena", region: c("West Nusa Tenggara", "Nusa Tenggara Barat"), image: marine,
+      themes: [c("Marine tourism", "Pariwisata bahari"), c("Wellness", "Kebugaran"), c("Nature", "Alam")],
+    },
+    {
+      name: c("Borobudur–Yogyakarta–Prambanan", "Borobudur–Yogyakarta–Prambanan"), slug: "borobudur-yogyakarta-prambanan", region: c("Central Java & Special Region of Yogyakarta", "Jawa Tengah & Daerah Istimewa Yogyakarta"), image: culture,
+      themes: [c("Culture", "Budaya"), c("Heritage", "Warisan budaya"), c("Creative economy", "Ekonomi kreatif")],
+    },
+    {
+      name: c("Labuan Bajo", "Labuan Bajo"), slug: "labuan-bajo", region: c("East Nusa Tenggara", "Nusa Tenggara Timur"), image: aerial,
+      themes: [c("Marine tourism", "Pariwisata bahari"), c("Nature", "Alam"), c("Adventure", "Petualangan")],
+    },
+    {
+      name: c("Manado–Likupang", "Manado–Likupang"), slug: "manado-likupang", region: c("North Sulawesi", "Sulawesi Utara"), image: marine,
+      themes: [c("Marine tourism", "Pariwisata bahari"), c("Nature", "Alam"), c("Gastronomy", "Gastronomi")],
+    },
+    {
+      name: c("Bromo–Tengger–Semeru", "Bromo–Tengger–Semeru"), slug: "bromo-tengger-semeru", region: c("East Java", "Jawa Timur"), image: culture,
+      themes: [c("Nature", "Alam"), c("Adventure", "Petualangan"), c("Culture", "Budaya")],
+    },
+    {
+      name: c("Raja Ampat", "Raja Ampat"), slug: "raja-ampat", region: c("Southwest Papua", "Papua Barat Daya"), image: marine,
+      themes: [c("Marine tourism", "Pariwisata bahari"), c("Nature", "Alam"), c("Adventure", "Petualangan")],
+    },
+    {
+      name: c("Bangka Belitung", "Bangka Belitung"), slug: "bangka-belitung", region: c("Bangka Belitung Islands", "Kepulauan Bangka Belitung"), image: aerial,
+      themes: [c("Marine tourism", "Pariwisata bahari"), c("Culture", "Budaya"), c("Nature", "Alam")],
+    },
+    {
+      name: c("Wakatobi", "Wakatobi"), slug: "wakatobi", region: c("Southeast Sulawesi", "Sulawesi Tenggara"), image: marine,
+      themes: [c("Marine tourism", "Pariwisata bahari"), c("Nature", "Alam"), c("Culture", "Budaya")],
+    },
+    {
+      name: c("Morotai", "Morotai"), slug: "morotai", region: c("North Maluku", "Maluku Utara"), image: aerial,
+      themes: [c("Marine tourism", "Pariwisata bahari"), c("Heritage", "Warisan budaya"), c("Adventure", "Petualangan")],
+    },
+  ].map((item, index) => ({
     id: index + 4,
-    name,
-    slug,
+    name: item.name,
+    slug: item.slug,
     type: "priority" as const,
-    region,
-    description: `A strategic tourism destination in ${region} with distinctive ${tourismThemes.slice(0, 2).join(" and ").toLowerCase()} potential. Detailed official destination information is coming soon.`,
-    image,
-    tourismThemes: [...tourismThemes],
+    region: item.region,
+    description: c(
+      `A strategic tourism destination in ${item.region.en} with distinctive ${item.themes.slice(0, 2).map((theme) => theme.en.toLowerCase()).join(" and ")} potential. Detailed official destination information is coming soon.`,
+      `Destinasi pariwisata strategis di ${item.region.id} dengan potensi khas pada bidang ${item.themes.slice(0, 2).map((theme) => theme.id.toLowerCase()).join(" dan ")}. Informasi resmi destinasi yang lebih terperinci akan segera tersedia.`,
+    ),
+    image: item.image,
+    tourismThemes: item.themes,
     investmentSectors: [
-      "Accommodation",
-      "Tourism Attractions",
-      ...(tourismThemes.includes("Marine Tourism") ? ["Marine Tourism"] : []),
-      "Gastronomy",
+      c("Accommodation", "Akomodasi"),
+      c("Tourism attractions", "Atraksi pariwisata"),
+      ...(item.themes.some((theme) => theme.en === "Marine tourism") ? [c("Marine tourism", "Pariwisata bahari")] : []),
+      c("Gastronomy", "Gastronomi"),
     ],
-    connectivity: "Connectivity information coming soon.",
-    opportunities: ["Destination amenities", "Sustainable accommodation", "Visitor experiences"],
+    connectivity: c("Connectivity information coming soon.", "Informasi konektivitas akan segera tersedia."),
+    opportunities: [
+      c("Destination amenities", "Amenitas destinasi"),
+      c("Sustainable accommodation", "Akomodasi berkelanjutan"),
+      c("Visitor experiences", "Pengalaman wisata"),
+    ],
   })),
 ];
 
-export const regenerativeDestinations = destinations.filter((d) => d.type === "regenerative");
-export const priorityDestinations = destinations.filter((d) => d.type === "priority");
+export const regenerativeDestinations = destinations.filter((destination) => destination.type === "regenerative");
+export const priorityDestinations = destinations.filter((destination) => destination.type === "priority");
 
 export const themes = [
-  {
-    title: "Marine Tourism",
-    description: "Coastal, island, and water-based destination development.",
-    image: marine,
-  },
-  {
-    title: "Nature & Ecotourism",
-    description: "Low-impact experiences shaped by Indonesia’s natural diversity.",
-    image: aerial,
-  },
-  {
-    title: "Wellness Tourism",
-    description: "Restorative experiences rooted in place, nature, and culture.",
-    image: culture,
-  },
-  {
-    title: "Cultural Tourism",
-    description: "Heritage-led experiences supporting living traditions.",
-    image: culture,
-  },
-  {
-    title: "Gastronomy",
-    description: "Culinary destinations and regionally distinctive food experiences.",
-    image: urban,
-  },
-  {
-    title: "MICE",
-    description: "Meetings, incentives, conferences, and exhibitions infrastructure.",
-    image: urban,
-  },
-  {
-    title: "Creative Economy",
-    description: "Design, craft, performance, and locally made tourism products.",
-    image: culture,
-  },
-  {
-    title: "Hospitality",
-    description: "Quality accommodation across urban, island, and nature settings.",
-    image: aerial,
-  },
+  { title: c("Marine tourism", "Pariwisata bahari"), description: c("Coastal, island, and water-based destination development.", "Pengembangan destinasi pesisir, kepulauan, dan wisata perairan."), image: marine },
+  { title: c("Nature & ecotourism", "Alam & ekowisata"), description: c("Low-impact experiences shaped by Indonesia's natural diversity.", "Pengalaman berdampak rendah yang berangkat dari keragaman alam Indonesia."), image: aerial },
+  { title: c("Wellness tourism", "Pariwisata kebugaran"), description: c("Restorative experiences rooted in place, nature, and culture.", "Pengalaman pemulihan yang berakar pada tempat, alam, dan budaya."), image: culture },
+  { title: c("Cultural tourism", "Pariwisata budaya"), description: c("Heritage-led experiences supporting living traditions.", "Pengalaman berbasis warisan yang mendukung tradisi yang terus hidup."), image: culture },
+  { title: c("Gastronomy", "Gastronomi"), description: c("Culinary destinations and regionally distinctive food experiences.", "Destinasi kuliner dan pengalaman makanan khas daerah."), image: urban },
+  { title: c("MICE", "MICE"), description: c("Meeting, incentive, conference, and exhibition infrastructure.", "Infrastruktur untuk pertemuan, insentif, konferensi, dan pameran."), image: urban },
+  { title: c("Creative economy", "Ekonomi kreatif"), description: c("Design, craft, performance, and locally made tourism products.", "Desain, kerajinan, pertunjukan, dan produk wisata buatan lokal."), image: culture },
+  { title: c("Hospitality", "Perhotelan"), description: c("Quality accommodation across urban, island, and nature settings.", "Akomodasi berkualitas di kawasan perkotaan, kepulauan, dan alam."), image: aerial },
 ];
 
 export const sampleOpportunities = [
-  {
-    name: "Toba Caldera Resort",
-    destination: "Lake Toba, North Sumatra",
-    type: "Priority destination",
-    sector: "Hospitality & tourism facilities",
-    investmentType: "USD 1.7 billion · 386.72 ha",
-    status: "May 2025 draft",
-    image: aerial,
-  },
-  {
-    name: "Parapuar Tourism Area",
-    destination: "Labuan Bajo, East Nusa Tenggara",
-    type: "Priority destination",
-    sector: "Eco-tourism & accommodation",
-    investmentType: "USD 78.2 million · 400 ha",
-    status: "May 2025 draft",
-    image: marine,
-  },
-  {
-    name: "Borobudur Highland",
-    destination: "Central Java & Yogyakarta",
-    type: "Priority destination",
-    sector: "Heritage & nature tourism",
-    investmentType: "309 ha · value requires verification",
-    status: "May 2025 draft",
-    image: culture,
-  },
-  {
-    name: "Nongsa Digital Park & Resort",
-    destination: "Nongsa, Riau Islands",
-    type: "Tourism SEZ",
-    sector: "Digital economy & hospitality",
-    investmentType: "IDR 39.9 trillion · 166.45 ha",
-    status: "May 2025 draft",
-    image: urban,
-  },
+  { name: c("Toba Caldera Resort", "Toba Caldera Resort"), destination: c("Lake Toba, North Sumatra", "Danau Toba, Sumatera Utara"), type: c("Priority destination", "Destinasi prioritas"), sector: c("Hospitality & tourism facilities", "Perhotelan & fasilitas pariwisata"), investmentType: c("USD 1.7 billion · 386.72 ha", "USD 1,7 miliar · 386,72 ha"), status: c("May 2025 draft", "Draf Mei 2025"), image: aerial },
+  { name: c("Parapuar Tourism Area", "Kawasan Pariwisata Parapuar"), destination: c("Labuan Bajo, East Nusa Tenggara", "Labuan Bajo, Nusa Tenggara Timur"), type: c("Priority destination", "Destinasi prioritas"), sector: c("Ecotourism & accommodation", "Ekowisata & akomodasi"), investmentType: c("USD 78.2 million · 400 ha", "USD 78,2 juta · 400 ha"), status: c("May 2025 draft", "Draf Mei 2025"), image: marine },
+  { name: c("Borobudur Highland", "Borobudur Highland"), destination: c("Central Java & Yogyakarta", "Jawa Tengah & Yogyakarta"), type: c("Priority destination", "Destinasi prioritas"), sector: c("Heritage & nature tourism", "Wisata warisan budaya & alam"), investmentType: c("309 ha · value requires verification", "309 ha · nilai perlu diverifikasi"), status: c("May 2025 draft", "Draf Mei 2025"), image: culture },
+  { name: c("Nongsa Digital Park & Resort", "Nongsa Digital Park & Resort"), destination: c("Nongsa, Riau Islands", "Nongsa, Kepulauan Riau"), type: c("Tourism SEZ", "KEK pariwisata"), sector: c("Digital economy & hospitality", "Ekonomi digital & perhotelan"), investmentType: c("IDR 39.9 trillion · 166.45 ha", "IDR 39,9 triliun · 166,45 ha"), status: c("May 2025 draft", "Draf Mei 2025"), image: urban },
 ];
 
 export const publications = [
-  {
-    category: "National investment",
-    date: "January 2026",
-    title: "Indonesia’s Investment Performance — 2025 Annual Review",
-    excerpt:
-      "National investment realization reached Rp1,931.2 trillion in 2025, exceeding the annual target. These figures cover all sectors, not tourism alone.",
-    image: urban,
-    pdf: "/newsletters/2025-investment-review.pdf",
-    source:
-      "https://www.bkpm.go.id/id/info/siaran-pers/realisasi-investasi-2025-lampaui-target-hilirisasi-melompat-43-3-persen",
-  },
-  {
-    category: "Tourism investment data",
-    date: "Updated July 2026",
-    title: "Tourism Sector Investment Data — 2025",
-    excerpt:
-      "Explore the official open dataset with quarterly and regional views of tourism investment reported through LKPM.",
-    image: marine,
-    pdf: "/newsletters/tourism-investment-data-guide.pdf",
-    source: "https://data.bkpm.go.id/dataset-detail/nilai-investasi-sektor-pariwisata-tahun-2025",
-  },
-  {
-    category: "Destination spotlight",
-    date: "Official project information",
-    title: "Nusantara: Investment & Tourism Development Pathways",
-    excerpt:
-      "A guide to the official investment portal and the cross-sector infrastructure shaping Nusantara’s development.",
-    image: aerial,
-    pdf: "/newsletters/nusantara-investment-pathways.pdf",
-    source: "https://ikn.go.id/id/investasi",
-  },
+  { category: c("National investment", "Investasi nasional"), date: c("January 2026", "Januari 2026"), title: c("Indonesia's Investment Performance — 2025 Annual Review", "Kinerja Investasi Indonesia — Tinjauan Tahunan 2025"), excerpt: c("National investment realization reached Rp1,931.2 trillion in 2025, exceeding the annual target. These figures cover all sectors, not tourism alone.", "Realisasi investasi nasional mencapai Rp1.931,2 triliun pada 2025 dan melampaui target tahunan. Angka ini mencakup seluruh sektor, bukan pariwisata saja."), image: urban, pdf: "/newsletters/2025-investment-review.pdf", source: "https://www.bkpm.go.id/id/info/siaran-pers/realisasi-investasi-2025-lampaui-target-hilirisasi-melompat-43-3-persen" },
+  { category: c("Tourism investment data", "Data investasi pariwisata"), date: c("Updated July 2026", "Diperbarui Juli 2026"), title: c("Tourism Sector Investment Data — 2025", "Data Investasi Sektor Pariwisata — 2025"), excerpt: c("Explore the official open dataset with quarterly and regional views of tourism investment reported through LKPM.", "Jelajahi data terbuka resmi yang menyajikan investasi pariwisata berdasarkan triwulan dan wilayah melalui LKPM."), image: marine, pdf: "/newsletters/tourism-investment-data-guide.pdf", source: "https://data.bkpm.go.id/dataset-detail/nilai-investasi-sektor-pariwisata-tahun-2025" },
+  { category: c("Destination spotlight", "Sorotan destinasi"), date: c("Official project information", "Informasi proyek resmi"), title: c("Nusantara: Investment & Tourism Development Pathways", "Nusantara: Jalur Investasi & Pengembangan Pariwisata"), excerpt: c("A guide to the official investment portal and the cross-sector infrastructure shaping Nusantara's development.", "Panduan menuju portal investasi resmi dan infrastruktur lintas sektor yang mendukung pembangunan Nusantara."), image: aerial, pdf: "/newsletters/nusantara-investment-pathways.pdf", source: "https://ikn.go.id/id/investasi" },
 ];

@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight, Search, Star } from "lucide-react";
 import { useMemo, useState } from "react";
 import { InvestmentProfileSections } from "@/components/investment-profile-sections";
 import { useSitePreferences } from "@/lib/site-preferences";
+import { getLocalizedContent } from "@/lib/localized-content";
 import aerial from "@/assets/indonesia-aerial.jpg";
 import culture from "@/assets/indonesia-culture.jpg";
 import marine from "@/assets/indonesia-marine.jpg";
@@ -32,7 +33,7 @@ export const Route = createFileRoute("/opportunities")({
 const profiles = [...priorityOpportunityProfiles, ...sezOpportunityProfiles];
 const priorityDestinationIndex = [
   {
-    name: "Lake Toba",
+    name: { en: "Lake Toba", id: "Danau Toba" },
     designation: {
       en: "Lakeside and Geopark Tourism Destination",
       id: "Destinasi Wisata Danau dan Geopark",
@@ -41,7 +42,7 @@ const priorityDestinationIndex = [
     image: aerial,
   },
   {
-    name: "Likupang",
+    name: { en: "Likupang", id: "Likupang" },
     designation: {
       en: "Eco Resort and Luxury Destination",
       id: "Destinasi Resor Ekologis dan Mewah",
@@ -50,7 +51,7 @@ const priorityDestinationIndex = [
     image: marine,
   },
   {
-    name: "Borobudur Highland",
+    name: { en: "Borobudur Highland", id: "Dataran Tinggi Borobudur" },
     designation: {
       en: "Culture and Heritage Tourism Destination",
       id: "Destinasi Wisata Budaya dan Warisan",
@@ -59,7 +60,7 @@ const priorityDestinationIndex = [
     image: culture,
   },
   {
-    name: "Mandalika",
+    name: { en: "Mandalika", id: "Mandalika" },
     designation: {
       en: "Youth and Sport Tourism Destination",
       id: "Destinasi Wisata Pemuda dan Olahraga",
@@ -68,7 +69,7 @@ const priorityDestinationIndex = [
     image: aerial,
   },
   {
-    name: "Labuan Bajo",
+    name: { en: "Labuan Bajo", id: "Labuan Bajo" },
     designation: {
       en: "Ecotourism Destination",
       id: "Destinasi Ekowisata",
@@ -592,13 +593,13 @@ function OpportunitiesPage() {
       <section className="relative flex min-h-[66vh] items-center overflow-hidden bg-navy pt-20 text-primary-foreground">
         <img
           src={marine}
-          alt="Coastal tourism landscape in Indonesia"
+          alt={t("Coastal tourism landscape in Indonesia")}
           className="absolute inset-0 size-full object-cover opacity-45"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/65 to-navy/35" />
         <div className="container-portal relative py-20">
           <div className="max-w-3xl">
-            <p className="eyebrow text-gold">Indonesia · Tourism investment</p>
+            <p className="eyebrow text-gold">{t("Indonesia · Tourism investment")}</p>
             <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.02] sm:text-6xl md:text-7xl">
               {t("Tourism Investment Opportunities")}
             </h1>
@@ -684,7 +685,7 @@ function OpportunitiesPage() {
               {priorityDestinationIndex.map((destination) => (
                 <Link
                   className="group flex min-h-28 items-center gap-4 rounded-lg border border-primary/40 bg-background p-2.5 shadow-sm transition hover:border-primary hover:shadow-soft focus-visible:outline-offset-4"
-                  key={destination.name}
+                  key={destination.name.en}
                   to="/destinations/$slug"
                   params={{ slug: destination.slug }}
                 >
@@ -696,7 +697,7 @@ function OpportunitiesPage() {
                   />
                   <span className="min-w-0 py-2">
                     <span className="block font-display text-base font-extrabold leading-tight group-hover:text-forest sm:text-lg">
-                      {destination.name}
+                      {getLocalizedContent(destination.name, language)}
                     </span>
                     <span className="mt-1 block text-sm leading-snug text-muted-foreground">
                       {localized(destination.designation, id)}
