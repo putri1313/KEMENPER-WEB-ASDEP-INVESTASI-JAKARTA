@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Map as LeafletMap, Marker as LeafletMarker } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { MapPin, Minus, Plus } from "lucide-react";
+import { MapPin } from "lucide-react";
 import type { TourismMapPoint } from "@/data/map-point";
 import { useSitePreferences } from "@/lib/site-preferences";
 
@@ -16,79 +16,89 @@ export function DestinationLocationMap({
   regionImage: string;
   regionDescription: string;
 }) {
-  const mapElement = useRef<HTMLDivElement>(null);
+  const locationItemsRef = useRef(new Map<string, HTMLLIElement>());
+  const mapElementRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<LeafletMap | null>(null);
   const markersRef = useRef(new Map<string, LeafletMarker>());
-  const locationItemsRef = useRef(new Map<string, HTMLLIElement>());
   const [selectedId, setSelectedId] = useState<string | null>(points[0]?.id ?? null);
   const [mapReady, setMapReady] = useState(false);
   const [mapError, setMapError] = useState(false);
   const { language, t } = useSitePreferences();
 
   useEffect(() => {
-    let cancelled = false;
-    let map: LeafletMap | undefined;
-    const markers = markersRef.current;
+    setSelectedId((currentId) =>
+      points.some((point) => point.id === currentId) ? currentId : (points[0]?.id ?? null),
+    );
+  }, [points]);
 
+  useEffect(() => {
+    if (!mapElementRef.current || points.length === 0) return;
+    setMapReady(false);
+    setMapError(false);
+    markersRef.current.clear();
+    let cancelled = false;
+    let activeMap: LeafletMap | null = null;
     void import("leaflet")
       .then((leaflet) => {
-        if (cancelled || !mapElement.current) return;
+        if (cancelled || !mapElementRef.current) return;
 
-        map = leaflet.map(mapElement.current, { scrollWheelZoom: false, zoomControl: false });
-        mapRef.current = map;
+        activeMap = leaflet.map(mapElementRef.current, {
+          scrollWheelZoom: false,
+          zoomControl: true,
+        });
+        mapRef.current = activeMap;
         leaflet
           .tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            maxZoom: 18,
+            maxZoom: 19,
             attribution:
               '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           })
-          .addTo(map);
+          .addTo(activeMap);
 
-        const markerIcon = leaflet.divIcon({
-          className: "destination-map-marker",
-          html: '<span class="destination-map-pin__dot"></span>',
-          iconSize: [26, 26],
-          iconAnchor: [13, 13],
-        });
         const bounds = leaflet.latLngBounds([]);
-
         for (const [index, point] of points.entries()) {
+          const coordinates: [number, number] = [point.latitude, point.longitude];
+          const icon = leaflet.divIcon({
+            className: "destination-map-marker",
+            html: `<span class="destination-map-pin__dot">${index + 1}</span>`,
+            iconSize: [34, 42],
+            iconAnchor: [17, 38],
+          });
           const marker = leaflet
-            .marker([point.latitude, point.longitude], {
-              icon: markerIcon,
-              alt: t(point.name),
-              title: t(point.name),
+            .marker(coordinates, {
+              icon,
+              alt: `${index + 1}. ${t(point.name)}, ${t(point.area)}`,
+              title: `${index + 1}. ${t(point.name)} — ${t(point.area)}`,
               keyboard: true,
             })
-            .addTo(map);
-          marker.bindPopup(`<strong>${t(point.name)}</strong><br />${t(point.area)}`);
+            .addTo(activeMap);
+
+          const popup = document.createElement("div");
+          const name = document.createElement("strong");
+          name.textContent = `${index + 1}. ${t(point.name)}`;
+          const area = document.createElement("div");
+          area.textContent = t(point.area);
+          popup.append(name, area);
+          marker.bindPopup(popup);
           marker.on("click", () => {
             setSelectedId(point.id);
+            activeMap?.flyTo(coordinates, Math.max(activeMap.getZoom(), 13), { duration: 0.45 });
             window.requestAnimationFrame(() =>
               locationItemsRef.current.get(point.id)?.scrollIntoView({
                 block: "nearest",
                 behavior: "smooth",
               }),
             );
-            const activeMap = mapRef.current;
-            if (activeMap)
-              activeMap.flyTo(
-                [point.latitude, point.longitude],
-                Math.max(activeMap.getZoom(), 13),
-                { duration: 0.55 },
-              );
           });
-          markers.set(point.id, marker);
-          bounds.extend([point.latitude, point.longitude]);
-
+          markersRef.current.set(point.id, marker);
           const markerElement = marker.getElement();
-          if (markerElement)
-            markerElement.setAttribute("aria-label", `${index + 1}. ${t(point.name)}, ${t(point.area)}`);
+          markerElement?.setAttribute("aria-label", `${index + 1}. ${t(point.name)}, ${t(point.area)}`);
+          bounds.extend(coordinates);
         }
 
-        map.fitBounds(bounds, { padding: [36, 36], maxZoom: 10 });
+        if (points.length === 1) activeMap.setView(bounds.getCenter(), 14);
+        else activeMap.fitBounds(bounds, { padding: [36, 36], maxZoom: 11 });
         setMapReady(true);
-        window.setTimeout(() => map?.invalidateSize(), 0);
       })
       .catch(() => {
         if (!cancelled) setMapError(true);
@@ -96,33 +106,31 @@ export function DestinationLocationMap({
 
     return () => {
       cancelled = true;
-      map?.remove();
+      activeMap?.remove();
       mapRef.current = null;
-      markers.clear();
+      markersRef.current.clear();
     };
-  }, [language, points, t]);
+  }, [points, t]);
 
   useEffect(() => {
     for (const [id, marker] of markersRef.current) {
-      const element = marker.getElement()?.querySelector(".destination-map-pin__dot");
-      element?.classList.toggle("is-selected", id === selectedId);
+      const pin = marker.getElement()?.querySelector(".destination-map-pin__dot");
+      pin?.classList.toggle("is-selected", id === selectedId);
     }
-  }, [selectedId, mapReady]);
+  }, [mapReady, selectedId]);
 
   const selectPoint = (id: string) => {
     const point = points.find((item) => item.id === id);
-    const marker = markersRef.current.get(id);
-    if (!point || !marker || !mapRef.current) return;
+    if (!point) return;
     setSelectedId(id);
+    const marker = markersRef.current.get(id);
+    mapRef.current?.flyTo([point.latitude, point.longitude], Math.max(mapRef.current.getZoom(), 13), {
+      duration: 0.45,
+    });
+    marker?.openPopup();
     window.requestAnimationFrame(() =>
       locationItemsRef.current.get(id)?.scrollIntoView({ block: "nearest", behavior: "smooth" }),
     );
-    mapRef.current.flyTo(
-      [point.latitude, point.longitude],
-      Math.max(mapRef.current.getZoom(), 13),
-      { duration: 0.55 },
-    );
-    marker.openPopup();
   };
   return (
     <section className="section-space bg-mist" aria-labelledby="destination-map-heading">
@@ -139,48 +147,38 @@ export function DestinationLocationMap({
           </h2>
           <p className="mt-4 text-sm leading-6 text-muted-foreground">
             {language === "id"
-              ? "Pilih penanda atau nama tempat untuk memperbesar peta dan membaca detail lokasi wisata."
-              : "Select a marker or place name to zoom in and read details about the location."}
+              ? "Peta OpenStreetMap langsung menampilkan semua lokasi wisata. Pilih penanda atau nama tempat untuk melihat detailnya."
+              : "The OpenStreetMap map shows every tourism location immediately. Select a marker or place name to view its details."}
           </p>
         </div>
 
         <div className="grid overflow-hidden border border-border bg-background lg:grid-cols-[minmax(0,1.65fr)_minmax(17rem,.75fr)]">
           <div className="relative min-h-[23rem] bg-[#dce7e2] sm:min-h-[28rem] lg:min-h-[34rem]">
             <div
-              ref={mapElement}
-              className="destination-map-canvas absolute inset-0"
+              ref={mapElementRef}
               role="application"
-              aria-label={
-                language === "id"
-                  ? `Peta interaktif destinasi ${title}`
-                  : `Interactive map of ${title} destinations`
-              }
+              aria-label={language === "id" ? `Peta wisata ${title}` : `${title} tourism map`}
+              className="destination-map-canvas absolute inset-0 size-full"
             />
             {!mapReady && (
-              <div className="absolute inset-0 z-[500] grid place-items-center bg-mist/80 px-6 text-center text-sm font-bold text-muted-foreground">
-                {t(mapError ? "Map could not be loaded" : "Loading map")}
-              </div>
-            )}
-            {mapReady && (
-              <div className="absolute right-3 top-3 z-[500] grid gap-1">
-                <button
-                  type="button"
-                  title={t("Zoom in")}
-                  aria-label={t("Zoom in")}
-                  onClick={() => mapRef.current?.zoomIn()}
-                  className="grid size-10 place-items-center border border-border bg-background text-foreground shadow-sm hover:bg-muted"
-                >
-                  <Plus size={17} />
-                </button>
-                <button
-                  type="button"
-                  title={t("Zoom out")}
-                  aria-label={t("Zoom out")}
-                  onClick={() => mapRef.current?.zoomOut()}
-                  className="grid size-10 place-items-center border border-border bg-background text-foreground shadow-sm hover:bg-muted"
-                >
-                  <Minus size={17} />
-                </button>
+              <div className="pointer-events-none absolute inset-0 z-[500] grid place-items-center bg-secondary/85 px-6 text-center">
+                <div className="max-w-sm">
+                  <MapPin size={28} className="mx-auto text-forest" />
+                  <p className="mt-4 font-display text-xl font-bold">
+                    {mapError
+                      ? language === "id"
+                        ? "Peta wisata gagal dimuat"
+                        : "Tourism map could not be loaded"
+                      : language === "id"
+                        ? "Memuat peta wisata..."
+                        : "Loading tourism map..."}
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                    {language === "id"
+                      ? "Peta OpenStreetMap menampilkan semua titik wisata tanpa Google Maps API key."
+                      : "OpenStreetMap displays all tourism locations without a Google Maps API key."}
+                  </p>
+                </div>
               </div>
             )}
           </div>
@@ -265,6 +263,14 @@ export function DestinationLocationMap({
                       <p className="mt-1 text-sm leading-5 text-muted-foreground">
                         {point.description[language]}
                       </p>
+                      <a
+                        href={`https://www.openstreetmap.org/?mlat=${point.latitude}&mlon=${point.longitude}#map=14/${point.latitude}/${point.longitude}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 inline-flex text-xs font-bold text-forest underline underline-offset-2"
+                      >
+                        {language === "id" ? "Buka di OpenStreetMap" : "Open in OpenStreetMap"}
+                      </a>
                       {point.imageCredit && (
                         <a
                           className="mt-2 inline-block text-[10px] leading-4 text-muted-foreground underline decoration-border underline-offset-2 hover:text-forest"
@@ -282,8 +288,8 @@ export function DestinationLocationMap({
             </ol>
             <p className="mt-auto border-t border-border p-4 text-[11px] leading-5 text-muted-foreground">
               {language === "id"
-                ? "Peta dasar © OpenStreetMap contributors. Titik menunjukkan lokasi kawasan wisata; cek kembali informasi lokal sebelum berkunjung."
-                : "Base map © OpenStreetMap contributors. Pins indicate tourism locations; verify local information before visiting."}
+                ? "Semua nomor pada peta cocok dengan nomor dan nama wisata dalam daftar. Pilih penanda atau nama untuk melihat detail."
+                : "Every map number matches the numbered place in this list. Select a marker or a place name to view its details."}
             </p>
           </aside>
         </div>

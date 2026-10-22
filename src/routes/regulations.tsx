@@ -103,7 +103,7 @@ function RegulationsPage() {
     <section className="relative flex min-h-[64vh] items-center overflow-hidden bg-navy pt-20 text-primary-foreground">
       <img src={marine} alt={t("Aerial view of an Indonesian island and surrounding turquoise sea")} className="absolute inset-0 size-full object-cover opacity-55" />
       <div className="absolute inset-0 bg-gradient-to-b from-navy/55 via-navy/40 to-navy/80" />
-      <div className="container-portal relative py-24 text-center">
+      <div className="container-portal relative py-16 text-center">
         <p className="eyebrow text-gold">{t("Indonesia · Investor guide")}</p>
         <h1 className="mx-auto mt-5 max-w-4xl font-display text-5xl font-extrabold leading-[1.02] sm:text-6xl md:text-8xl">{t("Laws & Regulations")}</h1>
         <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-primary-foreground/80 md:text-lg">{t("A practical introduction to the rules shaping tourism investment, project licensing, and destination development in Indonesia.")}</p>
@@ -113,7 +113,7 @@ function RegulationsPage() {
     </section>
 
     <section className="section-space bg-mist">
-      <div className="container-portal grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-20">
+      <div className="container-portal grid items-center gap-8 lg:grid-cols-[.9fr_1.1fr] lg:gap-12">
         <div>
           <p className="eyebrow text-forest">{t("Introduction")}</p>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight md:text-5xl">{t("Build with a clear view of the rules.")}</h2>
@@ -136,7 +136,7 @@ function RegulationsPage() {
 
     <section id="frameworks" className="section-space scroll-mt-20 bg-background">
       <div className="container-portal">
-        <div className="grid gap-10 lg:grid-cols-[.75fr_1.25fr] lg:gap-20">
+        <div className="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:gap-12">
           <div>
             <p className="eyebrow text-forest">{t("The framework")}</p>
             <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight md:text-5xl">{t("Key regulations for tourism investment")}</h2>

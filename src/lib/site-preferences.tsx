@@ -5,6 +5,7 @@ export type SiteLanguage = "en" | "id";
 
 const translations: Record<string, string> = {
   "Home": "Beranda",
+  "Invest in Indonesia": "Investasi di Indonesia",
   "Destinations": "Destinasi",
   "Investment Opportunities": "Peluang Investasi",
   "Regulations": "Regulasi",
@@ -35,6 +36,10 @@ const translations: Record<string, string> = {
   "A distinctive place to explore and invest": "Tempat dengan keunikan untuk dijelajahi dan dikembangkan",
   "Tourism themes": "Tema pariwisata",
   "Key areas": "Kawasan utama",
+  "Destination guide": "Panduan destinasi",
+  "Tourism recommendations": "Rekomendasi Pariwisata",
+  "Recommended places to visit in this destination. Select a photo to view it larger.": "Rekomendasi tempat wisata di destinasi ini. Pilih foto untuk melihatnya lebih besar.",
+  "View photo": "Lihat foto",
   "Investment focus": "Fokus investasi",
   "Build on local strengths": "Bertumpu pada kekuatan lokal",
   "Potential sectors": "Sektor potensial",

@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Search, Star } from "lucide-react";
-import { useMemo, useState } from "react";
+import { ArrowRight, ArrowUpRight, Leaf, Search, Star } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { InvestmentProfileSections } from "@/components/investment-profile-sections";
+import { OpportunityCard, SectionHeader } from "@/components/portal-components";
 import { useSitePreferences } from "@/lib/site-preferences";
 import { getLocalizedContent } from "@/lib/localized-content";
 import aerial from "@/assets/indonesia-aerial.jpg";
@@ -15,6 +16,7 @@ import {
   type BilingualCopy,
   type InvestmentOpportunityProfile,
 } from "@/data/investment-opportunity-profiles";
+import { sampleOpportunities, themes } from "@/data/portal";
 
 export const Route = createFileRoute("/opportunities")({
   head: () => ({
@@ -248,7 +250,30 @@ function localized(copy: BilingualCopy, id: boolean) {
 function InvestmentTrend() {
   const { language } = useSitePreferences();
   const id = language === "id";
+  const chartRef = useRef<HTMLDivElement>(null);
+  const [chartVisible, setChartVisible] = useState(false);
   const max = Math.max(...tourismInvestmentSnapshot.annualTrend.map((item) => item.total));
+
+  useEffect(() => {
+    const chart = chartRef.current;
+    if (!chart) return;
+    if (!("IntersectionObserver" in window)) {
+      setChartVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setChartVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 },
+    );
+    observer.observe(chart);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="mt-10 border-y border-border py-6">
@@ -263,26 +288,34 @@ function InvestmentTrend() {
           {id ? "IDR triliun · PMA + PMDN" : "IDR trillion · foreign + domestic"}
         </p>
       </div>
-      <div className="mt-7 overflow-x-auto pb-2">
+      <div ref={chartRef} className="mt-7 overflow-x-auto pb-2">
         <div className="flex min-w-[720px] items-end gap-3 border-b border-border px-2">
-          {tourismInvestmentSnapshot.annualTrend.map((year) => (
-            <div className="flex min-w-10 flex-1 flex-col items-center" key={year.year}>
-              <span className="mb-2 text-[10px] tabular-nums text-muted-foreground">
+          {tourismInvestmentSnapshot.annualTrend.map((year, index) => (
+            <div className="group/year flex min-w-10 flex-1 flex-col items-center" key={year.year}>
+              <span className="mb-2 text-[10px] tabular-nums text-muted-foreground transition-colors group-hover/year:text-forest">
                 {year.total.toFixed(2)}
               </span>
               <div className="flex h-36 w-full items-end justify-center gap-1">
                 <div
-                  className="w-3 bg-gold"
-                  style={{ height: `${Math.max(3, (year.foreign / max) * 100)}%` }}
-                  title={`FDI ${year.foreign} IDR tn`}
+                  className="w-3 origin-bottom rounded-t-sm bg-gold transition-[height,transform,filter] duration-700 ease-out hover:z-10 hover:scale-x-125 hover:brightness-110 motion-reduce:transition-none"
+                  style={{
+                    height: chartVisible ? `${Math.max(3, (year.foreign / max) * 100)}%` : "0%",
+                    transitionDelay: `${Math.min(index * 60, 660)}ms`,
+                  }}
+                  title={`${id ? "Investasi asing" : "Foreign investment"}: ${year.foreign.toFixed(2)} IDR ${id ? "triliun" : "trillion"}`}
+                  aria-label={`${year.year} ${id ? "investasi asing" : "foreign investment"}: ${year.foreign.toFixed(2)}`}
                 />
                 <div
-                  className="w-3 bg-forest"
-                  style={{ height: `${Math.max(3, (year.domestic / max) * 100)}%` }}
-                  title={`DDI ${year.domestic} IDR tn`}
+                  className="w-3 origin-bottom rounded-t-sm bg-forest transition-[height,transform,filter] duration-700 ease-out hover:z-10 hover:scale-x-125 hover:brightness-110 motion-reduce:transition-none"
+                  style={{
+                    height: chartVisible ? `${Math.max(3, (year.domestic / max) * 100)}%` : "0%",
+                    transitionDelay: `${Math.min(index * 60 + 90, 750)}ms`,
+                  }}
+                  title={`${id ? "Investasi domestik" : "Domestic investment"}: ${year.domestic.toFixed(2)} IDR ${id ? "triliun" : "trillion"}`}
+                  aria-label={`${year.year} ${id ? "investasi domestik" : "domestic investment"}: ${year.domestic.toFixed(2)}`}
                 />
               </div>
-              <span className="py-2 text-[10px] font-semibold text-muted-foreground">
+              <span className="py-2 text-[10px] font-semibold text-muted-foreground transition-colors group-hover/year:text-forest">
                 {year.year}
               </span>
             </div>
@@ -310,7 +343,7 @@ function InvestmentSnapshot() {
   return (
     <section className="section-space bg-mist">
       <div className="container-portal">
-        <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+        <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-12">
           <div>
             <p className="eyebrow text-forest">
               {id ? "Data dalam dokumen" : "Book snapshot"} · 2024
@@ -370,7 +403,7 @@ function InvestmentSnapshot() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-3">
+        <div className="mt-10 grid gap-8 lg:grid-cols-3">
           <div>
             <p className="eyebrow text-forest">{id ? "Sektor usaha" : "Business sectors"}</p>
             <h3 className="mt-3 font-display text-xl font-bold">
@@ -447,7 +480,7 @@ function IndonesiaInvestmentCase() {
     <>
       <section className="section-space">
         <div className="container-portal">
-          <div className="grid gap-10 lg:grid-cols-[0.65fr_1.35fr] lg:gap-16">
+          <div className="grid gap-8 lg:grid-cols-[0.65fr_1.35fr] lg:gap-12">
             <div>
               <p className="eyebrow text-forest">{id ? "Alasan berinvestasi" : "Why invest"}</p>
               <h2 className="mt-4 font-display text-3xl font-extrabold leading-tight md:text-4xl">
@@ -590,14 +623,14 @@ function OpportunitiesPage() {
 
   return (
     <>
-      <section className="relative flex min-h-[66vh] items-center overflow-hidden bg-navy pt-20 text-primary-foreground">
+      <section className="relative flex min-h-[62vh] items-center overflow-hidden bg-navy pt-20 text-primary-foreground">
         <img
           src={marine}
           alt={t("Coastal tourism landscape in Indonesia")}
           className="absolute inset-0 size-full object-cover opacity-45"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/65 to-navy/35" />
-        <div className="container-portal relative py-20">
+        <div className="container-portal relative py-16">
           <div className="max-w-3xl">
             <p className="eyebrow text-gold">{t("Indonesia · Tourism investment")}</p>
             <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.02] sm:text-6xl md:text-7xl">
@@ -654,6 +687,69 @@ function OpportunitiesPage() {
 
       <InvestmentSnapshot />
       <IndonesiaInvestmentCase />
+
+      <section className="section-space bg-navy text-primary-foreground">
+        <div className="container-portal">
+          <SectionHeader
+            light
+            label="Thematic opportunities"
+            title="Explore Tourism Investment Themes"
+          />
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {themes.map((theme) => (
+              <article
+                key={theme.title.en}
+                className="group relative aspect-[4/5] overflow-hidden rounded-sm"
+              >
+                <img
+                  src={theme.image}
+                  alt=""
+                  width={1536}
+                  height={1024}
+                  loading="lazy"
+                  className="size-full object-cover transition duration-700 group-hover:scale-105"
+                />
+                <div className="image-shade absolute inset-0" />
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <Leaf size={20} className="text-gold" />
+                  <h3 className="mt-4 font-display text-xl font-bold">
+                    {getLocalizedContent(theme.title, language)}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-primary-foreground/65">
+                    {getLocalizedContent(theme.description, language)}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-2 text-xs font-bold">
+                    {t("Explore")} <ArrowRight size={14} />
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-space bg-background">
+        <div className="container-portal">
+          <SectionHeader
+            label="Investment profiles · May 2025 draft"
+            title="Investment Opportunities"
+            copy="Selected destinations and tourism SEZ profiles from the investment opportunities book. Figures and project details are reproduced from the draft and should be verified before use."
+            actions={
+              <a
+                href="#investment-book"
+                className="inline-flex min-h-11 items-center justify-center gap-2 border border-border px-5 text-sm font-bold transition hover:bg-muted"
+              >
+                {t("View all opportunities")} <ArrowRight size={16} />
+              </a>
+            }
+          />
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {sampleOpportunities.map((opportunity) => (
+              <OpportunityCard key={opportunity.name.en} item={opportunity} />
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section id="investment-book" className="section-space scroll-mt-20 bg-background">
         <div className="container-portal">

@@ -1,13 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check, MapPin } from "lucide-react";
+import { useState } from "react";
+import { ArrowLeft, ArrowUpRight, Image as ImageIcon, MapPin } from "lucide-react";
 import { destinations } from "@/data/portal";
 import { destinationProfiles } from "@/data/destination-profiles";
 import { DestinationLocationMap } from "@/components/destination-map";
 import { destinationMapPoints } from "@/data/destination-map-points";
-import { LakeTobaProfile } from "@/components/lake-toba-profile";
-import { InvestmentProfileSections } from "@/components/investment-profile-sections";
-import { priorityOpportunityProfiles } from "@/data/investment-opportunity-profiles";
+import type { TourismMapPoint } from "@/data/map-point";
 import { ButtonLink } from "@/components/ui";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useSitePreferences } from "@/lib/site-preferences";
 import { getLocalizedContent } from "@/lib/localized-content";
 
@@ -34,11 +40,12 @@ export const Route = createFileRoute("/destinations/$slug")({
 function DestinationDetailPage() {
   const { slug } = Route.useParams();
   const { language, t } = useSitePreferences();
+  const [selectedRecommendation, setSelectedRecommendation] = useState<TourismMapPoint | null>(null);
   const destination = destinations.find((item) => item.slug === slug);
 
   if (!destination) {
     return (
-      <section className="container-portal min-h-[70vh] py-36">
+      <section className="container-portal min-h-[55vh] py-20">
         <h1 className="font-display text-3xl font-extrabold">{t("Destination not found")}</h1>
         <Link
           to="/destinations"
@@ -53,12 +60,9 @@ function DestinationDetailPage() {
 
   const profile = destinationProfiles[destination.slug];
   const mapPoints = destinationMapPoints[destination.slug];
-  const investmentProfile = priorityOpportunityProfiles.find(
-    (item) => item.slug === destination.slug,
-  );
   if (!profile) {
     return (
-      <section className="container-portal min-h-[70vh] py-36">
+      <section className="container-portal min-h-[55vh] py-20">
         <h1 className="font-display text-3xl font-extrabold">
           {t("Destination information is being prepared")}
         </h1>
@@ -77,7 +81,7 @@ function DestinationDetailPage() {
 
   return (
     <main className="destination-page">
-      <section className="relative isolate flex min-h-[66vh] items-end overflow-hidden bg-navy pt-24 text-primary-foreground">
+      <section className="relative isolate flex min-h-[62vh] items-end overflow-hidden bg-navy pt-20 text-primary-foreground">
         <img
           src={destination.image}
           alt={`${destinationName} landscape`}
@@ -138,15 +142,6 @@ function DestinationDetailPage() {
                 </span>
               ))}
             </div>
-            <p className="eyebrow mt-8 text-forest">{t("Key areas")}</p>
-            <ul className="mt-4 divide-y divide-border">
-              {profile.highlights.map((highlight) => (
-                <li key={highlight.en} className="flex items-start gap-3 py-3 text-sm font-semibold">
-                  <MapPin size={16} className="mt-0.5 shrink-0 text-forest" />
-                  {localized(highlight)}
-                </li>
-              ))}
-            </ul>
           </aside>
         </div>
       </section>
@@ -161,47 +156,96 @@ function DestinationDetailPage() {
         />
       )}
 
-      {destination.slug === "danau-toba" && <LakeTobaProfile />}
-      {destination.slug !== "danau-toba" && investmentProfile && (
-        <InvestmentProfileSections profile={investmentProfile} />
-      )}
-
-      <section className="section-space bg-mist">
-        <div className="container-portal grid gap-8 lg:grid-cols-2 lg:gap-14">
-          <div>
-            <p className="eyebrow text-forest">{t("Investment focus")}</p>
-            <h2 className="mt-4 font-display text-3xl font-extrabold md:text-4xl">
-              {t("Build on local strengths")}
-            </h2>
-            <ul className="mt-7 divide-y divide-border border-y border-border">
-              {profile.investmentFocus.map((item) => (
-                <li key={item.en} className="flex gap-3 py-4 text-sm font-semibold leading-6">
-                  <Check size={17} className="mt-1 shrink-0 text-forest" />
-                  {localized(item)}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="eyebrow text-forest">{t("Potential sectors")}</p>
-            <h2 className="mt-4 font-display text-3xl font-extrabold md:text-4xl">
-              {t("Tourism investment sectors")}
-            </h2>
-            <div className="mt-7 grid grid-cols-2 gap-px border border-border bg-border">
-              {destination.investmentSectors.map((sector) => (
-                <div key={sector.en} className="bg-background p-4 text-sm font-bold">
-                  {getLocalizedContent(sector, language)}
-                </div>
+      {mapPoints && (
+        <section className="section-space bg-mist">
+          <div className="container-portal">
+            <div className="mb-8 max-w-2xl">
+              <p className="eyebrow text-forest">{t("Destination guide")}</p>
+              <h2 className="mt-3 font-display text-3xl font-extrabold md:text-4xl">
+                {t("Tourism recommendations")}
+              </h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                {t("Recommended places to visit in this destination. Select a photo to view it larger.")}
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+              {mapPoints.map((point) => (
+                <button
+                  key={point.id}
+                  type="button"
+                  onClick={() => setSelectedRecommendation(point)}
+                  className="group overflow-hidden border border-border bg-background text-left transition hover:border-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest"
+                  aria-label={`${t("View photo")}: ${t(point.name)}`}
+                >
+                  <span className="relative block aspect-[4/3] overflow-hidden bg-secondary">
+                    <img
+                      src={point.image ?? destination.image}
+                      alt={`${destinationName} - ${t(point.name)}`}
+                      loading="lazy"
+                      className="size-full object-cover transition duration-500 group-hover:scale-105"
+                    />
+                    <span className="absolute bottom-3 right-3 inline-flex items-center gap-2 bg-navy/85 px-3 py-2 text-xs font-bold text-white">
+                      <ImageIcon size={14} /> {t("View photo")}
+                    </span>
+                  </span>
+                  <span className="block p-5">
+                    <span className="eyebrow text-forest">
+                      {getLocalizedContent(point.category, language)}
+                    </span>
+                    <span className="mt-2 block font-display text-xl font-bold">{t(point.name)}</span>
+                    <span className="mt-1 block text-xs font-semibold text-muted-foreground">
+                      {t(point.area)}
+                    </span>
+                    <span className="mt-3 block text-sm leading-6 text-muted-foreground">
+                      {getLocalizedContent(point.description, language)}
+                    </span>
+                  </span>
+                </button>
               ))}
             </div>
-            <p className="mt-5 text-sm leading-6 text-muted-foreground">
-              {t(
-                "Investment ideas are indicative and should be assessed against local plans, regulations, and verified project information.",
-              )}
-            </p>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      <Dialog
+        open={selectedRecommendation !== null}
+        onOpenChange={(open) => {
+          if (!open) setSelectedRecommendation(null);
+        }}
+      >
+        <DialogContent className="max-w-5xl overflow-hidden border-0 bg-navy p-0 text-primary-foreground">
+          {selectedRecommendation && (
+            <>
+              <img
+                src={selectedRecommendation.image ?? destination.image}
+                alt={`${destinationName} - ${t(selectedRecommendation.name)}`}
+                className="max-h-[72vh] w-full bg-black object-contain"
+              />
+              <DialogHeader className="p-6 pr-14 text-left">
+                <DialogTitle className="font-display text-2xl font-bold text-primary-foreground">
+                  {t(selectedRecommendation.name)}
+                </DialogTitle>
+                <DialogDescription className="text-primary-foreground/75">
+                  {t(selectedRecommendation.area)} | {getLocalizedContent(selectedRecommendation.category, language)}
+                </DialogDescription>
+                <p className="text-sm leading-6 text-primary-foreground/85">
+                  {getLocalizedContent(selectedRecommendation.description, language)}
+                </p>
+                {selectedRecommendation.imageCredit && (
+                  <a
+                    href={selectedRecommendation.imageCredit.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-primary-foreground/70 underline underline-offset-4"
+                  >
+                    {selectedRecommendation.imageCredit.label}
+                  </a>
+                )}
+              </DialogHeader>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       <section className="section-space">
         <div className="container-portal flex flex-col gap-8 border-t border-border pt-10 md:flex-row md:items-center md:justify-between">
@@ -216,25 +260,22 @@ function DestinationDetailPage() {
               )}
             </p>
           </div>
-          <ButtonLink to="/contact" variant="primary">
-            {t("Contact us")} <ArrowUpRight size={16} />
-          </ButtonLink>
-        </div>
-        <div className="container-portal mt-7 flex flex-wrap gap-3">
-          {destinations
-            .filter((item) => item.slug !== destination.slug)
-            .slice(0, 4)
-            .map((item) => (
-              <Link
-                key={item.slug}
-                to="/destinations/$slug"
-                params={{ slug: item.slug }}
-                className="inline-flex min-h-11 items-center gap-2 border border-border px-4 text-sm font-bold transition hover:border-forest hover:text-forest"
+          <div className="flex flex-wrap gap-3">
+            <ButtonLink to="/contact" variant="primary">
+              {t("Contact us")} <ArrowUpRight size={16} />
+            </ButtonLink>
+            {profile.officialTravelGuide && (
+              <a
+                href={profile.officialTravelGuide.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center gap-2 border border-border bg-background px-5 text-sm font-bold transition hover:border-forest hover:text-forest"
               >
-                {getLocalizedContent(item.name, language)}
-                <ArrowRight size={14} />
-              </Link>
-            ))}
+                {localized(profile.officialTravelGuide.label)}
+                <ArrowUpRight size={16} />
+              </a>
+            )}
+          </div>
         </div>
       </section>
     </main>

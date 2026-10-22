@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Mail, MapPin, MessageCircle, Phone, ShieldCheck } from "lucide-react";
+import { InquiryForm } from "@/components/portal-components";
 import { useSitePreferences } from "@/lib/site-preferences";
 import marine from "@/assets/indonesia-marine.jpg";
 
@@ -50,7 +51,7 @@ function ContactPage() {
     <section className="relative flex min-h-[48vh] items-center overflow-hidden bg-navy pt-20 text-primary-foreground">
       <img src={marine} alt={t("The coast and clear ocean around an Indonesian island")} className="absolute inset-0 size-full object-cover opacity-50" />
       <div className="absolute inset-0 bg-gradient-to-r from-navy/85 via-navy/55 to-navy/25" />
-      <div className="container-portal relative py-20">
+      <div className="container-portal relative py-16">
         <p className="eyebrow text-gold">{t("We are here to help")}</p>
         <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.02] sm:text-6xl md:text-8xl">{t("Contact Us")}</h1>
         <p className="mt-6 max-w-2xl text-base leading-7 text-primary-foreground/80 md:text-lg">{t("Connect with the Ministry of Tourism for destination information, tourism investment inquiries, and official support channels.")}</p>
@@ -58,7 +59,7 @@ function ContactPage() {
     </section>
 
     <section className="section-space bg-mist">
-      <div className="container-portal grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
+      <div className="container-portal grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-12">
         <div>
           <p className="eyebrow text-forest">{t("Contact & inquiries")}</p>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight md:text-5xl">{t("Let’s start a conversation.")}</h2>
@@ -82,6 +83,21 @@ function ContactPage() {
           </div>
           <p className="mt-4 text-xs leading-6 text-muted-foreground">{t("Office address")}: Jl. Medan Merdeka Barat No. 17, RT/RW 02/03, Gambir, Jakarta 10110, Indonesia.</p>
         </div>
+      </div>
+    </section>
+
+    <section className="section-space">
+      <div className="container-portal grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-12">
+        <div>
+          <p className="eyebrow text-forest">{t("Start a conversation")}</p>
+          <h2 className="mt-4 font-display text-4xl font-extrabold">
+            {t("Contact & Investment Inquiries")}
+          </h2>
+          <p className="mt-5 leading-7 text-muted-foreground">
+            {t("Have questions about tourism investment opportunities or destination development? Get in touch with our team.")}
+          </p>
+        </div>
+        <InquiryForm />
       </div>
     </section>
 

@@ -134,7 +134,7 @@ export function LakeTobaProfile() {
 
   return (
     <>
-      <section className="bg-navy py-16 text-primary-foreground md:py-20">
+      <section className="bg-navy py-12 text-primary-foreground md:py-16">
         <div className="container-portal">
           <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
             <div>

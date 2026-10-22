@@ -5,7 +5,7 @@ import { Button, ButtonLink } from "./ui";
 import { useSitePreferences } from "@/lib/site-preferences";
 
 const links = [
-  ["Home", "/"], ["Destinations", "/destinations"], ["Investment Opportunities", "/opportunities"],
+  ["Home", "/"], ["Invest in Indonesia", "/invest-in-indonesia"], ["Destinations", "/destinations"], ["Investment Opportunities", "/opportunities"],
   ["Regulations", "/regulations"], ["Newsletter", "/newsletter"], ["Contact Us", "/contact"],
 ] as const;
 
@@ -29,7 +29,7 @@ export function Navbar() {
           <img src="/kemenpar-logo.png" alt={t("Ministry of Tourism emblem")} className="size-11 object-contain" />
           <span className="font-display text-sm font-extrabold leading-tight">{t("Indonesia Tourism")}<br/><span className="font-medium">{t("Investment")}</span></span>
         </Link>
-        <nav className="hidden items-center gap-6 lg:flex" aria-label={t("Primary navigation")}>
+        <nav className="hidden items-center gap-4 lg:flex" aria-label={t("Primary navigation")}>
           {links.map(([label,to]) => <Link key={to} to={to} activeProps={{ className: "opacity-100" }} className="text-xs font-bold opacity-75 transition hover:opacity-100">{t(label)}</Link>)}
         </nav>
         <div className="flex items-center gap-2">
@@ -40,7 +40,7 @@ export function Navbar() {
               {([["id", "🇮🇩", "Indonesia", "Bahasa Indonesia"], ["en", "🇬🇧", "English", "United Kingdom"]] as const).map(([code, flag, label, native]) => <button key={code} type="button" role="menuitemradio" aria-checked={language === code} onClick={() => { setLanguage(code); setLanguageOpen(false); }} className={`flex w-full items-center gap-3 rounded-lg p-3 text-left transition hover:bg-muted ${language === code ? "bg-muted" : ""}`}><span className="text-xl" aria-hidden="true">{flag}</span><span className="grid"><span className="text-sm font-bold">{label}</span><span className="text-xs text-muted-foreground">{native}</span></span>{language === code && <span className="ml-auto text-xs font-bold text-forest">✓</span>}</button>)}
             </div>}
           </div>
-          <div className="hidden lg:block"><ButtonLink to="/opportunities" variant={overHero ? "gold" : "primary"}>{t("Explore Opportunities")} <ArrowRight size={16}/></ButtonLink></div>
+          <div className="hidden xl:block"><ButtonLink to="/opportunities" variant={overHero ? "gold" : "primary"}>{t("Explore Opportunities")} <ArrowRight size={16}/></ButtonLink></div>
           <Button variant="icon" className={`lg:hidden ${overHero ? "border-primary-foreground/40 bg-transparent text-primary-foreground" : ""}`} aria-label={open ? t("Close menu") : t("Open menu")} onClick={() => setOpen(!open)}>{open ? <X/> : <Menu/>}</Button>
         </div>
       </div>
@@ -59,7 +59,7 @@ export function Footer() {
     { label: "TikTok", href: "https://www.tiktok.com/@kemenpariwisata", Icon: TikTokIcon },
   ];
   return <footer className="bg-navy text-primary-foreground">
-    <div className="container-portal grid gap-12 py-16 md:grid-cols-[1.5fr_1fr]">
+    <div className="container-portal grid gap-10 py-12 md:grid-cols-[1.5fr_1fr]">
       <div><div className="flex items-center gap-4"><img src="/kemenpar-logo.png" alt={t("Ministry of Tourism emblem")} className="size-14 object-contain"/><p className="font-display text-lg font-extrabold leading-snug">{t("Ministry of Tourism")}<br/>{t("Republic of Indonesia")}</p></div><div className="mt-5 grid max-w-lg gap-3 text-sm leading-6 text-primary-foreground/75"><p>Jl. Medan Merdeka Barat No. 17, RT/RW 02/03, Gambir, {language === "id" ? "Daerah Khusus Ibukota Jakarta" : "Special Capital Region of Jakarta"} 10110, Indonesia.</p><p>{t("WhatsApp Contact Center")}: <a className="hover:text-primary-foreground" href="https://wa.me/628118956767">0811-895-6767</a></p><p>{t("Email")}: <a className="hover:text-primary-foreground" href="mailto:info@kemenpar.go.id">info@kemenpar.go.id</a></p></div><div className="mt-7 flex flex-wrap gap-3">{socialLinks.map(({ label, href, Icon }) => <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} title={label} className="grid size-10 place-items-center rounded-md border border-gold/60 text-gold transition hover:bg-gold hover:text-navy"><Icon size={18}/></a>)}</div></div>
       <div><p className="eyebrow text-gold">{t("Navigate")}</p><div className="mt-5 grid gap-3">{links.map(([label,to]) => <Link key={to} to={to} className="text-sm text-primary-foreground/70 hover:text-primary-foreground">{t(label)}</Link>)}</div></div>
     </div>

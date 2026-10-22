@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as InvestInIndonesiaRouteImport } from './routes/invest-in-indonesia'
 import { Route as NewsletterRouteImport } from './routes/newsletter'
 import { Route as OpportunitiesRouteImport } from './routes/opportunities'
 import { Route as RegulationsRouteImport } from './routes/regulations'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvestInIndonesiaRoute = InvestInIndonesiaRouteImport.update({
+  id: '/invest-in-indonesia',
+  path: '/invest-in-indonesia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NewsletterRoute = NewsletterRouteImport.update({
@@ -56,6 +62,7 @@ const DestinationsSlugRoute = DestinationsSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/invest-in-indonesia': typeof InvestInIndonesiaRoute
   '/newsletter': typeof NewsletterRoute
   '/opportunities': typeof OpportunitiesRoute
   '/regulations': typeof RegulationsRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/invest-in-indonesia': typeof InvestInIndonesiaRoute
   '/newsletter': typeof NewsletterRoute
   '/opportunities': typeof OpportunitiesRoute
   '/regulations': typeof RegulationsRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/invest-in-indonesia': typeof InvestInIndonesiaRoute
   '/newsletter': typeof NewsletterRoute
   '/opportunities': typeof OpportunitiesRoute
   '/regulations': typeof RegulationsRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/contact'
+    | '/invest-in-indonesia'
     | '/newsletter'
     | '/opportunities'
     | '/regulations'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/contact'
+    | '/invest-in-indonesia'
     | '/newsletter'
     | '/opportunities'
     | '/regulations'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/contact'
+    | '/invest-in-indonesia'
     | '/newsletter'
     | '/opportunities'
     | '/regulations'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContactRoute: typeof ContactRoute
+  InvestInIndonesiaRoute: typeof InvestInIndonesiaRoute
   NewsletterRoute: typeof NewsletterRoute
   OpportunitiesRoute: typeof OpportunitiesRoute
   RegulationsRoute: typeof RegulationsRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invest-in-indonesia': {
+      id: '/invest-in-indonesia'
+      path: '/invest-in-indonesia'
+      fullPath: '/invest-in-indonesia'
+      preLoaderRoute: typeof InvestInIndonesiaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/newsletter': {
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactRoute: ContactRoute,
+  InvestInIndonesiaRoute: InvestInIndonesiaRoute,
   NewsletterRoute: NewsletterRoute,
   OpportunitiesRoute: OpportunitiesRoute,
   RegulationsRoute: RegulationsRoute,

@@ -165,7 +165,7 @@ export function InvestmentProfileSections({ profile }: { profile: InvestmentOppo
       </section>
 
       <section className="section-space">
-        <div className="container-portal grid gap-8 lg:grid-cols-[0.65fr_1.35fr] lg:gap-16">
+        <div className="container-portal grid gap-8 lg:grid-cols-[0.65fr_1.35fr] lg:gap-12">
           <div>
             <p className="eyebrow text-forest">{id ? "Masterplan" : "Masterplan"}</p>
             <h3 className="mt-3 font-display text-2xl font-extrabold md:text-3xl">
