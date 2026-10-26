@@ -98,7 +98,7 @@ export function DestinationCarousel({ items, label }: { items: Destination[]; la
  useEffect(() => { if (!api || paused) return; const timer = window.setInterval(() => api.scrollNext(), 5500); return () => window.clearInterval(timer); }, [api,paused]);
  return <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onPointerDown={() => setPaused(true)} onPointerUp={() => setPaused(false)} onKeyDown={(e) => { if(e.key === "ArrowLeft") api?.scrollPrev(); if(e.key === "ArrowRight") api?.scrollNext(); }} tabIndex={0} role="region" aria-label={`${t(label)} ${t("carousel")}`}>
    <div className="mb-6 flex items-center justify-end gap-3"><span className="mr-2 font-mono text-xs text-muted-foreground">{String(selected+1).padStart(2,"0")} / {String(items.length).padStart(2,"0")}</span><Button variant="icon" onClick={() => api?.scrollPrev()} aria-label={`${t("Previous")} ${t(label)}`}><ArrowLeft size={18}/></Button><Button variant="icon" onClick={() => api?.scrollNext()} aria-label={`${t("Next")} ${t(label)}`}><ArrowRight size={18}/></Button></div>
-   <div className="overflow-hidden" ref={ref}><div className="flex touch-pan-y gap-5">{items.map((item) => <div key={item.slug} className="min-w-0 flex-[0_0_87%] sm:flex-[0_0_58%] lg:flex-[0_0_36%] xl:flex-[0_0_32%]"><DestinationCard destination={item}/></div>)}</div></div>
+   <div className="overflow-hidden" ref={ref}><div className="flex touch-pan-y">{items.map((item) => <div key={item.slug} className="mr-5 min-w-0 flex-[0_0_87%] sm:flex-[0_0_58%] lg:flex-[0_0_36%] xl:flex-[0_0_32%]"><DestinationCard destination={item}/></div>)}</div></div>
  </div>
 }
 

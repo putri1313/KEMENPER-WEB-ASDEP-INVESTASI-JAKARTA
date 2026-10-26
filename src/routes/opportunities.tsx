@@ -1,14 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Leaf, Search, Star } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import { ArrowLeft, ArrowRight, Leaf, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { InvestmentProfileSections } from "@/components/investment-profile-sections";
-import { OpportunityCard, SectionHeader } from "@/components/portal-components";
+import { SectionHeader } from "@/components/portal-components";
 import { useSitePreferences } from "@/lib/site-preferences";
 import { getLocalizedContent } from "@/lib/localized-content";
 import aerial from "@/assets/indonesia-aerial.jpg";
 import culture from "@/assets/indonesia-culture.jpg";
 import marine from "@/assets/indonesia-marine.jpg";
-import urban from "@/assets/indonesia-urban.jpg";
 import {
   priorityOpportunityProfiles,
   sezOpportunityProfiles,
@@ -16,7 +15,10 @@ import {
   type BilingualCopy,
   type InvestmentOpportunityProfile,
 } from "@/data/investment-opportunity-profiles";
-import { sampleOpportunities, themes } from "@/data/portal";
+import { themes } from "@/data/portal";
+import { investmentReasons } from "@/data/investor-overview";
+import { investmentThemeDetails } from "@/data/investment-theme-details";
+import { TourismImpactTimeline } from "@/components/tourism-impact-timeline";
 
 export const Route = createFileRoute("/opportunities")({
   head: () => ({
@@ -33,156 +35,46 @@ export const Route = createFileRoute("/opportunities")({
 });
 
 const profiles = [...priorityOpportunityProfiles, ...sezOpportunityProfiles];
-const priorityDestinationIndex = [
-  {
-    name: { en: "Lake Toba", id: "Danau Toba" },
-    designation: {
-      en: "Lakeside and Geopark Tourism Destination",
-      id: "Destinasi Wisata Danau dan Geopark",
-    },
-    slug: "danau-toba",
-    image: aerial,
-  },
-  {
-    name: { en: "Likupang", id: "Likupang" },
-    designation: {
-      en: "Eco Resort and Luxury Destination",
-      id: "Destinasi Resor Ekologis dan Mewah",
-    },
-    slug: "manado-likupang",
-    image: marine,
-  },
-  {
-    name: { en: "Borobudur Highland", id: "Dataran Tinggi Borobudur" },
-    designation: {
-      en: "Culture and Heritage Tourism Destination",
-      id: "Destinasi Wisata Budaya dan Warisan",
-    },
-    slug: "borobudur-yogyakarta-prambanan",
-    image: culture,
-  },
-  {
-    name: { en: "Mandalika", id: "Mandalika" },
-    designation: {
-      en: "Youth and Sport Tourism Destination",
-      id: "Destinasi Wisata Pemuda dan Olahraga",
-    },
-    slug: "lombok-gili-tramena",
-    image: aerial,
-  },
-  {
-    name: { en: "Labuan Bajo", id: "Labuan Bajo" },
-    designation: {
-      en: "Ecotourism Destination",
-      id: "Destinasi Ekowisata",
-    },
-    slug: "labuan-bajo",
-    image: marine,
-  },
-];
 const tourismSezIndex = [
   {
-    name: "Nongsa SEZ",
-    region: { en: "Riau Islands", id: "Kepulauan Riau" },
-    href: "/opportunities#nongsa-sez",
+    profileSlug: "nongsa-sez",
     image: marine,
   },
   {
-    name: "Tanjung Kelayang SEZ",
-    region: { en: "Bangka Belitung", id: "Bangka Belitung" },
-    href: "/opportunities#tanjung-kelayang-sez",
+    profileSlug: "tanjung-kelayang-sez",
     image: marine,
   },
   {
-    name: "Tanjung Lesung SEZ",
-    region: { en: "Banten", id: "Banten" },
-    href: "/opportunities#tanjung-lesung-sez",
+    profileSlug: "tanjung-lesung-sez",
     image: aerial,
   },
   {
-    name: "Lido SEZ",
-    region: { en: "West Java", id: "Jawa Barat" },
-    href: "/opportunities#lido-sez",
+    profileSlug: "lido-sez",
     image: aerial,
   },
   {
-    name: "Singhasari SEZ",
-    region: { en: "East Java", id: "Jawa Timur" },
-    href: "/opportunities#singhasari-sez",
+    profileSlug: "singhasari-sez",
     image: culture,
   },
   {
-    name: "Sanur SEZ",
-    region: { en: "Bali", id: "Bali" },
-    href: "/opportunities#sanur-sez",
+    profileSlug: "sanur-sez",
     image: marine,
   },
   {
-    name: "Kura-Kura SEZ",
-    region: { en: "Bali", id: "Bali" },
-    href: "/opportunities#kura-kura-sez",
+    profileSlug: "kura-kura-sez",
     image: aerial,
   },
   {
-    name: "Mandalika SEZ",
-    region: { en: "West Nusa Tenggara", id: "Nusa Tenggara Barat" },
-    href: "/destinations/lombok-gili-tramena",
+    profileSlug: "lombok-gili-tramena",
     image: aerial,
-    featured: true,
   },
   {
-    name: "Likupang SEZ",
-    region: { en: "North Sulawesi", id: "Sulawesi Utara" },
-    href: "/destinations/manado-likupang",
-    image: marine,
-    featured: true,
-  },
-  {
-    name: "Morotai SEZ",
-    region: { en: "North Maluku", id: "Maluku Utara" },
-    href: "/opportunities#morotai-sez",
+    profileSlug: "manado-likupang",
     image: marine,
   },
-];
-
-const investmentReasons = [
   {
-    title: {
-      en: "Business climate and strategic government support",
-      id: "Iklim usaha dan dukungan strategis pemerintah",
-    },
-    detail: {
-      en: "The book cites a 5.1% GDP growth projection for 2025, increasing domestic and international tourism demand, 10 priority destinations, three regenerative destinations, and tourism SEZs.",
-      id: "Dokumen mencantumkan proyeksi pertumbuhan PDB 5,1% pada 2025, peningkatan permintaan wisata domestik dan internasional, 10 destinasi prioritas, tiga destinasi regeneratif, dan KEK pariwisata.",
-    },
-  },
-  {
-    title: { en: "Strategic connectivity", id: "Konektivitas strategis" },
-    detail: {
-      en: "The brief cites 8th place in IATA's Air Transport Connectivity Index and more than 20 million marine-transport passengers, alongside infrastructure development to broaden access beyond the main islands.",
-      id: "Dokumen menyebut peringkat ke-8 pada IATA Air Transport Connectivity Index dan lebih dari 20 juta penumpang transportasi laut, serta pengembangan infrastruktur untuk memperluas akses di luar pulau-pulau utama.",
-    },
-  },
-  {
-    title: { en: "A diverse tourism landscape", id: "Lanskap pariwisata yang beragam" },
-    detail: {
-      en: "The source highlights 10 cultural and natural UNESCO World Heritage Sites, four Best Tourism Villages, and experiences for luxury, adventure, family, and mid-range travellers.",
-      id: "Sumber menyoroti 10 Situs Warisan Dunia UNESCO budaya dan alam, empat Best Tourism Villages, serta pengalaman bagi wisatawan mewah, petualang, keluarga, dan kelas menengah.",
-    },
-  },
-  {
-    title: { en: "Young and productive talent pool", id: "Angkatan kerja muda dan produktif" },
-    detail: {
-      en: "The book uses a 2020 population figure of 272 million, with around two-thirds of working age, and points to tourism polytechnics, certification, and AI, big data, IoT, and VR while preserving local authenticity.",
-      id: "Dokumen menggunakan angka populasi 272 juta pada 2020, dengan sekitar dua pertiganya berusia kerja, serta menyoroti politeknik pariwisata, sertifikasi, dan pemanfaatan AI, big data, IoT, serta VR dengan tetap menjaga keaslian lokal.",
-    },
-  },
-  {
-    title: { en: "Untapped high-growth segments", id: "Segmen pertumbuhan tinggi yang potensial" },
-    detail: {
-      en: "Sports, MICE, wellness and health, luxury hospitality, gastronomy, and marine and adventure tourism are identified as opportunity segments.",
-      id: "Wisata olahraga, MICE, kebugaran dan kesehatan, perhotelan mewah, gastronomi, serta wisata bahari dan petualangan diidentifikasi sebagai segmen peluang.",
-    },
+    profileSlug: "morotai-sez",
+    image: marine,
   },
 ];
 
@@ -341,7 +233,7 @@ function InvestmentSnapshot() {
   const id = language === "id";
 
   return (
-    <section className="section-space bg-mist">
+    <section id="investment-snapshot" className="section-space bg-mist scroll-mt-20">
       <div className="container-portal">
         <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-12">
           <div>
@@ -606,21 +498,40 @@ function IndonesiaInvestmentCase() {
 function OpportunitiesPage() {
   const { language, t } = useSitePreferences();
   const id = language === "id";
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("all");
-  const displayedProfiles = useMemo(
-    () =>
-      profiles.filter((profile) => {
-        const text =
-          `${profile.name.en} ${profile.name.id} ${profile.region.en} ${profile.region.id} ${profile.focus.en}`.toLowerCase();
-        return (
-          text.includes(search.toLowerCase()) &&
-          (category === "all" || profile.category === category)
-        );
-      }),
-    [search, category],
-  );
+  const [selectedSezSlug, setSelectedSezSlug] = useState<string | null>(null);
+  const [selectedThemeKey, setSelectedThemeKey] = useState<keyof typeof investmentThemeDetails | null>(null);
+  const [selectedThemeProfileSlug, setSelectedThemeProfileSlug] = useState<string | null>(null);
+  const selectedDetailsRef = useRef<HTMLDivElement>(null);
+  const themeDialogRef = useRef<HTMLDialogElement>(null);
+  const themeCloseRef = useRef<HTMLButtonElement>(null);
+  const selectedSezProfile = profiles.find((profile) => profile.slug === selectedSezSlug);
+  const selectedTheme = themes.find((theme) => theme.title.en === selectedThemeKey);
+  const selectedThemeDetail = selectedThemeKey ? investmentThemeDetails[selectedThemeKey] : null;
+  const selectedThemeProfile = profiles.find((profile) => profile.slug === selectedThemeProfileSlug);
+  const relatedThemeProfiles = selectedThemeDetail
+    ? selectedThemeDetail.profileSlugs
+        .map((slug) => profiles.find((profile) => profile.slug === slug))
+        .filter((profile): profile is InvestmentOpportunityProfile => Boolean(profile))
+    : [];
 
+  useEffect(() => {
+    const dialog = themeDialogRef.current;
+    if (!dialog) return;
+    if (selectedThemeKey && !dialog.open) {
+      dialog.showModal();
+      requestAnimationFrame(() => themeCloseRef.current?.focus());
+    } else if (!selectedThemeKey && dialog.open) {
+      dialog.close();
+    }
+  }, [selectedThemeKey]);
+
+  useEffect(() => {
+    if (!selectedSezSlug) return;
+    selectedDetailsRef.current?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      block: "start",
+    });
+  }, [selectedSezSlug]);
   return (
     <>
       <section className="relative flex min-h-[62vh] items-center overflow-hidden bg-navy pt-20 text-primary-foreground">
@@ -642,41 +553,8 @@ function OpportunitiesPage() {
                 : "Explore investment realization data, priority projects, and tourism special economic zone opportunities."}
             </p>
           </div>
-          <div className="mt-9 max-w-4xl border border-primary-foreground/15 bg-background/95 p-3 text-foreground shadow-card backdrop-blur md:flex md:items-center md:gap-3 md:p-4">
-            <label className="relative block flex-1">
-              <Search
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
-                size={19}
-              />
-              <span className="sr-only">{t("Search investment project concepts")}</span>
-              <input
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder={
-                  id
-                    ? "Cari destinasi, KEK, wilayah, atau sektor..."
-                    : "Search destination, SEZ, region, or sector..."
-                }
-                className="h-12 w-full border-0 bg-transparent pl-12 pr-4 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
-              />
-            </label>
-            <label className="mt-3 grid gap-1 border-t border-border px-2 pt-3 text-[10px] font-extrabold uppercase tracking-[.12em] text-muted-foreground md:mt-0 md:min-w-56 md:border-l md:border-t-0 md:pl-5 md:pt-0">
-              {id ? "Jenis profil" : "Profile type"}
-              <select
-                value={category}
-                onChange={(event) => setCategory(event.target.value)}
-                className="h-10 rounded-sm border bg-card px-3 text-xs font-bold normal-case tracking-normal text-foreground"
-              >
-                <option value="all">{id ? "Semua profil" : "All profiles"}</option>
-                <option value="Priority destination">
-                  {id ? "Destinasi prioritas" : "Priority destinations"}
-                </option>
-                <option value="Tourism SEZ">{id ? "KEK pariwisata" : "Tourism SEZs"}</option>
-              </select>
-            </label>
-          </div>
           <a
-            href="#investment-book"
+            href="#investment-snapshot"
             className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-primary-foreground/80 transition hover:text-primary-foreground"
           >
             {id ? "Lihat ringkasan investasi" : "View investment snapshot"}
@@ -686,6 +564,7 @@ function OpportunitiesPage() {
       </section>
 
       <InvestmentSnapshot />
+      <TourismImpactTimeline />
       <IndonesiaInvestmentCase />
 
       <section className="section-space bg-navy text-primary-foreground">
@@ -718,9 +597,16 @@ function OpportunitiesPage() {
                   <p className="mt-2 text-sm leading-6 text-primary-foreground/65">
                     {getLocalizedContent(theme.description, language)}
                   </p>
-                  <span className="mt-4 inline-flex items-center gap-2 text-xs font-bold">
+                  <button
+                    className="mt-4 inline-flex items-center gap-2 text-xs font-bold transition-colors hover:text-gold"
+                    onClick={() => {
+                      setSelectedThemeProfileSlug(null);
+                      setSelectedThemeKey(theme.title.en as keyof typeof investmentThemeDetails);
+                    }}
+                    type="button"
+                  >
                     {t("Explore")} <ArrowRight size={14} />
-                  </span>
+                  </button>
                 </div>
               </article>
             ))}
@@ -728,155 +614,138 @@ function OpportunitiesPage() {
         </div>
       </section>
 
-      <section className="section-space bg-background">
-        <div className="container-portal">
-          <SectionHeader
-            label="Investment profiles · May 2025 draft"
-            title="Investment Opportunities"
-            copy="Selected destinations and tourism SEZ profiles from the investment opportunities book. Figures and project details are reproduced from the draft and should be verified before use."
-            actions={
-              <a
-                href="#investment-book"
-                className="inline-flex min-h-11 items-center justify-center gap-2 border border-border px-5 text-sm font-bold transition hover:bg-muted"
+      <dialog
+        aria-labelledby="investment-theme-dialog-title"
+        className="m-auto max-h-[88dvh] w-[min(92vw,46rem)] max-w-none overflow-y-auto border-0 bg-background p-0 text-foreground shadow-2xl backdrop:bg-navy/75"
+        onClick={(event) => {
+          if (event.target === event.currentTarget) setSelectedThemeKey(null);
+        }}
+        onClose={() => {
+          setSelectedThemeKey(null);
+          setSelectedThemeProfileSlug(null);
+        }}
+        ref={themeDialogRef}
+      >
+        {selectedTheme && selectedThemeDetail && (
+          <div className="p-5 sm:p-7 md:p-8">
+            <div className="flex items-start justify-between gap-5">
+              <div>
+                {selectedThemeProfile && (
+                  <button
+                    className="mb-3 inline-flex items-center gap-2 text-xs font-bold text-forest hover:underline"
+                    onClick={() => setSelectedThemeProfileSlug(null)}
+                    type="button"
+                  >
+                    <ArrowLeft size={14} />
+                    {id ? "Kembali ke tema" : "Back to theme"}
+                  </button>
+                )}
+                <p className="eyebrow text-forest">
+                  {selectedThemeProfile
+                    ? id ? "Profil proyek dalam draf" : "Draft project profile"
+                    : id ? "Peluang dalam buku investasi" : "Investment book opportunity"}
+                </p>
+                <h2
+                  className="mt-2 font-display text-2xl font-extrabold leading-tight sm:text-3xl"
+                  id="investment-theme-dialog-title"
+                >
+                  {selectedThemeProfile
+                    ? localized(selectedThemeProfile.name, id)
+                    : getLocalizedContent(selectedTheme.title, language)}
+                </h2>
+              </div>
+              <button
+                aria-label={id ? "Tutup" : "Close"}
+                className="grid size-10 shrink-0 place-items-center border border-border transition hover:bg-muted"
+                onClick={() => setSelectedThemeKey(null)}
+                ref={themeCloseRef}
+                type="button"
               >
-                {t("View all opportunities")} <ArrowRight size={16} />
-              </a>
-            }
-          />
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {sampleOpportunities.map((opportunity) => (
-              <OpportunityCard key={opportunity.name.en} item={opportunity} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="investment-book" className="section-space scroll-mt-20 bg-background">
-        <div className="container-portal">
-          <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="eyebrow text-forest">
-                {id ? "Portofolio dalam dokumen" : "Book project portfolio"}
-              </p>
-              <h2 className="mt-4 font-display text-3xl font-extrabold md:text-4xl">
-                {id
-                  ? "Destinasi dan peluang investasi"
-                  : "Destinations and investment opportunities"}
-              </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
-                {id
-                  ? "Berisi lima destinasi prioritas dan sepuluh KEK pariwisata yang tercantum dalam draf. Mandalika dan Likupang tercakup sebagai destinasi sekaligus KEK."
-                  : "Includes five priority destinations and ten tourism SEZs listed in the draft. Mandalika and Likupang appear as both destinations and SEZs."}
-              </p>
+                <X size={17} />
+              </button>
             </div>
-            <p className="shrink-0 text-sm font-bold text-muted-foreground">
-              {displayedProfiles.length} {id ? "profil" : "profiles"}
+
+            {selectedThemeProfile ? (
+              <>
+                <p className="mt-3 text-xs font-semibold text-muted-foreground">
+                  {localized(selectedThemeProfile.region, id)} · {selectedThemeProfile.area}
+                </p>
+                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                  <div className="border border-border p-4">
+                    <p className="eyebrow text-forest">{id ? "Nilai dalam draf" : "Draft value"}</p>
+                    <p className="mt-2 font-display text-lg font-extrabold">
+                      {selectedThemeProfile.value}
+                    </p>
+                  </div>
+                  <div className="border border-border p-4">
+                    <p className="eyebrow text-forest">{id ? "Fokus" : "Focus"}</p>
+                    <p className="mt-2 text-sm font-bold">
+                      {localized(selectedThemeProfile.focus, id)}
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm leading-6 text-muted-foreground">
+                  {localized(selectedThemeProfile.overview, id)}
+                </p>
+                <div className="mt-5 border-t border-border pt-4">
+                  <p className="eyebrow text-forest">
+                    {id ? "Contoh peluang proyek" : "Project opportunity examples"}
+                  </p>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {selectedThemeProfile.opportunities.slice(0, 4).map((item) => (
+                      <li
+                        className="border border-border bg-mist px-3 py-2 text-xs font-semibold"
+                        key={item.en}
+                      >
+                        {localized(item, id)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
+                  {getLocalizedContent(selectedThemeDetail.insight, language)}
+                </p>
+                <div className="mt-6 border-t border-border pt-5">
+                  <p className="eyebrow text-forest">
+                    {id ? "Profil kawasan terkait" : "Related destination profiles"}
+                  </p>
+                  <div className="mt-3 divide-y divide-border border-y border-border">
+                    {relatedThemeProfiles.map((profile) => (
+                      <button
+                        className="flex w-full items-center justify-between gap-4 py-3 text-left transition-colors hover:text-forest"
+                        key={profile.slug}
+                        onClick={() => setSelectedThemeProfileSlug(profile.slug)}
+                        type="button"
+                      >
+                        <span className="min-w-0">
+                          <span className="block font-display text-sm font-extrabold">
+                            {localized(profile.name, id)}
+                          </span>
+                          <span className="mt-1 block text-xs text-muted-foreground">
+                            {localized(profile.region, id)}
+                          </span>
+                        </span>
+                        <span className="inline-flex shrink-0 items-center gap-2 text-xs font-bold text-forest">
+                          {id ? "Lihat ringkasan" : "View summary"}
+                          <ArrowRight size={14} />
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+            <p className="mt-4 text-[11px] leading-5 text-muted-foreground">
+              {id
+                ? "Sumber: Final Draft Summary of Investment Opportunities Book, Mei 2025. Angka sektoral bukan nilai proyek kawasan."
+                : "Source: Final Draft Summary of Investment Opportunities Book, May 2025. Sector figures are not project-level investment values."}
             </p>
           </div>
-          <div className="mb-10">
-            <h3 className="font-display text-lg font-extrabold">
-              {id ? "Destinasi Pariwisata Prioritas" : "Priority Tourism Destinations"}
-            </h3>
-            <div className="mt-4 grid gap-4 md:grid-cols-2">
-              {priorityDestinationIndex.map((destination) => (
-                <Link
-                  className="group flex min-h-28 items-center gap-4 rounded-lg border border-primary/40 bg-background p-2.5 shadow-sm transition hover:border-primary hover:shadow-soft focus-visible:outline-offset-4"
-                  key={destination.name.en}
-                  to="/destinations/$slug"
-                  params={{ slug: destination.slug }}
-                >
-                  <img
-                    alt=""
-                    className="h-24 w-[42%] shrink-0 rounded-md object-cover sm:h-28"
-                    loading="lazy"
-                    src={destination.image}
-                  />
-                  <span className="min-w-0 py-2">
-                    <span className="block font-display text-base font-extrabold leading-tight group-hover:text-forest sm:text-lg">
-                      {getLocalizedContent(destination.name, language)}
-                    </span>
-                    <span className="mt-1 block text-sm leading-snug text-muted-foreground">
-                      {localized(destination.designation, id)}
-                    </span>
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-          {displayedProfiles.length ? (
-            <div className="grid gap-px border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
-              {displayedProfiles.map((profile) => {
-                const destinationProfile = profile.category === "Priority destination";
-                const body = (
-                  <>
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-forest">
-                      {destinationProfile
-                        ? id
-                          ? "Destinasi prioritas"
-                          : "Priority destination"
-                        : id
-                          ? "KEK pariwisata"
-                          : "Tourism SEZ"}
-                    </span>
-                    <h3 className="mt-3 font-display text-xl font-extrabold">
-                      {localized(profile.name, id)}
-                    </h3>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {localized(profile.region, id)}
-                    </p>
-                    <div className="mt-5 flex items-end justify-between gap-4 border-t border-border pt-4">
-                      <div>
-                        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                          {id ? "Nilai di draf" : "Draft value"}
-                        </p>
-                        <p className="mt-1 text-sm font-bold">{profile.value}</p>
-                      </div>
-                      <span className="text-xs font-bold text-forest">{profile.area}</span>
-                    </div>
-                  </>
-                );
-                return destinationProfile ? (
-                  <Link
-                    className="bg-background p-5 transition hover:bg-mist md:p-6"
-                    key={profile.slug}
-                    to="/destinations/$slug"
-                    params={{ slug: profile.slug }}
-                  >
-                    {body}
-                    <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold text-forest">
-                      {id ? "Buka profil destinasi" : "Open destination profile"}
-                      <ArrowUpRight size={14} />
-                    </span>
-                  </Link>
-                ) : (
-                  <a
-                    className="bg-background p-5 transition hover:bg-mist md:p-6"
-                    key={profile.slug}
-                    href={`#${profile.slug}`}
-                  >
-                    {body}
-                    <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold text-forest">
-                      {id ? "Lihat profil KEK" : "View SEZ profile"}
-                      <ArrowUpRight size={14} />
-                    </span>
-                  </a>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="border border-dashed border-border px-6 py-12 text-center text-sm text-muted-foreground">
-              {id
-                ? "Tidak ada profil yang cocok dengan pencarian."
-                : "No profiles match this search."}
-            </div>
-          )}
-          <p className="mt-5 text-xs leading-5 text-muted-foreground">
-            {id
-              ? "Nilai investasi merupakan angka dalam draf, bukan penawaran aktif atau komitmen pendanaan. Konfirmasikan kepada pengembang/otorita terkait."
-              : "Investment values are figures in the draft, not live offers or funding commitments. Confirm with the relevant developer or authority."}
-          </p>
-        </div>
-      </section>
+        )}
+      </dialog>
 
       <section id="tourism-sez-showcase" className="bg-mist section-space scroll-mt-20">
         <div className="container-portal">
@@ -891,55 +760,88 @@ function OpportunitiesPage() {
                 : "Open a zone to view its description, opportunities, events, and attractions."}
             </p>
           </div>
-          <div className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-5">
-            {tourismSezIndex.map((zone) => (
-              <a
-                className="group block overflow-hidden bg-background transition-shadow hover:shadow-soft focus-visible:outline-offset-4"
-                href={zone.href}
-                key={zone.name}
-                aria-label={`${zone.name} (${localized(zone.region, id)})`}
-              >
-                <div className="aspect-[16/9] overflow-hidden bg-muted">
-                  <img
-                    alt=""
-                    className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                    src={zone.image}
-                  />
-                </div>
-                <div className="flex min-h-10 items-center justify-center gap-2 bg-primary px-2 py-2 text-center text-xs font-extrabold text-primary-foreground">
-                  {zone.featured && (
-                    <Star aria-hidden="true" className="shrink-0 fill-gold text-gold" size={15} />
-                  )}
-                  <span>{zone.name}</span>
-                </div>
-              </a>
-            ))}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+            {tourismSezIndex.map((zone) => {
+              const profile = profiles.find((item) => item.slug === zone.profileSlug);
+              if (!profile) return null;
+              const isSelected = selectedSezSlug === profile.slug;
+              const name = localized(profile.name, id);
+              return (
+                <article
+                  className={`group overflow-hidden border bg-background transition duration-300 hover:-translate-y-1 hover:shadow-soft motion-reduce:transform-none ${isSelected ? "border-forest shadow-soft" : "border-border"}`}
+                  key={profile.slug}
+                >
+                  <button
+                    aria-controls={isSelected ? `sez-${profile.slug}-details` : undefined}
+                    aria-expanded={isSelected}
+                    aria-label={`${id ? "Buka rincian" : "Open details"}: ${name}`}
+                    className="block w-full text-left focus-visible:outline-offset-[-4px]"
+                    onClick={() => setSelectedSezSlug(isSelected ? null : profile.slug)}
+                    type="button"
+                  >
+                    <div className="aspect-[16/9] overflow-hidden bg-muted">
+                      <img
+                        alt=""
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                        src={zone.image}
+                      />
+                    </div>
+                    <div className="p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <h3 className="font-display text-base font-extrabold leading-tight">
+                            {name}
+                          </h3>
+                          <p className="mt-1 text-xs text-muted-foreground">
+                            {localized(profile.region, id)} · {profile.area}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="mt-4 flex items-center justify-between gap-3 border-t border-border pt-3">
+                        <span className="text-xs font-bold tabular-nums">{profile.value}</span>
+                        <span className="inline-flex shrink-0 items-center gap-2 text-xs font-extrabold text-forest">
+                          {isSelected
+                            ? id ? "Tutup rincian" : "Close details"
+                            : id ? "Buka rincian" : "Open details"}
+                          <ArrowRight
+                            className={`transition-transform duration-300 ${isSelected ? "rotate-90" : "group-hover:translate-x-1"}`}
+                            size={15}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </button>
+                </article>
+              );
+            })}
           </div>
-          <div className="divide-y divide-border border-y border-border">
-            {sezOpportunityProfiles.map((profile) => (
-              <details className="group" id={profile.slug} key={profile.slug}>
-                <summary className="grid cursor-pointer list-none gap-2 py-5 marker:hidden sm:grid-cols-[1fr_auto_auto] sm:items-center sm:gap-6">
-                  <span>
-                    <span className="block font-display text-xl font-bold">
-                      {localized(profile.name, id)}
-                    </span>
-                    <span className="mt-1 block text-sm text-muted-foreground">
-                      {localized(profile.region, id)} · {profile.area}
-                    </span>
-                  </span>
-                  <span className="text-sm font-bold tabular-nums">{profile.value}</span>
-                  <span className="inline-flex items-center gap-2 text-xs font-bold text-forest">
-                    {id ? "Buka rincian" : "Open details"}
-                    <ArrowRight className="transition group-open:rotate-90" size={15} />
-                  </span>
-                </summary>
-                <div className="border-t border-border">
-                  <InvestmentProfileSections profile={profile} />
+
+          {selectedSezProfile && (
+            <div
+              className="mt-8 scroll-mt-24 overflow-hidden border border-border bg-background reveal"
+              id={`sez-${selectedSezProfile.slug}-details`}
+              ref={selectedDetailsRef}
+            >
+              <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-4 md:px-8">
+                <div>
+                  <p className="eyebrow text-forest">{id ? "Rincian KEK" : "SEZ details"}</p>
+                  <h3 className="mt-1 font-display text-xl font-extrabold md:text-2xl">
+                    {localized(selectedSezProfile.name, id)}
+                  </h3>
                 </div>
-              </details>
-            ))}
-          </div>
+                <button
+                  aria-label={id ? "Tutup rincian" : "Close details"}
+                  className="grid size-10 shrink-0 place-items-center border border-border transition hover:bg-muted"
+                  onClick={() => setSelectedSezSlug(null)}
+                  type="button"
+                >
+                  <X size={17} />
+                </button>
+              </div>
+              <InvestmentProfileSections profile={selectedSezProfile} />
+            </div>
+          )}
         </div>
       </section>
     </>
