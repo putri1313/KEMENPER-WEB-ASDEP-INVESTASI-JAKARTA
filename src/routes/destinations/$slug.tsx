@@ -24,8 +24,8 @@ export const Route = createFileRoute("/destinations/$slug")({
       meta: [
         {
           title: destination
-            ? `${destination.name.en} | Indonesia Tourism Investment`
-            : "Destination | Indonesia Tourism Investment",
+            ? `${destination.name.en} | Invest in Wonderful Indonesia!`
+            : "Destination | Invest in Wonderful Indonesia!",
         },
         {
           name: "description",

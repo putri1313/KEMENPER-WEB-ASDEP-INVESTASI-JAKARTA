@@ -9,7 +9,7 @@ import { getLocalizedContent } from "@/lib/localized-content";
 export const Route = createFileRoute("/newsletter")({
   head: () => ({
     meta: [
-      { title: "Newsletter & Publications | Indonesia Tourism Investment" },
+      { title: "Newsletter & Publications | Invest in Wonderful Indonesia!" },
       {
         name: "description",
         content:

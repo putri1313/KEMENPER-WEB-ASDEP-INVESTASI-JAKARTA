@@ -6,7 +6,7 @@ import { useSitePreferences } from "@/lib/site-preferences";
 export const Route = createFileRoute("/destinations/")({
   head: () => ({
     meta: [
-      { title: "Destinations | Indonesia Tourism Investment" },
+      { title: "Destinations | Invest in Wonderful Indonesia!" },
       { name: "description", content: "Explore Indonesia's regenerative and priority tourism destinations." },
     ],
   }),

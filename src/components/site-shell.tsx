@@ -25,9 +25,11 @@ export function Navbar() {
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${overHero ? "border-transparent bg-transparent text-primary-foreground" : "border-b border-border bg-background/95 text-foreground shadow-soft backdrop-blur"}`}>
       <div className="container-portal flex h-20 items-center justify-between gap-6">
-        <Link to="/" className="flex items-center gap-3" aria-label={t("Indonesia Tourism Investment home")}>
+        <Link to="/" className="flex items-center gap-3" aria-label={t("Invest in Wonderful Indonesia!")}>
           <img src="/kemenpar-logo.png" alt={t("Ministry of Tourism emblem")} className="size-11 object-contain" />
-          <span className="font-display text-sm font-extrabold leading-tight">{t("Indonesia Tourism")}<br/><span className="font-medium">{t("Investment")}</span></span>
+          <span className="max-w-[128px] font-display text-[11px] font-extrabold leading-tight">
+            {t("Invest in Wonderful Indonesia!")}
+          </span>
         </Link>
         <nav className="hidden items-center gap-4 lg:flex" aria-label={t("Primary navigation")}>
           {links.map(([label,to]) => <Link key={to} to={to} activeProps={{ className: "opacity-100" }} className="text-xs font-bold opacity-75 transition hover:opacity-100">{t(label)}</Link>)}
@@ -63,6 +65,6 @@ export function Footer() {
       <div><div className="flex items-center gap-4"><img src="/kemenpar-logo.png" alt={t("Ministry of Tourism emblem")} className="size-14 object-contain"/><p className="font-display text-lg font-extrabold leading-snug">{t("Ministry of Tourism")}<br/>{t("Republic of Indonesia")}</p></div><div className="mt-5 grid max-w-lg gap-3 text-sm leading-6 text-primary-foreground/75"><p>Jl. Medan Merdeka Barat No. 17, RT/RW 02/03, Gambir, {language === "id" ? "Daerah Khusus Ibukota Jakarta" : "Special Capital Region of Jakarta"} 10110, Indonesia.</p><p>{t("WhatsApp Contact Center")}: <a className="hover:text-primary-foreground" href="https://wa.me/628118956767">0811-895-6767</a></p><p>{t("Email")}: <a className="hover:text-primary-foreground" href="mailto:info@kemenpar.go.id">info@kemenpar.go.id</a></p></div><div className="mt-7 flex flex-wrap gap-3">{socialLinks.map(({ label, href, Icon }) => <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} title={label} className="grid size-10 place-items-center rounded-md border border-gold/60 text-gold transition hover:bg-gold hover:text-navy"><Icon size={18}/></a>)}</div></div>
       <div><p className="eyebrow text-gold">{t("Navigate")}</p><div className="mt-5 grid gap-3">{links.map(([label,to]) => <Link key={to} to={to} className="text-sm text-primary-foreground/70 hover:text-primary-foreground">{t(label)}</Link>)}</div></div>
     </div>
-    <div className="border-t border-primary-foreground/15"><div className="container-portal flex flex-col gap-3 py-6 text-xs text-primary-foreground/55 md:flex-row md:justify-between"><p>© 2026 {t("Indonesia Tourism Investment")}</p><p>{t("Official information should be verified through the relevant government authorities and official publications.")}</p></div></div>
+    <div className="border-t border-primary-foreground/15"><div className="container-portal flex flex-col gap-3 py-6 text-xs text-primary-foreground/55 md:flex-row md:justify-between"><p>© 2026 {t("Invest in Wonderful Indonesia!")}</p><p>{t("Official information should be verified through the relevant government authorities and official publications.")}</p></div></div>
   </footer>;
 }

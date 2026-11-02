@@ -1,4 +1,8 @@
 import type { TourismMapPoint } from "@/data/map-point";
+import batamImage from "@/assets/destinations/riau-recommendations/batam.webp";
+import bintanLagoiImage from "@/assets/destinations/riau-recommendations/bintan-lagoi.webp";
+import pulauPenyengatImage from "@/assets/destinations/riau-recommendations/pulau-penyengat.webp";
+import tanjungPinangImage from "@/assets/destinations/riau-recommendations/tanjung-pinang.webp";
 
 export const riauIslandsMapPoints: readonly TourismMapPoint[] = [
   {
@@ -12,6 +16,7 @@ export const riauIslandsMapPoints: readonly TourismMapPoint[] = [
       en: "An island city with waterfront districts, resorts, and ferry links across the Riau Islands.",
       id: "Kota pulau dengan kawasan tepi laut, resor, dan koneksi feri antarpulau di Kepulauan Riau.",
     },
+    image: batamImage,
   },
   {
     id: "lagoi",
@@ -24,6 +29,7 @@ export const riauIslandsMapPoints: readonly TourismMapPoint[] = [
       en: "A northern Bintan coastal area known for beach resorts and marine recreation.",
       id: "Kawasan pesisir utara Bintan yang dikenal dengan resor pantai dan rekreasi bahari.",
     },
+    image: bintanLagoiImage,
   },
   {
     id: "tanjungpinang",
@@ -36,6 +42,7 @@ export const riauIslandsMapPoints: readonly TourismMapPoint[] = [
       en: "The provincial capital and a visitor base for the historic and cultural sites of Bintan.",
       id: "Ibu kota provinsi dan titik awal untuk mengunjungi situs sejarah serta budaya di Bintan.",
     },
+    image: tanjungPinangImage,
   },
   {
     id: "penyengat",
@@ -48,6 +55,7 @@ export const riauIslandsMapPoints: readonly TourismMapPoint[] = [
       en: "A small island associated with Malay royal history, literature, and religious heritage.",
       id: "Pulau kecil yang berkaitan dengan sejarah kerajaan Melayu, sastra, dan warisan keagamaan.",
     },
+    image: pulauPenyengatImage,
   },
 ];
 

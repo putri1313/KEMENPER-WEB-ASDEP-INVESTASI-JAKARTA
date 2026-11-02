@@ -1,4 +1,10 @@
 import type { TourismMapPoint } from "@/data/map-point";
+import aekRangatImage from "@/assets/destinations/toba-recommendations/aek-rangat.webp";
+import bukitHolbungImage from "@/assets/destinations/toba-recommendations/bukit-holbung.webp";
+import samosirImage from "@/assets/destinations/toba-recommendations/samosir.webp";
+import kutaMandalikaImage from "@/assets/destinations/lombok-recommendations/kuta-mandalika.webp";
+import sadeImage from "@/assets/destinations/lombok-recommendations/sade.webp";
+import tanjungAanImage from "@/assets/destinations/lombok-recommendations/tanjung-aan.webp";
 
 export const lakeTobaMapPoints: readonly TourismMapPoint[] = [
   {
@@ -12,6 +18,7 @@ export const lakeTobaMapPoints: readonly TourismMapPoint[] = [
       en: "An island in Lake Toba known for Batak cultural heritage, traditional villages, and broad lake views.",
       id: "Pulau di Danau Toba yang dikenal dengan warisan budaya Batak, desa tradisional, dan panorama danau.",
     },
+    image: samosirImage,
   },
   {
     id: "bukit-holbung",
@@ -24,6 +31,7 @@ export const lakeTobaMapPoints: readonly TourismMapPoint[] = [
       en: "A rolling grassland hill with open views across Lake Toba and the surrounding caldera landscape.",
       id: "Perbukitan padang rumput dengan panorama Danau Toba dan lanskap kaldera di sekitarnya.",
     },
+    image: bukitHolbungImage,
   },
   {
     id: "aek-rangat",
@@ -36,6 +44,7 @@ export const lakeTobaMapPoints: readonly TourismMapPoint[] = [
       en: "Natural hot springs near Pangururan, set against the volcanic scenery of Samosir Island.",
       id: "Pemandian air panas alami di dekat Pangururan, berlatar lanskap vulkanik Pulau Samosir.",
     },
+    image: aekRangatImage,
   },
 ];
 
@@ -90,6 +99,7 @@ export const mandalikaMapPoints: readonly TourismMapPoint[] = [
       en: "A sandy bay inside the Mandalika tourism area, with clear water and access to coastal visitor facilities.",
       id: "Teluk berpasir di kawasan pariwisata Mandalika dengan air jernih dan akses ke fasilitas wisata pesisir.",
     },
+    image: kutaMandalikaImage,
   },
   {
     id: "sade-village",
@@ -102,6 +112,7 @@ export const mandalikaMapPoints: readonly TourismMapPoint[] = [
       en: "A Sasak village known for traditional houses, weaving, and living cultural practices.",
       id: "Desa Sasak yang dikenal dengan rumah tradisional, tenun, dan praktik budaya yang terus hidup.",
     },
+    image: sadeImage,
   },
   {
     id: "tanjung-aan",
@@ -114,6 +125,7 @@ export const mandalikaMapPoints: readonly TourismMapPoint[] = [
       en: "A curved bay east of Kuta with pale sand, calm blue water, and a low headland viewpoint.",
       id: "Teluk melengkung di sebelah timur Kuta dengan pasir cerah, air biru tenang, dan bukit pandang.",
     },
+    image: tanjungAanImage,
   },
 ];
 

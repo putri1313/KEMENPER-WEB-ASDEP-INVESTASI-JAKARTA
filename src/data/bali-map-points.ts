@@ -1,4 +1,12 @@
 import type { TourismMapPoint } from "@/data/map-point";
+import ubudImage from "@/assets/destinations/bali-recommendations/ubud.webp";
+import tanahLotImage from "@/assets/destinations/bali-recommendations/tanah-lot.webp";
+import ulunDanuImage from "@/assets/destinations/bali-recommendations/pura-ulun-danu.webp";
+import jatiluwihImage from "@/assets/destinations/bali-recommendations/jatiluwih.webp";
+import tirtaEmpulImage from "@/assets/destinations/bali-recommendations/tirta-empul.webp";
+import uluwatuImage from "@/assets/destinations/bali-recommendations/uluwatu.webp";
+import tirtaGanggaImage from "@/assets/destinations/bali-recommendations/tirta-gangga.webp";
+import kelingkingImage from "@/assets/destinations/bali-recommendations/kelingking.webp";
 
 export const baliMapPoints: readonly TourismMapPoint[] = [
   {
@@ -12,6 +20,7 @@ export const baliMapPoints: readonly TourismMapPoint[] = [
       en: "A cultural centre known for traditional arts, crafts, temples, and the surrounding rice-field landscape.",
       id: "Pusat budaya yang dikenal dengan seni tradisional, kerajinan, pura, dan lanskap persawahan di sekitarnya.",
     },
+    image: ubudImage,
   },
   {
     id: "tanah-lot",
@@ -24,6 +33,7 @@ export const baliMapPoints: readonly TourismMapPoint[] = [
       en: "A sea temple set on a rocky offshore formation, with views across Bali's west coast.",
       id: "Pura laut di atas formasi batu di lepas pantai, dengan pemandangan ke pesisir barat Bali.",
     },
+    image: tanahLotImage,
   },
   {
     id: "ulun-danu",
@@ -36,6 +46,7 @@ export const baliMapPoints: readonly TourismMapPoint[] = [
       en: "A lakeside temple complex on Lake Beratan in Bali's cooler central highlands.",
       id: "Kompleks pura di tepi Danau Beratan, kawasan dataran tinggi Bali yang berhawa sejuk.",
     },
+    image: ulunDanuImage,
   },
   {
     id: "jatiluwih",
@@ -48,6 +59,7 @@ export const baliMapPoints: readonly TourismMapPoint[] = [
       en: "A highland rice-growing landscape shaped by terraced fields and the traditional Subak irrigation system.",
       id: "Lanskap persawahan dataran tinggi dengan terasering dan sistem irigasi tradisional Subak.",
     },
+    image: jatiluwihImage,
   },
   {
     id: "tirta-empul",
@@ -60,6 +72,7 @@ export const baliMapPoints: readonly TourismMapPoint[] = [
       en: "A Hindu water temple with spring-fed pools used for a traditional purification ritual.",
       id: "Pura Hindu dengan kolam mata air yang digunakan dalam tradisi penyucian.",
     },
+    image: tirtaEmpulImage,
   },
   {
     id: "uluwatu",
@@ -72,6 +85,7 @@ export const baliMapPoints: readonly TourismMapPoint[] = [
       en: "A clifftop temple overlooking the Indian Ocean at the southern tip of Bali.",
       id: "Pura di atas tebing yang menghadap Samudra Hindia di ujung selatan Bali.",
     },
+    image: uluwatuImage,
   },
   {
     id: "tirta-gangga",
@@ -84,11 +98,7 @@ export const baliMapPoints: readonly TourismMapPoint[] = [
       en: "A water garden in eastern Bali, with pools, fountains, and landscaped grounds.",
       id: "Taman air di Bali bagian timur dengan kolam, pancuran, dan taman yang tertata.",
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/0/08/Water_Palace_%286336845613%29.jpg",
-    imageCredit: {
-      label: "David Stanley / Wikimedia Commons (CC BY 2.0)",
-      url: "https://commons.wikimedia.org/wiki/File:Water_Palace_(6336845613).jpg",
-    },
+    image: tirtaGanggaImage,
   },
   {
     id: "kelingking",
@@ -101,5 +111,6 @@ export const baliMapPoints: readonly TourismMapPoint[] = [
       en: "A coastal viewpoint on Nusa Penida known for its steep headland and turquoise bay.",
       id: "Titik pandang pesisir Nusa Penida dengan tanjung terjal dan teluk berwarna biru kehijauan.",
     },
+    image: kelingkingImage,
   },
 ];

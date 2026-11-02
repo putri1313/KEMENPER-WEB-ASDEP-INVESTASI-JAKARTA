@@ -1,4 +1,9 @@
 import type { TourismMapPoint } from "@/data/map-point";
+import ancolImage from "@/assets/destinations/jakarta-recommendations/ancol.webp";
+import kotaTuaImage from "@/assets/destinations/jakarta-recommendations/kota-tua.webp";
+import monasImage from "@/assets/destinations/jakarta-recommendations/monas.webp";
+import setuBabakanImage from "@/assets/destinations/jakarta-recommendations/setu-babakan.webp";
+import tmiiImage from "@/assets/destinations/jakarta-recommendations/tmii.webp";
 
 export const jakartaMapPoints: readonly TourismMapPoint[] = [
   {
@@ -12,12 +17,7 @@ export const jakartaMapPoints: readonly TourismMapPoint[] = [
       en: "A national monument and museum in central Jakarta, with an observation area above the city.",
       id: "Monumen nasional dan museum di pusat Jakarta, dengan area pengamatan di bagian atas.",
     },
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Monas-Indonesian_national_monument.jpg/960px-Monas-Indonesian_national_monument.jpg",
-    imageCredit: {
-      label: "Ryanda Maxima / Wikimedia Commons (CC BY 2.0)",
-      url: "https://commons.wikimedia.org/wiki/File:Monas-Indonesian_national_monument.jpg",
-    },
+    image: monasImage,
   },
   {
     id: "kota-tua",
@@ -30,6 +30,7 @@ export const jakartaMapPoints: readonly TourismMapPoint[] = [
       en: "A historic district centred on Fatahillah Square, with heritage buildings and museums.",
       id: "Kawasan bersejarah yang berpusat di Taman Fatahillah, dengan bangunan warisan dan museum.",
     },
+    image: kotaTuaImage,
   },
   {
     id: "ancol",
@@ -42,6 +43,7 @@ export const jakartaMapPoints: readonly TourismMapPoint[] = [
       en: "A large waterfront recreation area in North Jakarta, with beaches and family attractions.",
       id: "Kawasan rekreasi tepi laut di Jakarta Utara, dengan pantai dan beragam atraksi keluarga.",
     },
+    image: ancolImage,
   },
   {
     id: "tmii",
@@ -54,6 +56,7 @@ export const jakartaMapPoints: readonly TourismMapPoint[] = [
       en: "A cultural park introducing Indonesia's regional traditions, architecture, and museums.",
       id: "Taman budaya yang memperkenalkan tradisi, arsitektur daerah, dan museum Indonesia.",
     },
+    image: tmiiImage,
   },
   {
     id: "setu-babakan",
@@ -66,5 +69,6 @@ export const jakartaMapPoints: readonly TourismMapPoint[] = [
       en: "A lakeside cultural area where visitors can learn about Betawi traditions, performances, and food.",
       id: "Kawasan budaya di sekitar danau untuk mengenal tradisi, pertunjukan, dan kuliner Betawi.",
     },
+    image: setuBabakanImage,
   },
 ];

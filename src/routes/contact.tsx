@@ -7,7 +7,7 @@ import marine from "@/assets/indonesia-marine.jpg";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact Us | Indonesia Tourism Investment" },
+      { title: "Contact Us | Invest in Wonderful Indonesia!" },
       { name: "description", content: "Contact the Ministry of Tourism of the Republic of Indonesia for tourism investment inquiries, information, and visitor support." },
     ],
   }),

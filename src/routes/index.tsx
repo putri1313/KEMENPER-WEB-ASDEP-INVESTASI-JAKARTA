@@ -1,5 +1,15 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  BriefcaseBusiness,
+  ChartNoAxesCombined,
+  Coins,
+  Globe2,
+  Plane,
+  Users,
+  WalletCards,
+} from "lucide-react";
+import { useState } from "react";
 import aerial from "@/assets/indonesia-aerial.jpg";
 import culture from "@/assets/indonesia-culture.jpg";
 import {
@@ -18,13 +28,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Indonesia Tourism Investment — Strategic Destinations" },
+      { title: "Invest in Wonderful Indonesia!" },
       {
         name: "description",
         content:
           "Discover regenerative and priority tourism destinations with sustainable investment opportunities across Indonesia.",
       },
-      { property: "og:title", content: "Indonesia Tourism Investment" },
+      { property: "og:title", content: "Invest in Wonderful Indonesia!" },
       {
         property: "og:description",
         content:
@@ -39,6 +49,19 @@ export const Route = createFileRoute("/")({
 const FEATURED_VIDEO_ID = "e9G5CJ4N54A";
 function Home() {
   const { t } = useSitePreferences();
+  const [activeMetric, setActiveMetric] = useState<number | null>(null);
+  const metrics = [
+    { value: "10,58 juta", label: "International visitors", change: "+5,38% compared with Jan–Jun 2025", target: "Target 2026: 16,00–17,00 juta", period: "Jan–Jun 2026", description: "International arrivals continue to strengthen Indonesia’s position as a leading destination in Asia.", icon: Plane },
+    { value: "US$1.313", label: "Average Spending per Arrival (ASPA)", change: "+6,36% compared with Jan–Jun 2025 · Rp22,59 juta", target: "Target 2026: US$1.330", period: "Jan–Jun 2026", description: "Higher spending per arrival reflects the opportunity to grow quality, length-of-stay, and high-value tourism experiences.", icon: WalletCards },
+    { value: "US$8,43 Miliar", label: "Tourism foreign exchange", change: "+2,80% compared with Jan–Jun 2025 · Rp140,95 triliun", target: "Target 2026: US$21,22–22,6 miliar", period: "Jan–Jun 2026", description: "Tourism continues to contribute valuable foreign exchange through visitor spending across destinations and experiences.", icon: Coins },
+    { value: "0,84 miliar", label: "Domestic tourist trips", change: "+4,29% compared with Jan–Jun 2025", target: "Target 2026: 1,18 miliar", period: "Jan–Jun 2026", description: "A strong domestic market supports destinations throughout Indonesia and creates resilient local economic activity.", icon: Globe2 },
+    { value: "25,91 juta", label: "Tourism workforce", change: "+3,64% compared with 2024", target: "Target 2026: 26,04 juta", period: "2025", description: "The growing tourism workforce strengthens services, community participation, and the sector’s long-term competitiveness.", icon: Users },
+    { value: "4,02–4,90%", label: "Tourism contribution to GDP", change: "+0,07–0,95 p.p. compared with 2025", target: "Target 2026: 4,6–4,7%", period: "Jan–Jun 2026", description: "Tourism remains an important contributor to national economic growth and regional development.", icon: BriefcaseBusiness },
+    { value: "Top 23", label: "Travel and Tourism Development Index (TTDI)", change: "+0,10 point compared with 2024 (2026: 4,56; 2024: 4,46)", target: "", period: "2026", description: "Indonesia’s global ranking reflects progress in the conditions that support travel and tourism development.", icon: ChartNoAxesCombined },
+    { value: "Rp39,68 T", label: "Tourism investment (LKPM)", change: "+16,64% compared with Jan–Jun 2025", target: "Target 2026: Rp63,51 T", period: "Jan–Jun 2026", description: "Investment momentum creates new opportunities for destinations, infrastructure, hospitality, and tourism services.", icon: Coins },
+  ] as const;
+  const selectedMetric = activeMetric === null ? null : metrics[activeMetric];
+  const SelectedIcon = selectedMetric?.icon;
   return (
     <div className="home-page">
       <section className="relative flex min-h-[82vh] overflow-hidden bg-navy text-primary-foreground">
@@ -52,9 +75,9 @@ function Home() {
         <div className="hero-shade absolute inset-0" />
         <div className="container-portal relative flex flex-col justify-end pb-10 pt-36">
           <div className="reveal max-w-4xl">
-          <p className="eyebrow text-gold">{t("Indonesia Tourism Investment")}</p>
+          <p className="eyebrow text-gold">{t("Invest in Wonderful Indonesia!")}</p>
             <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl 2xl:text-8xl">
-              {t("Invest in Indonesia Tourism Destinations")}
+              {t("Invest in Wonderful Indonesia!")}
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-primary-foreground/75 md:text-lg">
               {t(
@@ -70,23 +93,56 @@ function Home() {
               </ButtonLink>
             </div>
           </div>
-          <div className="mt-14 grid grid-cols-2 border-y border-primary-foreground/25 md:grid-cols-4">
-            {([
-              ["3", "Regenerative Destinations"],
-              ["10", "Priority Destinations"],
-              ["13", "Strategic Tourism Destinations"],
-              ["Indonesia", "Tourism Investment Landscape"],
-            ] as const).map(([n, l]) => (
-              <div
-                key={l}
-                className="border-primary-foreground/20 px-4 py-5 md:border-l first:md:border-l-0"
-              >
-                <strong className="font-display text-2xl md:text-3xl">{n}</strong>
-                <p className="mt-1 text-[10px] font-bold uppercase tracking-[.12em] text-primary-foreground/60">
-                  {t(l)}
-                </p>
+          <div className="home-stat-strip mt-14">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="h-px w-8 bg-gold" />
+              <p className="font-display text-xl font-extrabold text-primary-foreground md:text-2xl">
+                {t("2026 achievements")} <span className="text-gold">|</span>{" "}
+                {t("Continuing to grow in the expected direction")}
+              </p>
+            </div>
+            <div className="home-stat-tabs" role="tablist" aria-label={t("2026 tourism achievements")}>
+              {metrics.map((metric, index) => {
+                const Icon = metric.icon;
+                return (
+                  <button
+                    key={metric.label}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeMetric === index}
+                    aria-controls={`metric-panel-${index}`}
+                    className={`home-stat-tab ${activeMetric === index ? "is-active" : ""}`}
+                    onClick={() => setActiveMetric(activeMetric === index ? null : index)}
+                  >
+                    <Icon size={17} aria-hidden="true" />
+                    <span>{t(metric.label)}</span>
+                  </button>
+                );
+              })}
+            </div>
+            {selectedMetric && SelectedIcon && activeMetric !== null && (
+              <div id={`metric-panel-${activeMetric}`} role="tabpanel" className="home-stat-detail" key={selectedMetric.label}>
+                <div className="home-stat-detail-icon"><SelectedIcon size={24} aria-hidden="true" /></div>
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <p className="eyebrow text-gold">{t(selectedMetric.period)}</p>
+                    <h3 className="text-sm font-bold text-primary-foreground/85">{t(selectedMetric.label)}</h3>
+                  </div>
+                  <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                    <p className="font-display text-3xl font-extrabold tracking-tight text-primary-foreground md:text-4xl">{selectedMetric.value}</p>
+                    <p className="text-xs font-semibold text-primary-foreground/70">{t(selectedMetric.change)}</p>
+                  </div>
+                  <div className="mt-3 flex flex-wrap items-center gap-3">
+                    {selectedMetric.target && <p className="inline-flex rounded-full border border-gold/35 bg-gold/10 px-3 py-1.5 text-[11px] font-bold text-gold">{t(selectedMetric.target)}</p>}
+                    <p className="text-xs leading-5 text-primary-foreground/55">{t(selectedMetric.description)}</p>
+                  </div>
+                </div>
+                <div className="home-stat-progress" aria-hidden="true"><span style={{ width: `${((activeMetric + 1) / metrics.length) * 100}%` }} /></div>
               </div>
-            ))}
+            )}
+            <p className="mt-4 pb-1 text-[10px] leading-5 text-primary-foreground/45">
+              {t("Source: Ministry of Tourism performance dashboard, Jan–Jun 2026.")}
+            </p>
           </div>
         </div>
       </section>
@@ -122,21 +178,21 @@ function Home() {
           </article>
           <SectionHeader
             light
-            label="Regenerative destinations · 01"
-            title="3 Regenerative Tourism Destinations"
-            copy="Explore destinations where tourism development is directed toward strengthening destination quality, sustainability, resilience, and long-term value."
-          />
-          <DestinationCarousel items={regenerativeDestinations} label="Regenerative destinations" />
-        </div>
-      </section>
-      <section className="section-space">
-        <div className="container-portal">
-          <SectionHeader
             label="Priority destinations · 02"
             title="10 Priority Tourism Destinations"
             copy="Explore strategic destinations across Indonesia with diverse tourism development and investment opportunities."
           />
           <DestinationCarousel items={priorityDestinations} label="Priority destinations" />
+        </div>
+      </section>
+      <section className="section-space">
+        <div className="container-portal">
+          <SectionHeader
+            label="Regenerative destinations · 01"
+            title="3 Regenerative Tourism Destinations"
+            copy="Explore destinations where tourism development is directed toward strengthening destination quality, sustainability, resilience, and long-term value."
+          />
+          <DestinationCarousel items={regenerativeDestinations} label="Regenerative destinations" />
         </div>
       </section>
       <Newsletter />

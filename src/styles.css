@@ -74,6 +74,51 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @utility reveal { animation: reveal .7s ease-out both; }
 @utility slow-zoom { animation: slowZoom 18s ease-out both; }
 
+.home-stat-strip {
+  position: relative;
+  isolation: isolate;
+  padding: 1.15rem 1.25rem 0;
+  border: 1px solid color-mix(in oklab, var(--primary-foreground) 16%, transparent);
+  border-radius: .75rem;
+  background: linear-gradient(110deg, color-mix(in oklab, var(--navy) 82%, transparent), color-mix(in oklab, var(--forest) 25%, transparent));
+  box-shadow: 0 20px 50px rgb(3 23 32 / 18%);
+  backdrop-filter: blur(8px);
+}
+.home-stat-strip::after {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 12%;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--gold) 18%, transparent);
+  filter: blur(35px);
+  content: "";
+}
+.home-stat-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; }
+.home-stat-tab { display: flex; min-height: 4.5rem; align-items: center; gap: .65rem; border: 1px solid color-mix(in oklab, var(--primary-foreground) 14%, transparent); border-radius: .55rem; background: color-mix(in oklab, var(--primary-foreground) 5%, transparent); padding: .8rem; color: color-mix(in oklab, var(--primary-foreground) 65%, transparent); text-align: left; font-size: .72rem; font-weight: 800; line-height: 1.35; transition: border-color .25s ease, background-color .25s ease, color .25s ease, transform .25s ease; }
+.home-stat-tab svg { flex: 0 0 auto; color: var(--gold); }
+.home-stat-tab:hover { transform: translateY(-2px); border-color: color-mix(in oklab, var(--gold) 60%, transparent); color: var(--primary-foreground); }
+.home-stat-tab.is-active { border-color: color-mix(in oklab, var(--gold) 75%, transparent); background: linear-gradient(135deg, color-mix(in oklab, var(--gold) 20%, transparent), color-mix(in oklab, var(--primary-foreground) 8%, transparent)); color: var(--primary-foreground); box-shadow: 0 10px 24px rgb(0 0 0 / 15%); }
+.home-stat-detail { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .9rem; margin-top: .65rem; overflow: hidden; border: 1px solid color-mix(in oklab, var(--gold) 30%, transparent); border-radius: .6rem; background: linear-gradient(120deg, color-mix(in oklab, var(--navy) 62%, transparent), color-mix(in oklab, var(--forest) 25%, transparent)); padding: 1rem 1.1rem 1.1rem; animation: metricSlide .3s ease both; }
+.home-stat-detail-icon { display: grid; width: 2.75rem; height: 2.75rem; place-items: center; border: 1px solid color-mix(in oklab, var(--gold) 45%, transparent); border-radius: 999px; background: color-mix(in oklab, var(--gold) 15%, transparent); color: var(--gold); }
+.home-stat-progress { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; background: color-mix(in oklab, var(--primary-foreground) 10%, transparent); }
+.home-stat-progress span { display: block; height: 100%; background: var(--gold); transition: width .45s ease; }
+.home-stat-strip strong { display: block; color: var(--primary-foreground); letter-spacing: -.04em; }
+@keyframes metricSlide { from { opacity: 0; transform: translateY(10px) scale(.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@media (min-width: 768px) {
+  .home-stat-strip { padding-inline: 1.5rem; }
+  .home-stat-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (min-width: 1200px) {
+  .home-stat-tabs { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .home-stat-detail { grid-template-columns: 1fr; }
+  .home-stat-detail-icon { width: 2.5rem; height: 2.5rem; }
+}
+
 @keyframes reveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }

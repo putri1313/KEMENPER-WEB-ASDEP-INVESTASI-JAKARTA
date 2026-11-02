@@ -23,7 +23,7 @@ import { TourismImpactTimeline } from "@/components/tourism-impact-timeline";
 export const Route = createFileRoute("/opportunities")({
   head: () => ({
     meta: [
-      { title: "Tourism Investment Opportunities | Indonesia Tourism Investment" },
+      { title: "Tourism Investment Opportunities | Invest in Wonderful Indonesia!" },
       {
         name: "description",
         content:
@@ -156,7 +156,7 @@ function InvestmentTrend() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           setChartVisible(true);
           observer.disconnect();
         }
