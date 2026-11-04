@@ -33,6 +33,9 @@ import likupangDriveImage from "@/assets/destinations/drive/manado-likupang/liku
 import rajaAmpatDriveImage from "@/assets/destinations/drive/raja-ampat/waigeo.png";
 import riauDriveImage from "@/assets/destinations/drive/kepulauan-riau/batam.png";
 import tobaDriveImage from "@/assets/destinations/drive/danau-toba/samosir.png";
+import bangkaDriveImage from "@/assets/destinations/drive/bangka-belitung/tanjung-tinggi.png";
+import wakatobiDriveImage from "@/assets/destinations/drive/wakatobi/wangi-wangi.png";
+import morotaiDriveImage from "@/assets/destinations/drive/morotai/daruba.png";
 import { localizedContent, type LocalizedContent } from "@/lib/localized-content";
 
 export type DestinationType = "regenerative" | "priority";
@@ -169,15 +172,15 @@ export const destinations: Destination[] = [
       themes: [c("Marine tourism", "Pariwisata bahari"), c("Nature", "Alam"), c("Adventure", "Petualangan")],
     },
     {
-      name: c("Bangka Belitung", "Bangka Belitung"), slug: "bangka-belitung", region: c("Bangka Belitung Islands", "Kepulauan Bangka Belitung"), image: bangkaBelitungImage,
+      name: c("Bangka Belitung", "Bangka Belitung"), slug: "bangka-belitung", region: c("Bangka Belitung Islands", "Kepulauan Bangka Belitung"), image: bangkaDriveImage,
       themes: [c("Marine tourism", "Pariwisata bahari"), c("Culture", "Budaya"), c("Nature", "Alam")],
     },
     {
-      name: c("Wakatobi", "Wakatobi"), slug: "wakatobi", region: c("Southeast Sulawesi", "Sulawesi Tenggara"), image: wakatobiImage,
+      name: c("Wakatobi", "Wakatobi"), slug: "wakatobi", region: c("Southeast Sulawesi", "Sulawesi Tenggara"), image: wakatobiDriveImage,
       themes: [c("Marine tourism", "Pariwisata bahari"), c("Nature", "Alam"), c("Culture", "Budaya")],
     },
     {
-      name: c("Morotai", "Morotai"), slug: "morotai", region: c("North Maluku", "Maluku Utara"), image: morotaiImage,
+      name: c("Morotai", "Morotai"), slug: "morotai", region: c("North Maluku", "Maluku Utara"), image: morotaiDriveImage,
       themes: [c("Marine tourism", "Pariwisata bahari"), c("Heritage", "Warisan budaya"), c("Adventure", "Petualangan")],
     },
   ].map((item, index) => ({

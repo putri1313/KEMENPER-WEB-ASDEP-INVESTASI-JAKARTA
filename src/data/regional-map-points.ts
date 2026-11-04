@@ -9,6 +9,18 @@ import waigeoImage from "@/assets/destinations/drive/raja-ampat/waigeo.png";
 import piaynemoImage from "@/assets/destinations/drive/raja-ampat/piaynemo.png";
 import arborekImage from "@/assets/destinations/drive/raja-ampat/arborek.png";
 import wayagImage from "@/assets/destinations/drive/raja-ampat/wayag.png";
+import tanjungTinggiImage from "@/assets/destinations/drive/bangka-belitung/tanjung-tinggi.png";
+import tanjungKelayangImage from "@/assets/destinations/drive/bangka-belitung/tanjung-kelayang.png";
+import lengkuasImage from "@/assets/destinations/drive/bangka-belitung/lengkuas.png";
+import paraiImage from "@/assets/destinations/drive/bangka-belitung/pantai-tenggiri.png";
+import wangiWangiImage from "@/assets/destinations/drive/wakatobi/wangi-wangi.png";
+import kaledupaImage from "@/assets/destinations/drive/wakatobi/kaledupa.png";
+import tomiaImage from "@/assets/destinations/drive/wakatobi/tomia.png";
+import binongkoImage from "@/assets/destinations/drive/wakatobi/binongko.png";
+import darubaImage from "@/assets/destinations/drive/morotai/daruba.png";
+import dodolaImage from "@/assets/destinations/drive/morotai/dodola.png";
+import wawamaImage from "@/assets/destinations/drive/morotai/wawama.png";
+import morotaiNorthernImage from "@/assets/destinations/drive/morotai/morotai-northern.png";
 
 export const riauIslandsMapPoints: readonly TourismMapPoint[] = [
   {
@@ -173,6 +185,7 @@ export const bangkaBelitungMapPoints: readonly TourismMapPoint[] = [
       en: "A white-sand bay framed by large granite boulders on Belitung's northern coast.",
       id: "Teluk berpasir putih yang dibingkai batu granit besar di pesisir utara Belitung.",
     },
+    image: tanjungTinggiImage,
   },
   {
     id: "tanjung-kelayang",
@@ -185,6 +198,7 @@ export const bangkaBelitungMapPoints: readonly TourismMapPoint[] = [
       en: "A coastal tourism area and boat departure point for the nearby Belitung islands.",
       id: "Kawasan wisata pesisir dan titik keberangkatan perahu menuju pulau-pulau di sekitar Belitung.",
     },
+    image: tanjungKelayangImage,
   },
   {
     id: "lengkuas",
@@ -197,6 +211,7 @@ export const bangkaBelitungMapPoints: readonly TourismMapPoint[] = [
       en: "A small island known for its historic lighthouse, granite shoreline, and clear water.",
       id: "Pulau kecil yang dikenal dengan mercusuar bersejarah, pesisir granit, dan air jernih.",
     },
+    image: lengkuasImage,
   },
   {
     id: "parai",
@@ -209,6 +224,7 @@ export const bangkaBelitungMapPoints: readonly TourismMapPoint[] = [
       en: "A resort beach on Bangka's northeastern coast, with pale sand and granite rock formations.",
       id: "Pantai resor di pesisir timur laut Bangka dengan pasir cerah dan formasi batu granit.",
     },
+    image: paraiImage,
   },
 ];
 
@@ -224,6 +240,7 @@ export const wakatobiMapPoints: readonly TourismMapPoint[] = [
       en: "The main gateway island for exploring Wakatobi's reefs, coastal communities, and marine park.",
       id: "Pulau gerbang utama untuk menjelajahi terumbu, masyarakat pesisir, dan taman laut Wakatobi.",
     },
+    image: wangiWangiImage,
   },
   {
     id: "kaledupa-hoga",
@@ -236,6 +253,7 @@ export const wakatobiMapPoints: readonly TourismMapPoint[] = [
       en: "A pair of island destinations known for reef environments, coastal villages, and low-key stays.",
       id: "Rangkaian destinasi pulau yang dikenal dengan lingkungan terumbu, desa pesisir, dan penginapan bersuasana tenang.",
     },
+    image: kaledupaImage,
   },
   {
     id: "tomia",
@@ -248,6 +266,7 @@ export const wakatobiMapPoints: readonly TourismMapPoint[] = [
       en: "An island base for accessing Wakatobi's reefs and clear-water marine landscapes.",
       id: "Pulau yang menjadi titik akses ke terumbu dan lanskap bahari berair jernih di Wakatobi.",
     },
+    image: tomiaImage,
   },
   {
     id: "binongko",
@@ -260,6 +279,7 @@ export const wakatobiMapPoints: readonly TourismMapPoint[] = [
       en: "The southern island of the Wakatobi chain, with coastal settlements and distinctive local traditions.",
       id: "Pulau paling selatan dalam gugusan Wakatobi, dengan permukiman pesisir dan tradisi lokal yang khas.",
     },
+    image: binongkoImage,
   },
 ];
 
@@ -275,6 +295,7 @@ export const morotaiMapPoints: readonly TourismMapPoint[] = [
       en: "Morotai's main town and service centre for trips around the island and nearby islets.",
       id: "Kota utama Morotai dan pusat layanan perjalanan mengelilingi pulau serta pulau-pulau kecil di sekitarnya.",
     },
+    image: darubaImage,
   },
   {
     id: "dodola",
@@ -287,6 +308,7 @@ export const morotaiMapPoints: readonly TourismMapPoint[] = [
       en: "A pair of small islands known for clear water, white-sand shores, and a connecting sandbar at low tide.",
       id: "Dua pulau kecil yang dikenal dengan air jernih, pantai pasir putih, dan gosong penghubung saat air surut.",
     },
+    image: dodolaImage,
   },
   {
     id: "wawama",
@@ -302,6 +324,7 @@ export const morotaiMapPoints: readonly TourismMapPoint[] = [
       en: "An underwater heritage site associated with Morotai's role in the Pacific theatre of World War II.",
       id: "Situs warisan bawah laut yang berkaitan dengan peran Morotai dalam Perang Dunia II di Pasifik.",
     },
+    image: wawamaImage,
   },
   {
     id: "morotai-north",
@@ -314,5 +337,6 @@ export const morotaiMapPoints: readonly TourismMapPoint[] = [
       en: "A less-developed stretch of coastline with island scenery and marine landscapes.",
       id: "Bentang pesisir yang lebih alami dengan panorama pulau dan lanskap bahari.",
     },
+    image: morotaiNorthernImage,
   },
 ];
