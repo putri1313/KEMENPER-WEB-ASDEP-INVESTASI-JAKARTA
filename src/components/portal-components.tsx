@@ -102,12 +102,10 @@ export function DestinationCarousel({ items, label }: { items: Destination[]; la
  </div>
 }
 
-const filterOptions = ["All","Regenerative","Priority","Marine","Nature","Culture","Wellness","Urban","MICE","Adventure"];
 export function DestinationExplorer({ full = false }: { full?: boolean }) {
  const { t } = useSitePreferences();
- const [filter,setFilter] = useState("All");
- const list = destinations.filter(d => { const text = `${d.name.en} ${d.name.id} ${d.region.en} ${d.region.id} ${d.tourismThemes.map((theme) => `${theme.en} ${theme.id}`).join(" ")}`.toLowerCase(); return filter === "All" || d.type === filter.toLowerCase() || text.includes(filter.toLowerCase()); });
- return <div><div className="border-y border-border py-6"><div className="flex gap-2 overflow-x-auto pb-2">{filterOptions.map(f => <Button key={f} variant={filter === f ? "primary" : "outline"} className="min-h-9 shrink-0 px-4 py-2 text-xs" onClick={() => setFilter(f)}>{t(f)}</Button>)}</div></div><p className="mt-5 text-xs font-bold uppercase tracking-[.12em] text-muted-foreground">{list.length} {t("destinations")}</p><div className={`mt-6 grid gap-5 ${full ? "md:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2 lg:grid-cols-4"}`}>{list.map(d => <DestinationCard key={d.slug} destination={d} compact/> )}</div></div>
+ const list = destinations;
+ return <div className="destination-explorer-list"><p className="text-xs font-bold uppercase tracking-[.12em] text-muted-foreground">{list.length} {t("destinations")}</p><div className={`mt-6 grid gap-5 ${full ? "md:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2 lg:grid-cols-4"}`}>{list.map(d => <DestinationCard key={d.slug} destination={d} compact/> )}</div></div>
 }
 
 export const whyItems = [

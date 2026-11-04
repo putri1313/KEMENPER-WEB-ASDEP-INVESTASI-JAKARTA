@@ -81,7 +81,7 @@ function Home() {
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-primary-foreground/75 md:text-lg">
               {t(
-                "Discover regenerative and priority tourism destinations with opportunities for sustainable development, investment, and long-term economic growth.",
+                "Discover Indonesia’s diverse tourism destinations and invest in sustainable and green opportunities that drive economic growth and create lasting value for local communities.",
               )}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -155,24 +155,22 @@ function Home() {
             </div>
             <div className="flex flex-col justify-center p-6 md:p-9 lg:p-10">
               <p className="eyebrow text-gold">{t("Discover Indonesia")}</p>
-              <h2 className="mt-4 font-display text-2xl font-extrabold leading-tight md:text-3xl">
-                {t("A closer look at Indonesia’s tourism potential")}
-              </h2>
-              <p className="mt-4 text-sm leading-6 text-primary-foreground/70">
-                {t(
-                  "Explore the natural beauty, cultural heritage, and local stories that make Indonesia a remarkable place to visit and invest.",
-                )}
-              </p>
-              <p className="mt-4 text-xs font-semibold text-primary-foreground/50">
-                {t("Starts muted when visible and pauses when you scroll away")}
-              </p>
+              <div className="tourism-opportunity-note mt-4">
+                <span className="tourism-opportunity-note__line" aria-hidden="true" />
+                <p>{t("Where Tourism Potential Meets Investment Opportunity.")}</p>
+                <p className="tourism-opportunity-note__copy">
+                  {t(
+                    "From pristine coastlines to vibrant cultural landscapes, Indonesia offers diverse opportunities to build sustainable tourism businesses and create lasting value.",
+                  )}
+                </p>
+              </div>
               <a
                 href="https://youtu.be/e9G5CJ4N54A"
                 target="_blank"
                 rel="noreferrer"
-                className="mt-5 inline-flex w-fit items-center gap-2 text-sm font-extrabold text-gold transition hover:gap-3"
+                className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-gold/45 px-4 py-2.5 text-sm font-extrabold text-gold transition hover:gap-3 hover:bg-gold hover:text-navy"
               >
-                {t("Watch on YouTube")} <ArrowRight size={16} />
+                {t("See the video more clearly")} <ArrowRight size={16} />
               </a>
             </div>
           </article>

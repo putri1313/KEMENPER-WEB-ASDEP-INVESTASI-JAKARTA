@@ -106,6 +106,27 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .home-stat-progress { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; background: color-mix(in oklab, var(--primary-foreground) 10%, transparent); }
 .home-stat-progress span { display: block; height: 100%; background: var(--gold); transition: width .45s ease; }
 .home-stat-strip strong { display: block; color: var(--primary-foreground); letter-spacing: -.04em; }
+.tourism-opportunity-note { display: grid; grid-template-columns: 2px minmax(0, 1fr); column-gap: .75rem; align-items: start; max-width: 32rem; color: var(--primary-foreground); }
+.tourism-opportunity-note__line { grid-row: span 2; width: 2px; min-height: 2.8rem; border-radius: 999px; background: linear-gradient(var(--gold), color-mix(in oklab, var(--gold) 20%, transparent)); }
+.tourism-opportunity-note p:first-of-type { font-family: var(--font-display); font-size: .95rem; font-weight: 800; line-height: 1.35; letter-spacing: -.015em; }
+.tourism-opportunity-note__copy { margin-top: .35rem; color: color-mix(in oklab, var(--primary-foreground) 62%, transparent); font-size: .78rem; line-height: 1.6; text-align: justify; text-wrap: pretty; }
+.destination-map-feature { display: grid; align-items: center; gap: clamp(2rem, 5vw, 5rem); margin-bottom: clamp(3rem, 6vw, 5rem); }
+.destination-map-feature__intro { position: relative; z-index: 1; animation: destinationIntro .8s cubic-bezier(.2,.8,.2,1) both; }
+.destination-map-feature__intro h2 { text-wrap: balance; }
+.destination-map-feature__badge { border: 1px solid color-mix(in oklab, var(--forest) 25%, transparent); border-radius: 999px; background: color-mix(in oklab, var(--forest) 7%, transparent); padding: .55rem .8rem; animation: badgeRise .6s ease both; transition: background-color .25s ease, border-color .25s ease, transform .25s ease; }
+.destination-map-feature__badge:nth-child(2) { animation-delay: .12s; }
+.destination-map-feature__badge:hover { transform: translateY(-3px); border-color: color-mix(in oklab, var(--gold) 70%, transparent); background: color-mix(in oklab, var(--gold) 18%, transparent); }
+.destination-map-feature__visual { position: relative; isolation: isolate; margin-inline: auto; width: 100%; max-width: 62rem; }
+.destination-map-feature__glow { position: absolute; z-index: -1; inset: 12% 8% -4%; border-radius: 50%; background: color-mix(in oklab, var(--accent) 25%, transparent); filter: blur(35px); }
+.destination-map-feature__image { display: block; width: 100%; border: 1px solid color-mix(in oklab, var(--navy) 15%, transparent); border-radius: 1.1rem; box-shadow: 0 25px 55px rgb(15 53 62 / 20%), 0 8px 18px rgb(15 53 62 / 12%); transform: perspective(1200px) rotateX(1deg); transition: transform .5s ease, box-shadow .5s ease; }
+.destination-map-feature__image:hover { box-shadow: 0 35px 75px rgb(15 53 62 / 25%), 0 12px 25px rgb(15 53 62 / 15%); transform: perspective(1200px) rotateX(0) translateY(-5px); }
+.destination-map-feature__caption { position: absolute; right: 1rem; bottom: 1rem; border: 1px solid rgb(255 255 255 / 55%); border-radius: 999px; background: rgb(7 42 53 / 78%); padding: .55rem .85rem; color: white; font-size: .65rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; backdrop-filter: blur(8px); }
+.destination-explorer-list { border-top: 1px solid var(--border); padding-top: 1.5rem; }
+@media (min-width: 1024px) { .destination-map-feature { grid-template-columns: minmax(16rem, .7fr) minmax(0, 1.5fr); } }
+@media (prefers-reduced-motion: reduce) { .destination-map-feature__image { transition: none; } }
+@keyframes destinationIntro { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes badgeRise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .destination-map-feature__intro, .destination-map-feature__badge { animation: none; } }
 @keyframes metricSlide { from { opacity: 0; transform: translateY(10px) scale(.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @media (min-width: 768px) {
   .home-stat-strip { padding-inline: 1.5rem; }
