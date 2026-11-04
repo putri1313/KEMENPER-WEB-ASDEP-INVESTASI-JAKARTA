@@ -5,6 +5,7 @@ import { destinations } from "@/data/portal";
 import { destinationProfiles } from "@/data/destination-profiles";
 import { DestinationLocationMap } from "@/components/destination-map";
 import { destinationMapPoints } from "@/data/destination-map-points";
+import { destinationGuideDescriptions } from "@/data/destination-guide";
 import type { TourismMapPoint } from "@/data/map-point";
 import { ButtonLink } from "@/components/ui";
 import {
@@ -77,6 +78,8 @@ function DestinationDetailPage() {
     );
   }
   const localized = (copy: { en: string; id: string }) => (language === "id" ? copy.id : copy.en);
+  const getDestinationDescription = (point: TourismMapPoint) =>
+    getLocalizedContent(destinationGuideDescriptions[point.name] ?? point.description, language);
   const destinationName = getLocalizedContent(destination.name, language);
 
   return (
@@ -151,8 +154,6 @@ function DestinationDetailPage() {
           key={destination.slug}
           title={destinationName}
           points={mapPoints}
-          regionImage={destination.image}
-          regionDescription={localized(profile.overview)}
         />
       )}
 
@@ -197,7 +198,7 @@ function DestinationDetailPage() {
                       {t(point.area)}
                     </span>
                     <span className="mt-3 block text-sm leading-6 text-muted-foreground">
-                      {getLocalizedContent(point.description, language)}
+                      {getDestinationDescription(point)}
                     </span>
                   </span>
                 </button>
@@ -229,7 +230,7 @@ function DestinationDetailPage() {
                   {t(selectedRecommendation.area)} | {getLocalizedContent(selectedRecommendation.category, language)}
                 </DialogDescription>
                 <p className="text-sm leading-6 text-primary-foreground/85">
-                  {getLocalizedContent(selectedRecommendation.description, language)}
+                  {getDestinationDescription(selectedRecommendation)}
                 </p>
                 {selectedRecommendation.imageCredit && (
                   <a

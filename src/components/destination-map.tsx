@@ -8,13 +8,9 @@ import { useSitePreferences } from "@/lib/site-preferences";
 export function DestinationLocationMap({
   title,
   points,
-  regionImage,
-  regionDescription,
 }: {
   title: string;
   points: readonly TourismMapPoint[];
-  regionImage: string;
-  regionDescription: string;
 }) {
   const locationItemsRef = useRef(new Map<string, HTMLLIElement>());
   const mapElementRef = useRef<HTMLDivElement>(null);
@@ -218,78 +214,13 @@ export function DestinationLocationMap({
                     </span>
                     <MapPin size={15} className="ml-auto mt-1 shrink-0 text-forest" />
                   </button>
-                  {selectedId === point.id && (
-                    <div
-                      className="bg-background pb-5 pl-14 pr-4 pt-1"
-                      aria-live="polite"
-                      aria-atomic="true"
-                    >
-                      <div className={`grid gap-3 ${point.image ? "grid-cols-2" : "grid-cols-1"}`}>
-                        <figure className="min-w-0">
-                          <img
-                            alt={`${title} landscape`}
-                            className="aspect-[4/3] w-full rounded-sm object-cover"
-                            loading="lazy"
-                            src={regionImage}
-                          />
-                          <figcaption className="mt-1.5 text-[11px] font-bold text-muted-foreground">
-                            {language === "id" ? `Wilayah ${title}` : `${title} region`}
-                          </figcaption>
-                        </figure>
-                        {point.image && (
-                          <figure className="min-w-0">
-                            <img
-                            alt={t(point.name)}
-                              className="aspect-[4/3] w-full rounded-sm object-cover"
-                              loading="lazy"
-                              src={point.image}
-                            />
-                            <figcaption className="mt-1.5 truncate text-[11px] font-bold text-muted-foreground">
-                              {t(point.name)}
-                            </figcaption>
-                          </figure>
-                        )}
-                      </div>
-                      <p className="eyebrow mt-4 text-forest">
-                        {language === "id" ? `Tentang ${title}` : `About ${title}`}
-                      </p>
-                      <p className="mt-1.5 line-clamp-3 text-xs leading-5 text-muted-foreground">
-                        {regionDescription}
-                      </p>
-                      <p className="eyebrow mt-4 text-forest">{point.category[language]}</p>
-                      <p className="mt-1.5 text-xs font-extrabold">
-                        {language === "id" ? `Tentang ${t(point.name)}` : `About ${t(point.name)}`}
-                      </p>
-                      <p className="mt-1 text-sm leading-5 text-muted-foreground">
-                        {point.description[language]}
-                      </p>
-                      <a
-                        href={`https://www.openstreetmap.org/?mlat=${point.latitude}&mlon=${point.longitude}#map=14/${point.latitude}/${point.longitude}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-3 inline-flex text-xs font-bold text-forest underline underline-offset-2"
-                      >
-                        {language === "id" ? "Buka di OpenStreetMap" : "Open in OpenStreetMap"}
-                      </a>
-                      {point.imageCredit && (
-                        <a
-                          className="mt-2 inline-block text-[10px] leading-4 text-muted-foreground underline decoration-border underline-offset-2 hover:text-forest"
-                          href={point.imageCredit.url}
-                          rel="noreferrer"
-                          target="_blank"
-                        >
-                          {language === "id" ? "Foto" : "Photo"}: {point.imageCredit.label}
-                        </a>
-                      )}
-                    </div>
-                  )}
                 </li>
               ))}
             </ol>
             <p className="mt-auto border-t border-border p-4 text-[11px] leading-5 text-muted-foreground">
               {language === "id"
-                ? "Semua nomor pada peta cocok dengan nomor dan nama wisata dalam daftar. Pilih penanda atau nama untuk melihat detail."
-                : "Every map number matches the numbered place in this list. Select a marker or a place name to view its details."}
+                ? "Setiap nomor pada peta sesuai dengan nomor, nama wisata, dan wilayah pada daftar."
+                : "Every map number matches the number, tourism name, and region shown in this list."}
             </p>
           </aside>
         </div>

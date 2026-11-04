@@ -3,7 +3,6 @@ import batamImage from "@/assets/destinations/drive/kepulauan-riau/batam.png";
 import bintanLagoiImage from "@/assets/destinations/drive/kepulauan-riau/bintan-lagoi.png";
 import pulauPenyengatImage from "@/assets/destinations/drive/kepulauan-riau/pulau-penyengat.png";
 import tanjungPinangImage from "@/assets/destinations/drive/kepulauan-riau/tanjung-pinang.png";
-import bromoImage from "@/assets/destinations/drive/bromo-tengger-semeru/bromo.png";
 import pananjakanImage from "@/assets/destinations/drive/bromo-tengger-semeru/pananjakan.png";
 import madakaripuraImage from "@/assets/destinations/drive/bromo-tengger-semeru/madakaripura.png";
 import waigeoImage from "@/assets/destinations/drive/raja-ampat/waigeo.png";
@@ -77,19 +76,6 @@ export const bromoMapPoints: readonly TourismMapPoint[] = [
     description: {
       en: "An active volcano rising above a broad volcanic sand plain in Bromo Tengger Semeru National Park.",
       id: "Gunung api aktif yang menjulang di atas hamparan lautan pasir di Taman Nasional Bromo Tengger Semeru.",
-    },
-    image: bromoImage,
-  },
-  {
-    id: "penanjakan",
-    name: "Penanjakan Viewpoint",
-    area: "Bromo Tengger Semeru National Park, East Java",
-    latitude: -7.8967,
-    longitude: 112.9225,
-    category: { en: "Mountain viewpoint", id: "Titik pandang pegunungan" },
-    description: {
-      en: "A highland viewpoint overlooking the Bromo caldera and surrounding volcanic peaks.",
-      id: "Titik pandang dataran tinggi yang menghadap kaldera Bromo dan puncak-puncak gunung di sekitarnya.",
     },
     image: pananjakanImage,
   },
