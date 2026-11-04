@@ -1,10 +1,19 @@
 import type { TourismMapPoint } from "@/data/map-point";
-import aekRangatImage from "@/assets/destinations/toba-recommendations/aek-rangat.webp";
-import bukitHolbungImage from "@/assets/destinations/toba-recommendations/bukit-holbung.webp";
-import samosirImage from "@/assets/destinations/toba-recommendations/samosir.webp";
-import kutaMandalikaImage from "@/assets/destinations/lombok-recommendations/kuta-mandalika.webp";
-import sadeImage from "@/assets/destinations/lombok-recommendations/sade.webp";
-import tanjungAanImage from "@/assets/destinations/lombok-recommendations/tanjung-aan.webp";
+import aekRangatImage from "@/assets/destinations/drive/danau-toba/aek-rangat.png";
+import bukitHolbungImage from "@/assets/destinations/drive/danau-toba/bukit-holbung.png";
+import samosirImage from "@/assets/destinations/drive/danau-toba/samosir.png";
+import kutaMandalikaImage from "@/assets/destinations/drive/lombok-gili-tramena/kuta-mandalika.png";
+import sadeImage from "@/assets/destinations/drive/lombok-gili-tramena/sade.png";
+import tanjungAanImage from "@/assets/destinations/drive/lombok-gili-tramena/tanjung-aan.png";
+import borobudurImage from "@/assets/destinations/drive/borobudur-yogyakarta-prambanan/borobudur.png";
+import mendutImage from "@/assets/destinations/drive/borobudur-yogyakarta-prambanan/candi-mendut.png";
+import punthukImage from "@/assets/destinations/drive/borobudur-yogyakarta-prambanan/punthuk.png";
+import likupangImage from "@/assets/destinations/drive/manado-likupang/likupang.png";
+import paalImage from "@/assets/destinations/drive/manado-likupang/paal.png";
+import pulisanImage from "@/assets/destinations/drive/manado-likupang/pulisan.png";
+import bromoImage from "@/assets/destinations/drive/bromo-tengger-semeru/bromo.png";
+import pananjakanImage from "@/assets/destinations/drive/bromo-tengger-semeru/pananjakan.png";
+import madakaripuraImage from "@/assets/destinations/drive/bromo-tengger-semeru/madakaripura.png";
 
 export const lakeTobaMapPoints: readonly TourismMapPoint[] = [
   {
@@ -60,6 +69,7 @@ export const borobudurMapPoints: readonly TourismMapPoint[] = [
       en: "A ninth-century Buddhist monument and UNESCO World Heritage Site with sculpted reliefs and stupas.",
       id: "Monumen Buddha abad ke-9 dan Situs Warisan Dunia UNESCO dengan relief serta stupa.",
     },
+    image: borobudurImage,
   },
   {
     id: "mendut-temple",
@@ -72,6 +82,7 @@ export const borobudurMapPoints: readonly TourismMapPoint[] = [
       en: "A ninth-century Buddhist temple east of Borobudur, noted for its large seated Buddha statue.",
       id: "Candi Buddha abad ke-9 di sebelah timur Borobudur, dikenal dengan arca Buddha duduk berukuran besar.",
     },
+    image: mendutImage,
   },
   {
     id: "punthuk-setumbu",
@@ -84,6 +95,7 @@ export const borobudurMapPoints: readonly TourismMapPoint[] = [
       en: "A hilltop viewpoint in the Menoreh Hills overlooking Borobudur and the surrounding Kedu Plain.",
       id: "Titik pandang di perbukitan Menoreh yang menghadap Borobudur dan Dataran Kedu.",
     },
+    image: punthukImage,
   },
 ];
 
@@ -141,6 +153,7 @@ export const likupangMapPoints: readonly TourismMapPoint[] = [
       en: "An island off North Sulawesi known for clear water, coral reefs, and marine experiences.",
       id: "Pulau di lepas pantai Sulawesi Utara yang dikenal dengan air jernih, terumbu karang, dan wisata bahari.",
     },
+    image: likupangImage,
   },
   {
     id: "paal-beach",
@@ -153,6 +166,7 @@ export const likupangMapPoints: readonly TourismMapPoint[] = [
       en: "A white-sand beach with clear water on the East Likupang coast, suited to swimming and seaside visits.",
       id: "Pantai berpasir putih dengan air jernih di pesisir Likupang Timur, cocok untuk berenang dan berwisata pesisir.",
     },
+    image: paalImage,
   },
   {
     id: "pulisan-beach",
@@ -165,5 +179,6 @@ export const likupangMapPoints: readonly TourismMapPoint[] = [
       en: "A coastal landscape combining a sandy shoreline, rock formations, and nearby hills in East Likupang.",
       id: "Lanskap pesisir yang memadukan garis pantai berpasir, formasi batu, dan perbukitan di Likupang Timur.",
     },
+    image: pulisanImage,
   },
 ];

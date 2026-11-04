@@ -1,9 +1,9 @@
 import type { TourismMapPoint } from "@/data/map-point";
-import ancolImage from "@/assets/destinations/jakarta-recommendations/ancol.webp";
-import kotaTuaImage from "@/assets/destinations/jakarta-recommendations/kota-tua.webp";
-import monasImage from "@/assets/destinations/jakarta-recommendations/monas.webp";
-import setuBabakanImage from "@/assets/destinations/jakarta-recommendations/setu-babakan.webp";
-import tmiiImage from "@/assets/destinations/jakarta-recommendations/tmii.webp";
+import ancolImage from "@/assets/destinations/drive/greater-jakarta/ancol.png";
+import kotaTuaImage from "@/assets/destinations/drive/greater-jakarta/kota-tua.png";
+import monasImage from "@/assets/destinations/drive/greater-jakarta/monas.png";
+import setuBabakanImage from "@/assets/destinations/drive/greater-jakarta/setu-babakan.png";
+import tmiiImage from "@/assets/destinations/drive/greater-jakarta/tmii.png";
 
 export const jakartaMapPoints: readonly TourismMapPoint[] = [
   {

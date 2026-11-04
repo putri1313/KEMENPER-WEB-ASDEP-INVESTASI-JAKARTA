@@ -23,6 +23,16 @@ import riauIslandsImage from "@/assets/destinations/kepulauan-riau.webp";
 import wakatobiImage from "@/assets/destinations/wakatobi.webp";
 import marineTourismImage from "@/assets/destinations/marine-tourism.webp";
 import wellnessTourismImage from "@/assets/destinations/wellness-tourism.webp";
+import baliDriveImage from "@/assets/destinations/drive/bali/ubud.png";
+import borobudurDriveImage from "@/assets/destinations/drive/borobudur-yogyakarta-prambanan/borobudur.png";
+import bromoDriveImage from "@/assets/destinations/drive/bromo-tengger-semeru/bromo.png";
+import jakartaDriveImage from "@/assets/destinations/drive/greater-jakarta/monas.png";
+import labuanBajoDriveImage from "@/assets/destinations/drive/labuan-bajo/komodo.png";
+import lombokDriveImage from "@/assets/destinations/drive/lombok-gili-tramena/kuta-mandalika.png";
+import likupangDriveImage from "@/assets/destinations/drive/manado-likupang/likupang.png";
+import rajaAmpatDriveImage from "@/assets/destinations/drive/raja-ampat/waigeo.png";
+import riauDriveImage from "@/assets/destinations/drive/kepulauan-riau/batam.png";
+import tobaDriveImage from "@/assets/destinations/drive/danau-toba/samosir.png";
 import { localizedContent, type LocalizedContent } from "@/lib/localized-content";
 
 export type DestinationType = "regenerative" | "priority";
@@ -58,7 +68,7 @@ export const destinations: Destination[] = [
       "A globally recognized tourism destination with opportunities for sustainable, high-value, and regenerative tourism development.",
       "Destinasi pariwisata yang dikenal dunia dengan peluang pengembangan pariwisata berkelanjutan, bernilai tambah, dan regeneratif.",
     ),
-    image: baliImage,
+    image: baliDriveImage,
     tourismThemes: [
       c("Sustainable tourism", "Pariwisata berkelanjutan"),
       c("Wellness", "Kebugaran"),
@@ -85,7 +95,7 @@ export const destinations: Destination[] = [
       "A major metropolitan tourism ecosystem with strong connectivity, business activity, urban tourism, MICE, and creative economy potential.",
       "Ekosistem pariwisata metropolitan dengan konektivitas dan kegiatan bisnis yang kuat serta potensi wisata perkotaan, MICE, dan ekonomi kreatif.",
     ),
-    image: jakartaImage,
+    image: jakartaDriveImage,
     tourismThemes: [
       c("Urban tourism", "Wisata perkotaan"),
       c("MICE", "MICE"),
@@ -112,7 +122,7 @@ export const destinations: Destination[] = [
       "A strategic archipelagic tourism region with marine, island, coastal, and cross-border tourism opportunities.",
       "Kawasan pariwisata kepulauan yang strategis dengan peluang wisata bahari, pulau, pesisir, dan lintas batas.",
     ),
-    image: riauIslandsImage,
+    image: riauDriveImage,
     tourismThemes: [
       c("Marine tourism", "Pariwisata bahari"),
       c("Island tourism", "Wisata kepulauan"),
@@ -131,31 +141,31 @@ export const destinations: Destination[] = [
   },
   ...[
     {
-      name: c("Lake Toba", "Danau Toba"), slug: "danau-toba", region: c("North Sumatra", "Sumatera Utara"), image: lakeTobaImage,
+      name: c("Lake Toba", "Danau Toba"), slug: "danau-toba", region: c("North Sumatra", "Sumatera Utara"), image: tobaDriveImage,
       themes: [c("Nature", "Alam"), c("Culture", "Budaya"), c("Lake tourism", "Wisata danau")],
     },
     {
-      name: c("Lombok–Gili Tramena", "Lombok–Gili Tramena"), slug: "lombok-gili-tramena", region: c("West Nusa Tenggara", "Nusa Tenggara Barat"), image: lombokImage,
+      name: c("Lombok–Gili Tramena", "Lombok–Gili Tramena"), slug: "lombok-gili-tramena", region: c("West Nusa Tenggara", "Nusa Tenggara Barat"), image: lombokDriveImage,
       themes: [c("Marine tourism", "Pariwisata bahari"), c("Wellness", "Kebugaran"), c("Nature", "Alam")],
     },
     {
-      name: c("Borobudur–Yogyakarta–Prambanan", "Borobudur–Yogyakarta–Prambanan"), slug: "borobudur-yogyakarta-prambanan", region: c("Central Java & Special Region of Yogyakarta", "Jawa Tengah & Daerah Istimewa Yogyakarta"), image: borobudurImage,
+      name: c("Borobudur–Yogyakarta–Prambanan", "Borobudur–Yogyakarta–Prambanan"), slug: "borobudur-yogyakarta-prambanan", region: c("Central Java & Special Region of Yogyakarta", "Jawa Tengah & Daerah Istimewa Yogyakarta"), image: borobudurDriveImage,
       themes: [c("Culture", "Budaya"), c("Heritage", "Warisan budaya"), c("Creative economy", "Ekonomi kreatif")],
     },
     {
-      name: c("Labuan Bajo", "Labuan Bajo"), slug: "labuan-bajo", region: c("East Nusa Tenggara", "Nusa Tenggara Timur"), image: labuanBajoImage,
+      name: c("Labuan Bajo", "Labuan Bajo"), slug: "labuan-bajo", region: c("East Nusa Tenggara", "Nusa Tenggara Timur"), image: labuanBajoDriveImage,
       themes: [c("Marine tourism", "Pariwisata bahari"), c("Nature", "Alam"), c("Adventure", "Petualangan")],
     },
     {
-      name: c("Manado–Likupang", "Manado–Likupang"), slug: "manado-likupang", region: c("North Sulawesi", "Sulawesi Utara"), image: likupangImage,
+      name: c("Manado–Likupang", "Manado–Likupang"), slug: "manado-likupang", region: c("North Sulawesi", "Sulawesi Utara"), image: likupangDriveImage,
       themes: [c("Marine tourism", "Pariwisata bahari"), c("Nature", "Alam"), c("Gastronomy", "Gastronomi")],
     },
     {
-      name: c("Bromo–Tengger–Semeru", "Bromo–Tengger–Semeru"), slug: "bromo-tengger-semeru", region: c("East Java", "Jawa Timur"), image: bromoImage,
+      name: c("Bromo–Tengger–Semeru", "Bromo–Tengger–Semeru"), slug: "bromo-tengger-semeru", region: c("East Java", "Jawa Timur"), image: bromoDriveImage,
       themes: [c("Nature", "Alam"), c("Adventure", "Petualangan"), c("Culture", "Budaya")],
     },
     {
-      name: c("Raja Ampat", "Raja Ampat"), slug: "raja-ampat", region: c("Southwest Papua", "Papua Barat Daya"), image: rajaAmpatImage,
+      name: c("Raja Ampat", "Raja Ampat"), slug: "raja-ampat", region: c("Southwest Papua", "Papua Barat Daya"), image: rajaAmpatDriveImage,
       themes: [c("Marine tourism", "Pariwisata bahari"), c("Nature", "Alam"), c("Adventure", "Petualangan")],
     },
     {

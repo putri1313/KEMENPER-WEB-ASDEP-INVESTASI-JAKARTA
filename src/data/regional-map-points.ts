@@ -1,8 +1,15 @@
 import type { TourismMapPoint } from "@/data/map-point";
-import batamImage from "@/assets/destinations/riau-recommendations/batam.webp";
-import bintanLagoiImage from "@/assets/destinations/riau-recommendations/bintan-lagoi.webp";
-import pulauPenyengatImage from "@/assets/destinations/riau-recommendations/pulau-penyengat.webp";
-import tanjungPinangImage from "@/assets/destinations/riau-recommendations/tanjung-pinang.webp";
+import batamImage from "@/assets/destinations/drive/kepulauan-riau/batam.png";
+import bintanLagoiImage from "@/assets/destinations/drive/kepulauan-riau/bintan-lagoi.png";
+import pulauPenyengatImage from "@/assets/destinations/drive/kepulauan-riau/pulau-penyengat.png";
+import tanjungPinangImage from "@/assets/destinations/drive/kepulauan-riau/tanjung-pinang.png";
+import bromoImage from "@/assets/destinations/drive/bromo-tengger-semeru/bromo.png";
+import pananjakanImage from "@/assets/destinations/drive/bromo-tengger-semeru/pananjakan.png";
+import madakaripuraImage from "@/assets/destinations/drive/bromo-tengger-semeru/madakaripura.png";
+import waigeoImage from "@/assets/destinations/drive/raja-ampat/waigeo.png";
+import piaynemoImage from "@/assets/destinations/drive/raja-ampat/piaynemo.png";
+import arborekImage from "@/assets/destinations/drive/raja-ampat/arborek.png";
+import wayagImage from "@/assets/destinations/drive/raja-ampat/wayag.png";
 
 export const riauIslandsMapPoints: readonly TourismMapPoint[] = [
   {
@@ -71,6 +78,7 @@ export const bromoMapPoints: readonly TourismMapPoint[] = [
       en: "An active volcano rising above a broad volcanic sand plain in Bromo Tengger Semeru National Park.",
       id: "Gunung api aktif yang menjulang di atas hamparan lautan pasir di Taman Nasional Bromo Tengger Semeru.",
     },
+    image: bromoImage,
   },
   {
     id: "penanjakan",
@@ -83,6 +91,7 @@ export const bromoMapPoints: readonly TourismMapPoint[] = [
       en: "A highland viewpoint overlooking the Bromo caldera and surrounding volcanic peaks.",
       id: "Titik pandang dataran tinggi yang menghadap kaldera Bromo dan puncak-puncak gunung di sekitarnya.",
     },
+    image: pananjakanImage,
   },
   {
     id: "tengger-villages",
@@ -107,6 +116,7 @@ export const bromoMapPoints: readonly TourismMapPoint[] = [
       en: "A tall waterfall set within a steep, green-sided gorge in the Probolinggo highlands.",
       id: "Air terjun tinggi di dalam ngarai terjal yang dikelilingi tebing hijau di dataran tinggi Probolinggo.",
     },
+    image: madakaripuraImage,
   },
 ];
 
@@ -122,6 +132,7 @@ export const rajaAmpatMapPoints: readonly TourismMapPoint[] = [
       en: "The largest of the Raja Ampat islands and a base for marine, village, and nature visits.",
       id: "Pulau terbesar di Raja Ampat dan titik awal untuk wisata bahari, desa, dan alam.",
     },
+    image: waigeoImage,
   },
   {
     id: "piaynemo",
@@ -134,6 +145,7 @@ export const rajaAmpatMapPoints: readonly TourismMapPoint[] = [
       en: "A viewpoint above a cluster of small karst islets and sheltered turquoise lagoons.",
       id: "Titik pandang di atas gugusan pulau karst kecil dan laguna biru kehijauan.",
     },
+    image: piaynemoImage,
   },
   {
     id: "arborek",
@@ -146,6 +158,7 @@ export const rajaAmpatMapPoints: readonly TourismMapPoint[] = [
       en: "A small island village known for community-based visitor experiences and nearby reef life.",
       id: "Desa pulau kecil yang dikenal dengan pengalaman wisata berbasis masyarakat dan kehidupan terumbu di sekitarnya.",
     },
+    image: arborekImage,
   },
   {
     id: "wayag",
@@ -158,6 +171,7 @@ export const rajaAmpatMapPoints: readonly TourismMapPoint[] = [
       en: "A remote island group with steep karst formations, clear lagoons, and panoramic viewpoints.",
       id: "Gugusan pulau terpencil dengan formasi karst terjal, laguna jernih, dan titik pandang panorama.",
     },
+    image: wayagImage,
   },
 ];
 

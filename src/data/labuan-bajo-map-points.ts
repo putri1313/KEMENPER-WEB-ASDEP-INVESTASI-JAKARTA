@@ -1,4 +1,11 @@
 import type { TourismMapPoint } from "@/data/map-point";
+import labuaImage from "@/assets/destinations/drive/labuan-bajo/labua.png";
+import kelorImage from "@/assets/destinations/drive/labuan-bajo/kelor.png";
+import kanawaImage from "@/assets/destinations/drive/labuan-bajo/kanawa.png";
+import rincaImage from "@/assets/destinations/drive/labuan-bajo/rinca.png";
+import padarImage from "@/assets/destinations/drive/labuan-bajo/padar.png";
+import komodoImage from "@/assets/destinations/drive/labuan-bajo/komodo.png";
+import pinkImage from "@/assets/destinations/drive/labuan-bajo/pink.png";
 
 export const labuanBajoMapPoints: readonly TourismMapPoint[] = [
   {
@@ -12,6 +19,7 @@ export const labuanBajoMapPoints: readonly TourismMapPoint[] = [
       en: "The harbour town and main departure point for boat trips to the islands of Komodo National Park.",
       id: "Kota pelabuhan sekaligus titik keberangkatan utama menuju pulau-pulau di Taman Nasional Komodo.",
     },
+    image: labuaImage,
   },
   {
     id: "kelor",
@@ -24,6 +32,7 @@ export const labuanBajoMapPoints: readonly TourismMapPoint[] = [
       en: "A small island near Labuan Bajo with a short hill walk, beach, and views across the surrounding waters.",
       id: "Pulau kecil dekat Labuan Bajo dengan jalur pendakian singkat, pantai, dan panorama perairan sekitarnya.",
     },
+    image: kelorImage,
   },
   {
     id: "kanawa",
@@ -36,6 +45,7 @@ export const labuanBajoMapPoints: readonly TourismMapPoint[] = [
       en: "An island known for clear water, coral reefs, and opportunities for swimming and snorkelling.",
       id: "Pulau dengan perairan jernih dan terumbu karang, cocok untuk berenang dan snorkeling.",
     },
+    image: kanawaImage,
   },
   {
     id: "rinca",
@@ -48,6 +58,7 @@ export const labuanBajoMapPoints: readonly TourismMapPoint[] = [
       en: "A national park island where guided treks offer a chance to learn about Komodo dragons and their habitat.",
       id: "Pulau taman nasional dengan trekking berpemandu untuk mengenal komodo dan habitatnya.",
     },
+    image: rincaImage,
   },
   {
     id: "padar",
@@ -60,6 +71,7 @@ export const labuanBajoMapPoints: readonly TourismMapPoint[] = [
       en: "An island known for its hilltop viewpoint over several curved bays and contrasting beaches.",
       id: "Pulau dengan titik pandang di puncak bukit yang menghadap teluk-teluk melengkung dan pantai dengan warna berbeda.",
     },
+    image: padarImage,
   },
   {
     id: "komodo",
@@ -72,6 +84,7 @@ export const labuanBajoMapPoints: readonly TourismMapPoint[] = [
       en: "Part of Komodo National Park, with ranger-guided walks to observe Komodo dragons in their natural habitat.",
       id: "Bagian dari Taman Nasional Komodo, dengan jalur berpemandu ranger untuk mengamati komodo di habitat alaminya.",
     },
+    image: komodoImage,
   },
   {
     id: "pink-beach",
@@ -84,5 +97,6 @@ export const labuanBajoMapPoints: readonly TourismMapPoint[] = [
       en: "A distinctive pink-sand beach within Komodo National Park, known for its reef-fringed shore and clear water.",
       id: "Pantai berpasir merah muda di Taman Nasional Komodo, dikenal dengan pesisir berterumbu dan air yang jernih.",
     },
+    image: pinkImage,
   },
 ];

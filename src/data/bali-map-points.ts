@@ -1,12 +1,12 @@
 import type { TourismMapPoint } from "@/data/map-point";
-import ubudImage from "@/assets/destinations/bali-recommendations/ubud.webp";
-import tanahLotImage from "@/assets/destinations/bali-recommendations/tanah-lot.webp";
-import ulunDanuImage from "@/assets/destinations/bali-recommendations/pura-ulun-danu.webp";
-import jatiluwihImage from "@/assets/destinations/bali-recommendations/jatiluwih.webp";
-import tirtaEmpulImage from "@/assets/destinations/bali-recommendations/tirta-empul.webp";
-import uluwatuImage from "@/assets/destinations/bali-recommendations/uluwatu.webp";
-import tirtaGanggaImage from "@/assets/destinations/bali-recommendations/tirta-gangga.webp";
-import kelingkingImage from "@/assets/destinations/bali-recommendations/kelingking.webp";
+import ubudImage from "@/assets/destinations/drive/bali/ubud.png";
+import tanahLotImage from "@/assets/destinations/drive/bali/tanah-lot.png";
+import ulunDanuImage from "@/assets/destinations/drive/bali/pura-ulun-danu.png";
+import jatiluwihImage from "@/assets/destinations/drive/bali/jatiluwih.png";
+import tirtaEmpulImage from "@/assets/destinations/drive/bali/tirta-empul.png";
+import uluwatuImage from "@/assets/destinations/drive/bali/uluwatu.png";
+import tirtaGanggaImage from "@/assets/destinations/drive/bali/tirta-gangga.png";
+import kelingkingImage from "@/assets/destinations/drive/bali/kelingking.png";
 
 export const baliMapPoints: readonly TourismMapPoint[] = [
   {
