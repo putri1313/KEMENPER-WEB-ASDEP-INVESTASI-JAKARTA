@@ -214,13 +214,13 @@ function DestinationDetailPage() {
           if (!open) setSelectedRecommendation(null);
         }}
       >
-        <DialogContent className="max-w-5xl overflow-hidden border-0 bg-navy p-0 text-primary-foreground">
+        <DialogContent className="max-h-[90vh] max-w-3xl overflow-y-auto border-0 bg-navy p-0 text-primary-foreground">
           {selectedRecommendation && (
             <>
               <img
                 src={selectedRecommendation.image ?? destination.image}
                 alt={`${destinationName} - ${t(selectedRecommendation.name)}`}
-                className="max-h-[72vh] w-full bg-black object-contain"
+                className="max-h-[48vh] w-full bg-black object-contain"
               />
               <DialogHeader className="p-6 pr-14 text-left">
                 <DialogTitle className="font-display text-2xl font-bold text-primary-foreground">
@@ -232,6 +232,17 @@ function DestinationDetailPage() {
                 <p className="text-sm leading-6 text-primary-foreground/85">
                   {getDestinationDescription(selectedRecommendation)}
                 </p>
+                {profile.officialTravelGuide && (
+                  <a
+                    href={profile.officialTravelGuide.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex min-h-11 w-fit items-center gap-2 border border-border bg-background px-5 text-sm font-bold text-foreground transition hover:border-gold hover:text-forest"
+                  >
+                    {localized(profile.officialTravelGuide.label)}
+                    <ArrowUpRight size={16} />
+                  </a>
+                )}
                 {selectedRecommendation.imageCredit && (
                   <a
                     href={selectedRecommendation.imageCredit.url}
