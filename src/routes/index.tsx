@@ -46,7 +46,7 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
-const FEATURED_VIDEO_ID = "e9G5CJ4N54A";
+const FEATURED_VIDEO_ID = "mdyrb-thpI0";
 function Home() {
   const { t } = useSitePreferences();
   const [activeMetric, setActiveMetric] = useState<number | null>(null);
@@ -165,7 +165,7 @@ function Home() {
                 </p>
               </div>
               <a
-                href="https://youtu.be/e9G5CJ4N54A"
+                href="https://www.youtube.com/watch?v=mdyrb-thpI0"
                 target="_blank"
                 rel="noreferrer"
                 className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-gold/45 px-4 py-2.5 text-sm font-extrabold text-gold transition hover:gap-3 hover:bg-gold hover:text-navy"

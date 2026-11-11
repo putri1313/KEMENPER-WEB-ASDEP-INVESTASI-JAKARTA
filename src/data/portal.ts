@@ -32,7 +32,6 @@ import lombokDriveImage from "@/assets/destinations/drive/lombok-gili-tramena/ku
 import likupangDriveImage from "@/assets/destinations/drive/manado-likupang/likupang.png";
 import rajaAmpatDriveImage from "@/assets/destinations/drive/raja-ampat/waigeo.png";
 import riauDriveImage from "@/assets/destinations/drive/kepulauan-riau/batam.png";
-import tobaDriveImage from "@/assets/destinations/drive/danau-toba/samosir.png";
 import bangkaDriveImage from "@/assets/destinations/drive/bangka-belitung/tanjung-tinggi.png";
 import wakatobiDriveImage from "@/assets/destinations/drive/wakatobi/wangi-wangi.png";
 import morotaiDriveImage from "@/assets/destinations/drive/morotai/daruba.png";
@@ -144,7 +143,7 @@ export const destinations: Destination[] = [
   },
   ...[
     {
-      name: c("Lake Toba", "Danau Toba"), slug: "danau-toba", region: c("North Sumatra", "Sumatera Utara"), image: tobaDriveImage,
+      name: c("Lake Toba", "Danau Toba"), slug: "danau-toba", region: c("North Sumatra", "Sumatera Utara"), image: lakeTobaImage,
       themes: [c("Nature", "Alam"), c("Culture", "Budaya"), c("Lake tourism", "Wisata danau")],
     },
     {

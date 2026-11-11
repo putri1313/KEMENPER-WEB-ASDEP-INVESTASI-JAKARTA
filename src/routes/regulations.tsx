@@ -16,6 +16,33 @@ export const Route = createFileRoute("/regulations")({
 });
 
 const c = localizedContent;
+const generalIncentives = [
+  c("Risk-based licensing can simplify approvals for lower-risk activities.", "Perizinan berbasis risiko dapat menyederhanakan proses untuk kegiatan berisiko rendah."),
+  c("OSS centralizes business licensing and applications.", "OSS memusatkan layanan dan pengajuan perizinan usaha."),
+  c("Domestic and foreign tourism investment is welcome, subject to sector rules.", "Investasi pariwisata dalam dan luar negeri terbuka sesuai ketentuan sektoral."),
+  c("Foreign investment generally exceeds IDR 10 billion per business line and location, excluding land and buildings. This is not paid-up capital; verify OSS requirements.", "Investasi asing umumnya di atas Rp10 miliar per bidang usaha dan lokasi, di luar tanah dan bangunan. Ini bukan modal disetor; periksa persyaratan OSS."),
+  c("Tax benefits may include a lower corporate rate for eligible IDX-listed companies and tax reductions or holidays for qualifying projects.", "Fasilitas pajak dapat mencakup tarif pajak badan lebih rendah bagi perusahaan tercatat di BEI yang memenuhi syarat serta pengurangan atau pembebasan pajak bagi proyek yang memenuhi ketentuan."),
+  c("VAT relief depends on the goods or services and current tax rules.", "Fasilitas PPN bergantung pada barang atau jasa serta ketentuan pajak terkini."),
+];
+const strategicIncentives = [
+  {
+    title: c("Tax holidays and reductions", "Tax holiday dan pengurangan pajak"),
+    description: c("Eligible projects may qualify under current tax rules.", "Proyek yang memenuhi syarat dapat memperoleh fasilitas sesuai aturan pajak."),
+  },
+  {
+    title: c("Infrastructure support", "Dukungan infrastruktur"),
+    description: c("Availability depends on destination plans and project location.", "Ketersediaan mengikuti rencana destinasi dan lokasi proyek."),
+  },
+  {
+    title: c("Employment and training", "Ketenagakerjaan dan pelatihan"),
+    description: c("Training programs or eligible skills-development costs may receive support.", "Program pelatihan atau biaya peningkatan keterampilan tertentu dapat memperoleh dukungan."),
+  },
+  {
+    title: c("Investment facilitation", "Fasilitasi investasi"),
+    description: c("Strategic or sustainable projects may qualify for tailored support, subject to approval.", "Proyek strategis atau berkelanjutan dapat memperoleh dukungan khusus setelah persetujuan."),
+  },
+];
+
 const frameworks = [
   {
     value: "tourism",
@@ -45,6 +72,20 @@ const frameworks = [
         description: c("Sets out the general framework for investment in Indonesia, including investor rights and responsibilities and the basis for investment facilities. Eligibility and facility terms depend on the applicable rules and the proposed activity.", "Mengatur kerangka umum penanaman modal di Indonesia, termasuk hak dan kewajiban investor serta dasar pemberian fasilitas investasi. Kelayakan dan ketentuan fasilitas bergantung pada peraturan yang berlaku dan kegiatan yang diusulkan."),
         href: "https://peraturan.bpk.go.id/Details/39903/uu-no-25-tahun-2007",
         linkLabel: c("View Investment Law", "Lihat UU Penanaman Modal"),
+        tag: c("Investment", "Investasi"),
+      },
+      {
+        title: c("Presidential Regulation No. 10 of 2021 on Investment Business Fields, as amended by Presidential Regulation No. 49 of 2021", "Peraturan Presiden No. 10 Tahun 2021 tentang Bidang Usaha Penanaman Modal sebagaimana diubah dengan Peraturan Presiden No. 49 Tahun 2021"),
+        description: c("Sets out investment business fields, including fields open to investment and those subject to specific conditions. Check the amended text and current sector rules before assessing foreign investment eligibility.", "Mengatur bidang usaha penanaman modal, termasuk bidang usaha yang terbuka untuk investasi dan yang memiliki persyaratan tertentu. Periksa naskah perubahan dan ketentuan sektoral terkini untuk menilai kelayakan penanaman modal asing."),
+        href: "https://peraturan.bpk.go.id/",
+        linkLabel: c("Search official regulations", "Cari peraturan resmi"),
+        tag: c("Investment", "Investasi"),
+      },
+      {
+        title: c("Job Creation framework (Law No. 6 of 2023; originally Law No. 11 of 2020)", "Kerangka Cipta Kerja (Undang-Undang No. 6 Tahun 2023; semula Undang-Undang No. 11 Tahun 2020)"),
+        description: c("The Job Creation framework amended rules across business licensing, investment, and other areas. Law No. 6 of 2023 enacted the current framework; consult its current implementing regulations for requirements that apply to a project.", "Kerangka Cipta Kerja mengubah ketentuan di berbagai bidang, termasuk perizinan berusaha dan investasi. Undang-Undang No. 6 Tahun 2023 menetapkan kerangka yang berlaku saat ini; periksa peraturan pelaksananya untuk mengetahui persyaratan proyek."),
+        href: "https://peraturan.bpk.go.id/",
+        linkLabel: c("Search official regulations", "Cari peraturan resmi"),
         tag: c("Investment", "Investasi"),
       },
     ],
@@ -165,6 +206,41 @@ function RegulationsPage() {
             </AccordionItem>)}
           </Accordion>
         </div>
+        <section aria-labelledby="investment-incentives" className="mt-12 border-t border-border pt-8">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="eyebrow text-forest">{getLocalizedContent(c("Investment support", "Dukungan investasi"), language)}</p>
+              <h2 id="investment-incentives" className="mt-2 font-display text-3xl font-extrabold md:text-4xl">{getLocalizedContent(c("Potential investment incentives", "Potensi insentif investasi"), language)}</h2>
+            </div>
+            <p className="max-w-lg text-xs leading-5 text-muted-foreground sm:text-right">{getLocalizedContent(c("Incentives depend on eligibility and current rules. Confirm details with the relevant authorities.", "Insentif bergantung pada kelayakan dan ketentuan terkini. Konfirmasikan rinciannya kepada instansi terkait."), language)}</p>
+          </div>
+          <div className="mt-6 grid items-start gap-4 md:grid-cols-2">
+            <article className="rounded-sm border border-border bg-card p-5">
+              <div className="flex items-center gap-3">
+                <span className="grid size-9 place-items-center rounded-full bg-mist text-forest"><Building2 size={17} /></span>
+                <h3 className="font-display text-lg font-extrabold">{getLocalizedContent(c("General investment incentives", "Insentif investasi umum"), language)}</h3>
+              </div>
+              <ul className="mt-4 space-y-2">
+                {generalIncentives.map((incentive) => <li key={incentive.en} className="flex gap-2.5 text-xs leading-5 text-muted-foreground">
+                  <Check size={15} className="mt-0.5 shrink-0 text-forest" />
+                  <span>{getLocalizedContent(incentive, language)}</span>
+                </li>)}
+              </ul>
+            </article>
+            <article className="rounded-sm border border-border bg-card p-5">
+              <div className="flex items-center gap-3">
+                <span className="grid size-9 place-items-center rounded-full bg-mist text-forest"><Landmark size={17} /></span>
+                <h3 className="font-display text-lg font-extrabold">{getLocalizedContent(c("Strategic investment incentives", "Insentif investasi strategis"), language)}</h3>
+              </div>
+              <div className="mt-4 space-y-2.5">
+                {strategicIncentives.map((incentive) => <div key={incentive.title.en}>
+                  <h4 className="text-xs font-extrabold text-forest">{getLocalizedContent(incentive.title, language)}</h4>
+                  <p className="mt-0.5 text-xs leading-5 text-muted-foreground">{getLocalizedContent(incentive.description, language)}</p>
+                </div>)}
+              </div>
+            </article>
+          </div>
+        </section>
         <div className="mt-10 flex flex-col gap-4 border-t border-border pt-6 text-xs leading-6 text-muted-foreground md:flex-row md:items-start md:justify-between">
           <p className="max-w-4xl">{t("This page is an introductory guide, not a substitute for the official legal text or project-specific advice. Regulations can change; confirm current requirements with OSS, JDIH, and the competent central or local authority.")}</p>
           <a href="https://peraturan.bpk.go.id/" target="_blank" rel="noreferrer" className="inline-flex shrink-0 items-center gap-2 font-bold text-forest hover:underline">{t("Search JDIH BPK")} <ArrowUpRight size={14}/></a>
