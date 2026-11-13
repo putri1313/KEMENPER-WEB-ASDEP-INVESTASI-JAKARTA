@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { DestinationExplorer, PageHero } from "@/components/portal-components";
 import aerial from "@/assets/indonesia-aerial.jpg";
+import destinationMap from "@/assets/indonesia-destination-map.png";
 import { useSitePreferences } from "@/lib/site-preferences";
 
 export const Route = createFileRoute("/destinations/")({
@@ -25,6 +26,15 @@ function DestinationsPage() {
     />
     <section className="section-space">
       <div className="container-portal">
+        <figure className="mb-12">
+          <img
+            src={destinationMap}
+            alt={t("Map of Indonesia's 13 strategic tourism destinations")}
+            width={1365}
+            height={768}
+            className="mx-auto block h-auto w-full max-w-6xl object-contain"
+          />
+        </figure>
         <DestinationExplorer full />
       </div>
     </section>

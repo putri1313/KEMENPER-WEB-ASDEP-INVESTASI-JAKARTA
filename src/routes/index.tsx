@@ -14,7 +14,6 @@ import aerial from "@/assets/indonesia-aerial.jpg";
 import culture from "@/assets/indonesia-culture.jpg";
 import {
   DestinationCarousel,
-  Newsletter,
   SectionHeader,
   YouTubeScrollPlayer,
 } from "@/components/portal-components";
@@ -193,7 +192,6 @@ function Home() {
           <DestinationCarousel items={regenerativeDestinations} label="Regenerative destinations" />
         </div>
       </section>
-      <Newsletter />
     </div>
   );
 }
