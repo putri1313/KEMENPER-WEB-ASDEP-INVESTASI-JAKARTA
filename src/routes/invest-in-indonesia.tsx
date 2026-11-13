@@ -9,7 +9,6 @@ import urban from "@/assets/indonesia-urban.jpg";
 import { getLocalizedContent, localizedContent } from "@/lib/localized-content";
 import { useSitePreferences } from "@/lib/site-preferences";
 import { whyIndonesiaIntro, whyIndonesiaSections } from "@/data/investor-why-indonesia";
-import { TourismImpactTimeline } from "@/components/tourism-impact-timeline";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const Route = createFileRoute("/invest-in-indonesia")({
@@ -76,98 +75,6 @@ function InvestInIndonesiaPage() {
           </div>
         </div>
       </section>
-
-      <section className="section-space bg-background">
-        <div className="container-portal">
-          <div className="relative">
-            <div className="relative h-72 overflow-hidden rounded-lg bg-navy md:h-[30rem] md:rounded-3xl">
-              <img
-                src={culture}
-                alt={local(c("Indonesian culture and tourism", "Budaya dan pariwisata Indonesia"))}
-                width={1920}
-                height={1080}
-                className="size-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-navy/55 via-transparent to-transparent" />
-            </div>
-            <div className="relative mx-4 -mt-10 rounded-lg bg-card p-6 shadow-card md:absolute md:right-8 md:top-1/2 md:mt-0 md:w-[min(43%,34rem)] md:-translate-y-1/2 md:rounded-3xl md:p-8 lg:right-12 lg:p-10">
-              <p className="eyebrow text-forest">{t("The investment case")}</p>
-              <div className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground md:text-base">
-                {whyIndonesiaIntro.map((paragraph, index) => (
-                  <p
-                    key={paragraph.en}
-                    className={index === 2 ? "font-semibold text-foreground" : undefined}
-                  >
-                    {local(paragraph)}
-                  </p>
-                ))}
-              </div>
-              <ButtonLink to="/destinations" variant="outline" className="mt-6">
-                {t("Explore the Destination Landscape")} <ArrowRight size={16} />
-              </ButtonLink>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative z-10 bg-background py-8 md:py-10">
-        <div className="container-portal">
-          <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between reveal">
-            <div>
-              <p className="eyebrow text-forest">
-                {local(c("Investment snapshot · 2024", "Ringkasan investasi · 2024"))}
-              </p>
-              <h2 className="mt-2 font-display text-2xl font-extrabold md:text-3xl">
-                {local(c("Tourism sector momentum", "Momentum sektor pariwisata"))}
-              </h2>
-            </div>
-            <p className="max-w-xl text-xs leading-5 text-muted-foreground">
-              {local(
-                c(
-                  "Realization reported in the May 2025 book; not live data.",
-                  "Realisasi dalam buku Mei 2025; bukan data waktu nyata.",
-                ),
-              )}
-            </p>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              [local(c("Total realization", "Total realisasi")), "IDR 47.13T"],
-              [local(c("2024 target", "Target 2024")), "IDR 45T"],
-              [local(c("Target achievement", "Pencapaian target")), "104.67%"],
-              [local(c("Domestic · 62.96%", "PMDN · 62,96%")), "IDR 29.69T"],
-              [local(c("Foreign · 37.03%", "PMA · 37,03%")), "IDR 17.45T"],
-              [local(c("Jobs created", "Lapangan kerja")), "109,815"],
-            ].map(([label, value], index) => (
-              <article
-                className="reveal border border-border bg-card p-5 transition duration-300 hover:-translate-y-1 hover:border-forest/50 hover:shadow-soft motion-reduce:transform-none"
-                key={label}
-                style={{ animationDelay: `${index * 90}ms` }}
-              >
-                <p className="text-xs font-semibold text-muted-foreground">{label}</p>
-                <p className="mt-2 font-display text-2xl font-extrabold tabular-nums text-forest md:text-3xl">
-                  {value}
-                </p>
-                {index === 5 && (
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {local(c("+30.8% year on year", "+30,8% dibanding tahun sebelumnya"))}
-                  </p>
-                )}
-              </article>
-            ))}
-          </div>
-          <p className="mt-4 text-xs leading-5 text-muted-foreground">
-            {local(
-              c(
-                "Source: Final Draft Summary of Investment Opportunities Book, May 2025. The summary reports foreign investment at IDR 17.45T; the trend chart shows IDR 17.44T, reflecting a rounding/source discrepancy.",
-                "Sumber: Final Draft Summary of Investment Opportunities Book, Mei 2025. Ringkasan menyebut PMA IDR 17,45T; grafik tren pada dokumen menampilkan IDR 17,44T karena pembulatan/perbedaan sumber.",
-              ),
-            )}
-          </p>
-        </div>
-      </section>
-
-      <TourismImpactTimeline />
 
       <section className="section-space bg-sand/45">
         <div className="container-portal">
@@ -286,6 +193,39 @@ function InvestInIndonesiaPage() {
               })}
             </div>
           </Tabs>
+        </div>
+      </section>
+
+      <section className="section-space bg-background">
+        <div className="container-portal">
+          <div className="relative">
+            <div className="relative h-72 overflow-hidden rounded-lg bg-navy md:h-[30rem] md:rounded-3xl">
+              <img
+                src={culture}
+                alt={local(c("Indonesian culture and tourism", "Budaya dan pariwisata Indonesia"))}
+                width={1920}
+                height={1080}
+                className="size-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-navy/55 via-transparent to-transparent" />
+            </div>
+            <div className="relative mx-4 -mt-10 rounded-lg bg-card p-6 shadow-card md:absolute md:right-8 md:top-1/2 md:mt-0 md:w-[min(43%,34rem)] md:-translate-y-1/2 md:rounded-3xl md:p-8 lg:right-12 lg:p-10">
+              <p className="eyebrow text-forest">{t("The investment case")}</p>
+              <div className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground md:text-base">
+                {whyIndonesiaIntro.map((paragraph, index) => (
+                  <p
+                    key={paragraph.en}
+                    className={index === 2 ? "font-semibold text-foreground" : undefined}
+                  >
+                    {local(paragraph)}
+                  </p>
+                ))}
+              </div>
+              <ButtonLink to="/destinations" variant="outline" className="mt-6">
+                {t("Explore the Destination Landscape")} <ArrowRight size={16} />
+              </ButtonLink>
+            </div>
+          </div>
         </div>
       </section>
 

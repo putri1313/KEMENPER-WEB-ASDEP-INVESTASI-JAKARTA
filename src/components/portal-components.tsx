@@ -2,7 +2,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Building2, Compass, Globe2, Leaf, ShieldCheck, ShipWheel, Volume2, VolumeX } from "lucide-react";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import type { Destination } from "@/data/portal";
+import { getDestinationProjectTypes, type Destination } from "@/data/portal";
 import type { LocalizedContent } from "@/lib/localized-content";
 import { destinations } from "@/data/portal";
 import { Button, ButtonLink } from "./ui";
@@ -81,10 +81,11 @@ export function DestinationCard({ destination, compact = false }: { destination:
  const { language, t } = useSitePreferences();
  const name = getLocalizedContent(destination.name, language);
  const region = getLocalizedContent(destination.region, language);
+ const projectTypes = getDestinationProjectTypes(destination);
  return <Link to="/destinations/$slug" params={{ slug: destination.slug }} className={`group relative block overflow-hidden rounded-sm bg-navy shadow-card transition duration-500 hover:-translate-y-1 ${compact ? "aspect-[4/3]" : "aspect-[3/2]"}`}>
    <img src={destination.image} alt={`${name} ${t("tourism landscape")}`} width={1536} height={1024} loading="lazy" className="absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-105"/>
    <div className="image-shade absolute inset-0 transition group-hover:bg-overlay/35" />
-   <div className="absolute inset-x-0 bottom-0 p-6 text-primary-foreground md:p-8"><span className={`inline-flex rounded-sm px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[.14em] ${destination.type === "regenerative" ? "bg-accent" : "bg-gold text-navy"}`}>{t(destination.type === "regenerative" ? "Regenerative" : "Priority")} {t("destination")}</span><h3 className="mt-4 font-display text-2xl font-extrabold leading-tight md:text-3xl">{name}</h3><p className="mt-1 text-sm text-primary-foreground/70">{region}</p><p className="mt-4 line-clamp-2 max-h-0 overflow-hidden text-sm leading-6 opacity-0 transition-all duration-500 group-hover:max-h-16 group-hover:opacity-80">{getLocalizedContent(destination.description, language)}</p><span className="mt-5 inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[.1em]">{t("Explore")} <ArrowRight size={15} className="transition group-hover:translate-x-1"/></span></div>
+   <div className="absolute inset-x-0 bottom-0 p-6 text-primary-foreground md:p-8"><span className={`inline-flex rounded-sm px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[.14em] ${destination.type === "regenerative" ? "bg-accent" : "bg-gold text-navy"}`}>{t(destination.type === "regenerative" ? "Regenerative" : "Priority")} {t("destination")}</span>{projectTypes.length > 0 && <div className="mt-3"><p className="text-[9px] font-bold uppercase tracking-[.14em] text-primary-foreground/65">{t("Project Type")}</p><div className="mt-1.5 flex flex-wrap gap-1.5">{projectTypes.map((projectType) => <span key={projectType} className="rounded-sm border border-white/35 bg-navy/35 px-2 py-1 text-[10px] font-bold">{t(projectType)}</span>)}</div></div>}<h3 className="mt-3 font-display text-2xl font-extrabold leading-tight md:text-3xl">{name}</h3><p className="mt-1 text-sm text-primary-foreground/70">{region}</p><p className="mt-4 line-clamp-2 max-h-0 overflow-hidden text-sm leading-6 opacity-0 transition-all duration-500 group-hover:max-h-16 group-hover:opacity-80">{getLocalizedContent(destination.description, language)}</p><span className="mt-5 inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[.1em]">{t("Explore")} <ArrowRight size={15} className="transition group-hover:translate-x-1"/></span></div>
  </Link>
 }
 

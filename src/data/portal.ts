@@ -34,7 +34,7 @@ import rajaAmpatDriveImage from "@/assets/destinations/drive/raja-ampat/waigeo.p
 import riauDriveImage from "@/assets/destinations/drive/kepulauan-riau/batam.png";
 import bangkaDriveImage from "@/assets/destinations/drive/bangka-belitung/tanjung-tinggi.png";
 import wakatobiDriveImage from "@/assets/destinations/drive/wakatobi/wangi-wangi.png";
-import morotaiDriveImage from "@/assets/destinations/drive/morotai/daruba.png";
+import morotaiDriveImage from "@/assets/destinations/drive/morotai/morotai-daruba-lagoon.png";
 import { localizedContent, type LocalizedContent } from "@/lib/localized-content";
 
 export type DestinationType = "regenerative" | "priority";
@@ -51,6 +51,20 @@ export type Destination = {
   connectivity: LocalizedContent;
   opportunities: LocalizedContent[];
 };
+
+export type ProjectType = "Marine" | "Wellness" | "Gastronomy";
+
+const projectTypeThemes: Record<ProjectType, string> = {
+  Marine: "Marine tourism",
+  Wellness: "Wellness",
+  Gastronomy: "Gastronomy",
+};
+
+export function getDestinationProjectTypes(destination: Pick<Destination, "tourismThemes">): ProjectType[] {
+  return (Object.entries(projectTypeThemes) as [ProjectType, string][])
+    .filter(([, theme]) => destination.tourismThemes.some((item) => item.en === theme))
+    .map(([projectType]) => projectType);
+}
 
 const c = localizedContent;
 const sharedSectors = [

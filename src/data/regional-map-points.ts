@@ -17,7 +17,7 @@ import wangiWangiImage from "@/assets/destinations/drive/wakatobi/wangi-wangi.pn
 import kaledupaImage from "@/assets/destinations/drive/wakatobi/kaledupa.png";
 import tomiaImage from "@/assets/destinations/drive/wakatobi/tomia.png";
 import binongkoImage from "@/assets/destinations/drive/wakatobi/binongko.png";
-import darubaImage from "@/assets/destinations/drive/morotai/daruba.png";
+import darubaImage from "@/assets/destinations/drive/morotai/morotai-daruba-lagoon.png";
 import dodolaImage from "@/assets/destinations/drive/morotai/dodola.png";
 import wawamaImage from "@/assets/destinations/drive/morotai/wawama.png";
 import morotaiNorthernImage from "@/assets/destinations/drive/morotai/morotai-northern.png";

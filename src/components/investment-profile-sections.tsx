@@ -87,7 +87,13 @@ function ListSection({
   );
 }
 
-export function InvestmentProfileSections({ profile }: { profile: InvestmentOpportunityProfile }) {
+export function InvestmentProfileSections({
+  profile,
+  showArrivals = true,
+}: {
+  profile: InvestmentOpportunityProfile;
+  showArrivals?: boolean;
+}) {
   const { language } = useSitePreferences();
   const id = language === "id";
 
@@ -160,7 +166,7 @@ export function InvestmentProfileSections({ profile }: { profile: InvestmentOppo
               {profile.contact && <span>{profile.contact}</span>}
             </div>
           )}
-          <ArrivalTable profile={profile} id={id} />
+          {showArrivals && <ArrivalTable profile={profile} id={id} />}
         </div>
       </section>
 

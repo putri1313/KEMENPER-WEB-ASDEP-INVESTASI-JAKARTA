@@ -5,7 +5,7 @@ import { Button, ButtonLink } from "./ui";
 import { useSitePreferences } from "@/lib/site-preferences";
 
 const links = [
-  ["Home", "/"], ["Invest in Indonesia", "/invest-in-indonesia"], ["Destinations", "/destinations"], ["Investment Opportunities", "/opportunities"],
+  ["Home", "/"], ["Why Indonesia?", "/invest-in-indonesia"], ["Destinations", "/destinations"], ["Investment Opportunities", "/opportunities"],
   ["Regulations", "/regulations"], ["Newsletter", "/newsletter"], ["Contact Us", "/contact"],
 ] as const;
 
@@ -25,10 +25,16 @@ export function Navbar() {
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${overHero ? "border-transparent bg-transparent text-primary-foreground" : "border-b border-border bg-background/95 text-foreground shadow-soft backdrop-blur"}`}>
       <div className="container-portal flex h-20 items-center justify-between gap-6">
-        <Link to="/" className="flex items-center gap-3" aria-label={t("Invest in Wonderful Indonesia!")}>
+        <Link
+          to="/"
+          className="flex items-center gap-3"
+          aria-label={`${t("Ministry of Tourism")} ${t("Republic of Indonesia")}`}
+        >
           <img src="/kemenpar-logo.png" alt={t("Ministry of Tourism emblem")} className="size-11 object-contain" />
-          <span className="max-w-[128px] font-display text-[11px] font-extrabold leading-tight">
-            {t("Invest in Wonderful Indonesia!")}
+          <span className="max-w-[150px] font-display text-[11px] font-extrabold leading-tight">
+            {t("Ministry of Tourism")}
+            <br />
+            {t("Republic of Indonesia")}
           </span>
         </Link>
         <nav className="hidden items-center gap-4 lg:flex" aria-label={t("Primary navigation")}>

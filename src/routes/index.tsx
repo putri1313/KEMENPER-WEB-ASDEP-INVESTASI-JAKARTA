@@ -51,14 +51,14 @@ function Home() {
   const { t } = useSitePreferences();
   const [activeMetric, setActiveMetric] = useState<number | null>(null);
   const metrics = [
-    { value: "10,58 juta", label: "International visitors", change: "+5,38% compared with Jan–Jun 2025", target: "Target 2026: 16,00–17,00 juta", period: "Jan–Jun 2026", description: "International arrivals continue to strengthen Indonesia’s position as a leading destination in Asia.", icon: Plane },
-    { value: "US$1.313", label: "Average Spending per Arrival (ASPA)", change: "+6,36% compared with Jan–Jun 2025 · Rp22,59 juta", target: "Target 2026: US$1.330", period: "Jan–Jun 2026", description: "Higher spending per arrival reflects the opportunity to grow quality, length-of-stay, and high-value tourism experiences.", icon: WalletCards },
-    { value: "US$8,43 Miliar", label: "Tourism foreign exchange", change: "+2,80% compared with Jan–Jun 2025 · Rp140,95 triliun", target: "Target 2026: US$21,22–22,6 miliar", period: "Jan–Jun 2026", description: "Tourism continues to contribute valuable foreign exchange through visitor spending across destinations and experiences.", icon: Coins },
-    { value: "0,84 miliar", label: "Domestic tourist trips", change: "+4,29% compared with Jan–Jun 2025", target: "Target 2026: 1,18 miliar", period: "Jan–Jun 2026", description: "A strong domestic market supports destinations throughout Indonesia and creates resilient local economic activity.", icon: Globe2 },
-    { value: "25,91 juta", label: "Tourism workforce", change: "+3,64% compared with 2024", target: "Target 2026: 26,04 juta", period: "2025", description: "The growing tourism workforce strengthens services, community participation, and the sector’s long-term competitiveness.", icon: Users },
-    { value: "4,02–4,90%", label: "Tourism contribution to GDP", change: "+0,07–0,95 p.p. compared with 2025", target: "Target 2026: 4,6–4,7%", period: "Jan–Jun 2026", description: "Tourism remains an important contributor to national economic growth and regional development.", icon: BriefcaseBusiness },
-    { value: "Top 23", label: "Travel and Tourism Development Index (TTDI)", change: "+0,10 point compared with 2024 (2026: 4,56; 2024: 4,46)", target: "", period: "2026", description: "Indonesia’s global ranking reflects progress in the conditions that support travel and tourism development.", icon: ChartNoAxesCombined },
-    { value: "Rp39,68 T", label: "Tourism investment (LKPM)", change: "+16,64% compared with Jan–Jun 2025", target: "Target 2026: Rp63,51 T", period: "Jan–Jun 2026", description: "Investment momentum creates new opportunities for destinations, infrastructure, hospitality, and tourism services.", icon: Coins },
+    { value: "10.58 million", label: "International visitors", change: "+5.38% compared with Jan–Jun 2025", target: "2026 target: 16.00–17.00 million", period: "Jan–Jun 2026", description: "International arrivals continue to strengthen Indonesia’s position as a leading destination in Asia.", icon: Plane },
+    { value: "US$1,313", label: "Average Spending per Arrival (ASPA)", change: "+6.36% compared with Jan–Jun 2025 · IDR 22.59 million", target: "2026 target: US$1,330", period: "Jan–Jun 2026", description: "Higher spending per arrival reflects the opportunity to grow quality, length-of-stay, and high-value tourism experiences.", icon: WalletCards },
+    { value: "US$8.43 billion", label: "Tourism foreign exchange", change: "+2.80% compared with Jan–Jun 2025 · IDR 140.95 trillion", target: "2026 target: US$21.22–22.60 billion", period: "Jan–Jun 2026", description: "Tourism continues to contribute valuable foreign exchange through visitor spending across destinations and experiences.", icon: Coins },
+    { value: "0.84 billion", label: "Domestic tourist trips", change: "+4.29% compared with Jan–Jun 2025", target: "2026 target: 1.18 billion", period: "Jan–Jun 2026", description: "A strong domestic market supports destinations throughout Indonesia and creates resilient local economic activity.", icon: Globe2 },
+    { value: "25.91 million", label: "Tourism workforce", change: "+3.64% compared with 2024", target: "2026 target: 26.04 million", period: "2025", description: "The growing tourism workforce strengthens services, community participation, and the sector’s long-term competitiveness.", icon: Users },
+    { value: "4.02–4.90%", label: "Tourism contribution to GDP", change: "+0.07–0.95 percentage points compared with 2025", target: "2026 target: 4.6–4.7%", period: "Jan–Jun 2026", description: "Tourism remains an important contributor to national economic growth and regional development.", icon: BriefcaseBusiness },
+    { value: "Top 23", label: "Travel and Tourism Development Index (TTDI)", change: "+0.10 index points compared with 2024 (2026: 4.56; 2024: 4.46)", target: "", period: "2026", description: "Indonesia’s global ranking reflects progress in the conditions that support travel and tourism development.", icon: ChartNoAxesCombined },
+    { value: "IDR 39.68 trillion", label: "Tourism investment (LKPM)", change: "+16.64% compared with Jan–Jun 2025", target: "2026 target: IDR 63.51 trillion", period: "Jan–Jun 2026", description: "Investment momentum creates new opportunities for destinations, infrastructure, hospitality, and tourism services.", icon: Coins },
   ] as const;
   const selectedMetric = activeMetric === null ? null : metrics[activeMetric];
   const SelectedIcon = selectedMetric?.icon;
@@ -129,7 +129,7 @@ function Home() {
                     <h3 className="text-sm font-bold text-primary-foreground/85">{t(selectedMetric.label)}</h3>
                   </div>
                   <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                    <p className="font-display text-3xl font-extrabold tracking-tight text-primary-foreground md:text-4xl">{selectedMetric.value}</p>
+                    <p className="font-display text-3xl font-extrabold tracking-tight text-primary-foreground md:text-4xl">{t(selectedMetric.value)}</p>
                     <p className="text-xs font-semibold text-primary-foreground/70">{t(selectedMetric.change)}</p>
                   </div>
                   <div className="mt-3 flex flex-wrap items-center gap-3">

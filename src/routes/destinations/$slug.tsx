@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, ArrowUpRight, Image as ImageIcon, MapPin } from "lucide-react";
-import { destinations } from "@/data/portal";
+import { destinations, getDestinationProjectTypes } from "@/data/portal";
 import { destinationProfiles } from "@/data/destination-profiles";
 import { DestinationLocationMap } from "@/components/destination-map";
 import { destinationMapPoints } from "@/data/destination-map-points";
@@ -61,6 +61,7 @@ function DestinationDetailPage() {
 
   const profile = destinationProfiles[destination.slug];
   const mapPoints = destinationMapPoints[destination.slug];
+  const projectTypes = getDestinationProjectTypes(destination);
   if (!profile) {
     return (
       <section className="container-portal min-h-[55vh] py-20">
@@ -105,7 +106,24 @@ function DestinationDetailPage() {
             {t(destination.type === "regenerative" ? "Regenerative" : "Priority")}{" "}
             {t("destination")}
           </span>
-          <h1 className="mt-5 max-w-4xl font-display text-4xl font-extrabold leading-[1.04] md:text-6xl">
+          {projectTypes.length > 0 && (
+            <div className="mt-3">
+              <p className="text-[10px] font-bold uppercase tracking-[.14em] text-primary-foreground/65">
+                {t("Project Type")}
+              </p>
+              <div className="mt-1.5 flex flex-wrap gap-2">
+                {projectTypes.map((projectType) => (
+                  <span
+                    key={projectType}
+                    className="rounded-sm border border-white/35 bg-navy/35 px-2.5 py-1 text-xs font-bold"
+                  >
+                    {t(projectType)}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          <h1 className="mt-4 max-w-4xl font-display text-4xl font-extrabold leading-[1.04] md:text-6xl">
             {destinationName}
           </h1>
           <p className="mt-4 inline-flex items-center gap-2 text-sm text-primary-foreground/75">
